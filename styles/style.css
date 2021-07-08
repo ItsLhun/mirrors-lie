@@ -1,0 +1,15 @@
+body {
+    background-color: rgb(53, 53, 53);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  canvas {
+    background-color: lightgray;
+    /*width: 100%;
+    //height: 100%;*/
+    border: 1px solid black;
+  
+  }
+  
