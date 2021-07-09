@@ -10,12 +10,50 @@ class Game {
     this.running = true;
     this.score = 100;
     this.player = new Player(this, 30, this.canvas.height * 0.8 - 40);
-    let platformOne = new Platform(this, this.canvas.width * 0.4, this.canvas.height * 0.7, 100, 35);
-    let platformTwo = new Platform(this, this.canvas.width * 0.5, this.canvas.height * 0.6, 100, 35);
-    let platformThree = new Platform(this, this.canvas.width * 0.3, this.canvas.height * 0.75, 100, 10);
-    let floor = new Platform(this, 0, this.canvas.height * 0.8, this.canvas.width, 50);
+    let platformOne = new Platform(
+      this,
+      this.canvas.width * 0.4,
+      this.canvas.height * 0.7,
+      100,
+      35
+    );
+    let platformTwo = new Platform(
+      this,
+      this.canvas.width * 0.5,
+      this.canvas.height * 0.6,
+      100,
+      35
+    );
+    let platformThree = new Platform(
+      this,
+      this.canvas.width * 0.3,
+      this.canvas.height * 0.75,
+      100,
+      10
+    );
+    let platformFour = new Platform(
+      this,
+      this.canvas.width * 0.3,
+      this.canvas.height * 0.35,
+      100,
+      10
+    );
+    let floor = new Platform(
+      this,
+      0,
+      this.canvas.height * 0.8,
+      this.canvas.width,
+      50
+    );
+    let ceil = new Platform(
+      this,
+      0,
+      this.canvas.height * 0.2,
+      this.canvas.width,
+      50
+    );
 
-    this.platforms.push(platformOne, platformTwo, platformThree,floor);
+    this.platforms.push(platformOne, platformTwo, platformThree, floor,ceil,platformFour);
     this.loop();
   }
 
@@ -54,23 +92,16 @@ class Game {
     this.ctx.restore();
   }
 
-  /*
-  paintScore() {
-    this.context.font = '32px sans-serif';
-    this.context.fillText(`Score: ${this.score}`, 50, 450);
-  }
+  paintScore() {}
 
-  paintGameOver() {
-    this.context.font = '32px sans-serif';
-    this.context.fillText(`Game Over`, 100, 250);
-  }*/
+  paintGameOver() {}
 
   paint() {
     this.clearScreen();
     this.paintBackground();
     if (this.running) {
       this.player.paint();
-      for (let platform of this.platforms){
+      for (let platform of this.platforms) {
         platform.paint();
       }
     }

@@ -13,27 +13,30 @@ class BasicCharacterControllerInput {
       space: false,
       shift: false
     };
-    document.addEventListener('keydown', (e) => this._onKeyDown(e), false);
-    document.addEventListener('keyup', (e) => this._onKeyUp(e), false);
+    document.addEventListener('keydown', (e) => {
+     // e.preventDefault;
+      return this._onKeyDown(e)});
+    document.addEventListener('keyup', (e) => this._onKeyUp(e));
   }
 
   _onKeyDown(event) {
+    event.preventDefault();
     switch (event.code) {
       case 'ArrowUp':
-        this.target.jump();
+        this.target.jump("upright");
         this._keys.up = true;
         break;
-      case 'ArrowLeft':
-        this.target.moveSideways('left');
-        setTimeout((e) => (this.target.momentum = 0), 90);
+      case 'ArrowLeft':      
+       
+      //this.target.moveSideways('left');
         this._keys.left = true;
         break;
       case 'ArrowDown':
+        this.target.jump("reverse");
         this._keys.down = true;
         break;
       case 'ArrowRight':
-        this.target.moveSideways('right');
-        setTimeout((e) => (this.target.momentum = 0), 90);
+        //this.target.moveSideways('right');
 
         this._keys.right = true;
         break;
@@ -53,12 +56,15 @@ class BasicCharacterControllerInput {
         break;
       case 'ArrowLeft':
         this._keys.left = false;
+      //  setTimeout((e) => (this.target.momentum = 0), 100);
+
         break;
       case 'ArrowDown':
         this._keys.down = false;
         break;
       case 'ArrowRight':
         this._keys.right = false;
+       // setTimeout((e) => (this.target.momentum = 0), 100);
         break;
       case 'Space':
         this._keys.space = false;
