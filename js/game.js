@@ -41,19 +41,42 @@ class Game {
     let floor = new Platform(
       this,
       0,
-      this.canvas.height * 0.8,
+      this.canvas.height * 1,
       this.canvas.width,
       50
     );
     let ceil = new Platform(
       this,
       0,
-      this.canvas.height * 0.2,
+      0-50,
       this.canvas.width,
       50
     );
+    let leftWall = new Platform(
+      this,
+      0,
+      this.canvas.height * 0,
+      0,
+      this.canvas.height
+    );
+    let rightWall = new Platform(
+      this,
+      this.canvas.width,
+      this.canvas.height * 0,
+      0,
+      this.canvas.height
+    );
 
-    this.platforms.push(platformOne, platformTwo, platformThree, floor,ceil,platformFour);
+    this.platforms.push(
+      platformOne,
+      platformTwo,
+      platformThree,
+      floor,
+      ceil,
+      leftWall,
+      rightWall,
+      platformFour
+    );
     this.loop();
   }
 
@@ -98,7 +121,7 @@ class Game {
 
   paint() {
     this.clearScreen();
-    this.paintBackground();
+  //  this.paintBackground();
     if (this.running) {
       this.player.paint();
       for (let platform of this.platforms) {

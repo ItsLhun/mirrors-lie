@@ -1,7 +1,7 @@
 //const playerImage = new Image();
 //playerImage.src = '/images/characters/hero/herochar_idle_anim_strip_4.png';
 
-const GRAVITY = -11; // pixels per frame squared
+const GRAVITY = -10; // pixels per frame squared
 
 class Player {
   constructor(game, x, y) {
@@ -17,26 +17,24 @@ class Player {
     this.accelerationX = 0;
     this.accelerationY = 0;
     this.jumpPressTime = 0;
-    this.friction = 15;
+    this.friction = 20;
     this.momentum = 0;
     this.hat = 'darkred';
   }
 
   runLogic() {
-    let runningDirection = 0;
+    this.momentum = 0;
     const activeControls = this._input._keys;
     if (activeControls.right === true && activeControls.left === false) {
-      runningDirection = 1;
-      // console.log('inside running direction: right');
+      this.momentum = 1;
     } else if (activeControls.right === false && activeControls.left === true) {
-      runningDirection = -1;
-      // console.log('inside running direction');
+      this.momentum = -1;
     }
 
     let newAccelerationX =
-      this.accelerationX / (1 + (this.friction / 1000) * 16) +
-      runningDirection * 1;
-    let newAccelerationY = this.accelerationY + (GRAVITY / 1000) * 16;
+      this.accelerationX / (1 + (this.friction / 1000) * 20) +
+      this.momentum * 1;
+    let newAccelerationY = this.accelerationY + (GRAVITY / 1000) * 20;
     let newX = this.x + newAccelerationX;
     let newY = this.y + newAccelerationY;
     for (let platform of this.game.platforms) {
@@ -60,6 +58,8 @@ class Player {
         newAccelerationY = 0;
         newY = this.y;
         this.grounded = true;
+      } else {
+        //this.grounded = false;
       }
     }
     this.accelerationX = newAccelerationX;
@@ -74,14 +74,15 @@ class Player {
   resetMomentum() {}
 
   jump(direction) {
+    console.log("grounded: ",this.grounded);
     if (this.grounded) {
       this.grounded = false;
       this.accelerationY = direction === 'upright' ? -5 : 5;
-      let timer = setTimeout((e) => {
+      /*let timer = setTimeout((e) => {
         console.log('jumping');
         this.grounded = true;
-      }, 455);
-      console.dir(timer);
+      }, 455);*/
+      //console.dir(timer);
     }
   }
   paint() {

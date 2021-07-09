@@ -20,7 +20,7 @@ class BasicCharacterControllerInput {
   }
 
   _onKeyDown(event) {
-    event.preventDefault();
+    //event.preventDefault();
     switch (event.code) {
       case 'ArrowUp':
         this.target.jump("upright");
