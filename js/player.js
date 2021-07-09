@@ -17,7 +17,7 @@ class Player {
     this.friction = 20;
     this.momentum = 0;
     this.hat = 'darkred';
-    //this.facing = {left: false, right: true};
+    this.facing = 'right';
   }
 
   runLogic() {
@@ -25,10 +25,10 @@ class Player {
     const activeControls = this._input._keys;
     if (activeControls.right === true && activeControls.left === false) {
       this.momentum = 1;
-      this.facing = "right";
+      this.facing = 'right';
     } else if (activeControls.right === false && activeControls.left === true) {
       this.momentum = -1;
-      this.facing = "left";
+      this.facing = 'left';
     }
 
     let newAccelerationX =
@@ -58,12 +58,13 @@ class Player {
         newAccelerationY = 0;
         newY = this.y;
         this.grounded = true;
-      } else {
         this.groundedTimer = 100;
+      } else {
+        
         let intervalID = setInterval((e) => {
           this.groundedTimer--;
           if (this.groundedTimer <= 0) {
-          this.grounded = false;
+            this.grounded = false;
             clearInterval(intervalID);
           }
         }, 1);
@@ -74,7 +75,7 @@ class Player {
     this.x = newX;
     this.y = newY;
 
-    if (this.grounded && this.jumpPressTime > 0) {
+    if (this.groundedTimer > 0 && this.jumpPressTime > 0) {
       let direction = GRAVITY > 0 ? 'upright' : 'reverse';
       this.jumpPressTime = 0;
       this.accelerationY = direction === 'upright' ? -6 : 6;
@@ -90,7 +91,6 @@ class Player {
     this.jumpPressTime = 100;
     let intervalID = setInterval((e) => {
       this.jumpPressTime--;
-      console.log('stuck here', this.jumpPressTime);
       if (this.jumpPressTime <= 0) {
         clearInterval(intervalID);
         console.log('interval cleared');
@@ -99,7 +99,7 @@ class Player {
 
     //setTimeout((e) => (this.grounded = false), 300);
 
-/*    if (this.groundedTimer > 0 && this.jumpPressTime > 0) {
+    /*    if (this.groundedTimer > 0 && this.jumpPressTime > 0) {
       this.jumpPressTime = 0;
       this.grounded = false;
       this.accelerationY = direction === 'upright' ? -6 : 6;
@@ -116,11 +116,19 @@ class Player {
     ctx.save();
     ctx.beginPath();
     //ctx.globalAlpha = 0.1;
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.fillStyle = "rgba(0,256,0,0.9)";
-    ctx.fillRect(this.x+15, this.y+15, this.width-14.5, this.height-36);
+    ctx.globalCompositeOperation = 'source-atop';
+    ctx.fillStyle = 'burgundy';
+
+    if (this.facing === 'right') {
+      ctx.fillRect(this.x + 16, this.y + 5, 6, 6); //eyes
+      ctx.fillRect(this.x + 15, this.y + 15, this.width - 15, this.height - 36); //mouth
+      ctx.fillRect(this.x + 18, this.y + 17, this.width - 18, this.height - 36); //lower mouth
+    } else {
+      ctx.fillRect(this.x + 3, this.y + 5, 6, 6);
+      ctx.fillRect(this.x, this.y + 15, this.width - 15, this.height - 36);
+      ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
+    }
 
     ctx.restore();
-
   }
 }
