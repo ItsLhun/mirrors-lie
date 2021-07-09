@@ -12,10 +12,10 @@ class Game {
     this.player = new Player(this, 30, this.canvas.height * 0.8 - 40);
     let platformOne = new Platform(
       this,
-      this.canvas.width * 0.4,
-      this.canvas.height * 0.7,
+      128,
+      this.canvas.height - 64,
       100,
-      35
+      32
     );
     let platformTwo = new Platform(
       this,
@@ -110,8 +110,8 @@ class Game {
 
   paintBackground() {
     this.ctx.save();
-    this.ctx.fillStyle = '#FF0000';
-    this.ctx.fillRect(0, this.canvas.height * 0.8, this.canvas.width, 50);
+    this.ctx.fillStyle = '#FF0FF0';
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.restore();
   }
 
@@ -121,7 +121,7 @@ class Game {
 
   paint() {
     this.clearScreen();
-  //  this.paintBackground();
+    this.paintBackground();
     if (this.running) {
       this.player.paint();
       for (let platform of this.platforms) {
