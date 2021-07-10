@@ -1,10 +1,10 @@
 class BasicCharacterControllerInput {
   constructor(object) {
-    this.Init();
+    this.Initiate();
     this.target = object;
   }
 
-  Init() {
+  Initiate() {
     this._keys = {
       up: false,
       down: false,
@@ -26,7 +26,6 @@ class BasicCharacterControllerInput {
         }
         this._keys.up = true;
         this._keys.jumping = true;
-
         break;
       case 'ArrowLeft':      
         this._keys.left = true;
@@ -52,7 +51,6 @@ class BasicCharacterControllerInput {
       case 'ArrowUp':
         this._keys.up = false;
         this._keys.jumping = false;
-
         break;
       case 'ArrowLeft':
         this._keys.left = false;
