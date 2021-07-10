@@ -1,15 +1,14 @@
-const GRAVITY = 10; // pixels per frame squared
 
 class Player {
-  constructor(game, x, y) {
-    this.game = game;
+  constructor(level, x, y) {
+    this.level = level
     this._input = new BasicCharacterControllerInput(this);
     //position
     this.x = x;
     this.y = y;
     //size
-    this.width = 25;
-    this.height = 40;
+    this.width = SQUARE-1;
+    this.height = SQUARE*2-1;
     //acceleration
     this.accelerationX = 0;
     this.accelerationY = 0;
@@ -37,7 +36,8 @@ class Player {
     let newAccelerationY = this.accelerationY + (GRAVITY / 1000) * 20;
     let newX = this.x + newAccelerationX;
     let newY = this.y + newAccelerationY;
-    for (let platform of this.game.platforms) {
+
+    for (let platform of this.level.platformsArr) {
       const horizontalIntersection = platform.checkIntersection({
         x: newX,
         y: this.y,
@@ -60,7 +60,6 @@ class Player {
         this.grounded = true;
         this.groundedTimer = 100;
       } else {
-        
         let intervalID = setInterval((e) => {
           this.groundedTimer--;
           if (this.groundedTimer <= 0) {
@@ -69,6 +68,31 @@ class Player {
           }
         }, 1);
       }
+    }
+
+    for (let spike of this.level.spikesArr) {
+      const horizontalIntersection = spike.checkIntersection({
+        x: newX,
+        y: this.y,
+        width: this.width,
+        height: this.height
+      });
+      const verticalIntersection = spike.checkIntersection({
+        x: this.x,
+        y: newY,
+        width: this.width,
+        height: this.height
+      });
+      if (horizontalIntersection) {
+        newAccelerationX = 0;
+        newX = this.x;
+      }
+      if (verticalIntersection) {
+        newAccelerationY = 0;
+        newY = this.y;
+        this.grounded = true;
+        this.groundedTimer = 100;
+      } 
     }
     this.accelerationX = newAccelerationX;
     this.accelerationY = newAccelerationY;
@@ -80,33 +104,21 @@ class Player {
       this.jumpPressTime = 0;
       this.accelerationY = direction === 'upright' ? -6 : 6;
     }
+
   }
 
-  moveSideways(direction) {
-    //  direction === 'left' ? (this.x -= 5) : (this.x += 5);
-  }
-  resetMomentum() {}
-
-  jump(direction) {
+  jump() {
     this.jumpPressTime = 100;
     let intervalID = setInterval((e) => {
       this.jumpPressTime--;
       if (this.jumpPressTime <= 0) {
         clearInterval(intervalID);
-        console.log('interval cleared');
       }
     }, 1);
-
-    //setTimeout((e) => (this.grounded = false), 300);
-
-    /*    if (this.groundedTimer > 0 && this.jumpPressTime > 0) {
-      this.jumpPressTime = 0;
-      this.grounded = false;
-      this.accelerationY = direction === 'upright' ? -6 : 6;
-    }*/
   }
+
   paint() {
-    const ctx = this.game.ctx;
+    const ctx = this.level.game.ctx;
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = this.hat;
@@ -118,17 +130,18 @@ class Player {
     //ctx.globalAlpha = 0.1;
     ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'burgundy';
-
-    if (this.facing === 'right') {
-      ctx.fillRect(this.x + 16, this.y + 5, 6, 6); //eyes
-      ctx.fillRect(this.x + 15, this.y + 15, this.width - 15, this.height - 36); //mouth
-      ctx.fillRect(this.x + 18, this.y + 17, this.width - 18, this.height - 36); //lower mouth
-    } else {
-      ctx.fillRect(this.x + 3, this.y + 5, 6, 6);
-      ctx.fillRect(this.x, this.y + 15, this.width - 15, this.height - 36);
-      ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
-    }
-
+    /*if (GRAVITY < 0 ){
+      ctx.scale(1,-1)*/
+      if (this.facing === 'right') {
+        ctx.fillRect(this.x+3, this.y*1.01, 4, 4); //eyes
+       // ctx.fillRect(this.x*1.5, this.y + 15, this.width - 15, this.height - 36); //mouth
+      //  ctx.fillRect(this.x + 18, this.y + 17, this.width - 18, this.height - 36); //lower mouth
+      } else {
+        ctx.fillRect(this.x+3, this.y*1.01, 4, 4);
+       // ctx.fillRect(this.x, this.y + 15, this.width - 15, this.height - 36);
+       // ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
+      }
+    /*}*/
     ctx.restore();
   }
 }
