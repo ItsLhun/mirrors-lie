@@ -1,11 +1,12 @@
 
 class Platform {
-  constructor(game, x, y) {
+  constructor(game, x, y,style) {
     this.game = game;
     this.x = x;
     this.y = y;
     this.width = SQUARE;
     this.height = SQUARE
+    this.style = style;
   }
 
   checkIntersection(playerPosition) {
@@ -32,7 +33,7 @@ class Platform {
   paint() {
     const context = this.game.ctx;
     context.save();
-    context.fillStyle = 'rgb(50,50,255)';
+    context.fillStyle = this.style;
     context.fillRect(this.x, this.y, this.width, this.height);
     context.restore();
   }

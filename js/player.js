@@ -7,8 +7,8 @@ class Player {
     this.x = x;
     this.y = y;
     //size
-    this.width = SQUARE;
-    this.height = SQUARE*2-0.5;
+    this.width = SQUARE-1;
+    this.height = SQUARE*2-1;
     //acceleration
     this.accelerationX = 0;
     this.accelerationY = 0;
@@ -92,15 +92,7 @@ class Player {
         newY = this.y;
         this.grounded = true;
         this.groundedTimer = 100;
-      } else {
-       /* let intervalID = setInterval((e) => {
-          this.groundedTimer--;
-          if (this.groundedTimer <= 0) {
-            this.grounded = false;
-            clearInterval(intervalID);
-          }
-        }, 1);*/
-      }
+      } 
     }
     this.accelerationX = newAccelerationX;
     this.accelerationY = newAccelerationY;
@@ -114,11 +106,6 @@ class Player {
     }
 
   }
-
-  moveSideways(direction) {
-    //  direction === 'left' ? (this.x -= 5) : (this.x += 5);
-  }
-  resetMomentum() {}
 
   jump() {
     this.jumpPressTime = 100;
@@ -155,8 +142,6 @@ class Player {
        // ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
       }
     /*}*/
-    
-
     ctx.restore();
   }
 }
