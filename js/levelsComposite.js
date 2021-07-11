@@ -39,7 +39,7 @@ class LevelsComposite {
             case 6:
             case 7:
             case 8: 
-            this.platforms.push(
+            this.spikes.push(
               new Spike(
                 this.game,
                 SQUARE * (column-1),

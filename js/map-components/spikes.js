@@ -3,10 +3,7 @@ class Spike extends Platform {
     super(game, x, y, 'black');
     this.direction = direction;
     this.color = 'red';
-  }
-
-  paintVertical() {
-    ctx.save;
+    this.deathColoringPhase = 0;
   }
 
   paint() {
@@ -43,7 +40,7 @@ class Spike extends Platform {
     gradient.addColorStop(0.25, this.color);
     gradient.addColorStop(0.5, 'grey');
     gradient.addColorStop(0.75, 'grey');
-    gradient.addColorStop(1, 'grey');
+    gradient.addColorStop(1, 'darkgrey');
 
     ctx.fillStyle = gradient;
     ctx.beginPath();
