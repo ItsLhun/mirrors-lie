@@ -16,10 +16,10 @@ class Player {
     this.momentum = 0;
     this.hat = 'darkred';
     this.facing = 'right';
+    this.initialValues = { x: x, y: y };
   }
 
   runLogic() {
-    
     this.momentum = 0;
     const activeControls = this._input._keys;
     if (activeControls.right === true && activeControls.left === false) {
@@ -87,12 +87,16 @@ class Player {
       if (horizontalIntersection) {
         newAccelerationX = 0;
         newX = this.x;
+        console.log('touched the spike horizontally!');
       }
       if (verticalIntersection) {
         newAccelerationY = 0;
-        newY = this.y;
         this.grounded = true;
-        console.log('touched the spike!');
+        console.log('touched the spike vertically, you die!');
+        //this.die();
+        //newY = this.y;
+        newY = this.initialValues.y;
+        newX = this.initialValues.x;
         this.groundedTimer = 80;
       }
     }
@@ -116,6 +120,11 @@ class Player {
         clearInterval(intervalID);
       }
     }, 1);
+  }
+
+  die() {
+    this.x = this.initialValues.x;
+    this.y = this.initialValues.y;
   }
 
   paint() {
