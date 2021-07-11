@@ -1,14 +1,13 @@
-
 class Player {
   constructor(level, x, y) {
-    this.level = level
+    this.level = level;
     this._input = new BasicCharacterControllerInput(this);
     //position
     this.x = x;
     this.y = y;
     //size
-    this.width = SQUARE-1;
-    this.height = SQUARE*2-1;
+    this.width = SQUARE - 1;
+    this.height = SQUARE * 2 - 1;
     //acceleration
     this.accelerationX = 0;
     this.accelerationY = 0;
@@ -20,6 +19,7 @@ class Player {
   }
 
   runLogic() {
+    
     this.momentum = 0;
     const activeControls = this._input._keys;
     if (activeControls.right === true && activeControls.left === false) {
@@ -58,7 +58,7 @@ class Player {
         newAccelerationY = 0;
         newY = this.y;
         this.grounded = true;
-        this.groundedTimer = 100;
+        this.groundedTimer = 80;
       } else {
         let intervalID = setInterval((e) => {
           this.groundedTimer--;
@@ -71,6 +71,7 @@ class Player {
     }
 
     for (let spike of this.level.spikesArr) {
+      //console.log('running logic');
       const horizontalIntersection = spike.checkIntersection({
         x: newX,
         y: this.y,
@@ -91,8 +92,9 @@ class Player {
         newAccelerationY = 0;
         newY = this.y;
         this.grounded = true;
-        this.groundedTimer = 100;
-      } 
+        console.log('touched the spike!');
+        this.groundedTimer = 80;
+      }
     }
     this.accelerationX = newAccelerationX;
     this.accelerationY = newAccelerationY;
@@ -104,7 +106,6 @@ class Player {
       this.jumpPressTime = 0;
       this.accelerationY = direction === 'upright' ? -6 : 6;
     }
-
   }
 
   jump() {
@@ -132,15 +133,15 @@ class Player {
     ctx.fillStyle = 'burgundy';
     /*if (GRAVITY < 0 ){
       ctx.scale(1,-1)*/
-      if (this.facing === 'right') {
-        ctx.fillRect(this.x+3, this.y*1.01, 4, 4); //eyes
-       // ctx.fillRect(this.x*1.5, this.y + 15, this.width - 15, this.height - 36); //mouth
+    if (this.facing === 'right') {
+      ctx.fillRect(this.x + 3, this.y * 1.01, 4, 4); //eyes
+      // ctx.fillRect(this.x*1.5, this.y + 15, this.width - 15, this.height - 36); //mouth
       //  ctx.fillRect(this.x + 18, this.y + 17, this.width - 18, this.height - 36); //lower mouth
-      } else {
-        ctx.fillRect(this.x+3, this.y*1.01, 4, 4);
-       // ctx.fillRect(this.x, this.y + 15, this.width - 15, this.height - 36);
-       // ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
-      }
+    } else {
+      ctx.fillRect(this.x + 3, this.y * 1.01, 4, 4);
+      // ctx.fillRect(this.x, this.y + 15, this.width - 15, this.height - 36);
+      // ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
+    }
     /*}*/
     ctx.restore();
   }
