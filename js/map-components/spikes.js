@@ -20,9 +20,16 @@ class Spike extends Platform {
   }
 
 
-  paint() {
+  paint(player) {
+    let playerDistance = 0
+    if (player.x > this.game.canvas.width / 2.5){
+      playerDistance = (this.game.canvas.width) /2.5 - player.x;
+      
+    }
     const ctx = this.game.ctx;
     ctx.save();
+    this.x+=playerDistance
+
     switch (this.direction) {
       case 'upright': //'upright':
         break;

@@ -7,6 +7,7 @@ class Platform {
     this.width = SQUARE;
     this.height = SQUARE
     this.style = style;
+    this.initialPosition = {x:x, y:y};
   }
 
   checkIntersection(playerPosition) {
@@ -30,11 +31,22 @@ class Platform {
     return intersection;
 }
 
-  paint() {
+  paint(player) {
+    let playerDistance = 0
+    if (player.x > this.game.canvas.width / 2.5){
+      playerDistance = (this.game.canvas.width) /2.5 - player.x;
+    } else {
+      //playerDistance = -player.x;
+    }
     const context = this.game.ctx;
     context.save();
     context.fillStyle = this.style;
+    this.x+=playerDistance
     context.fillRect(this.x, this.y, this.width, this.height);
     context.restore();
+  }
+  reset(){
+    this.x = this.initialPosition.x;
+    this.y = this.initialPosition.y;
   }
 }

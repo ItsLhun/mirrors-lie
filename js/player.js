@@ -109,6 +109,11 @@ class Player {
         this.groundedTimer = 80;
       }
     }
+    // player position when scrolling
+    if (this.x > this.level.game.canvas.width / 2.5){
+    //  newAccelerationX = 0;
+      newX = this.level.game.canvas.width / 2.5;
+    }
     this.accelerationX = newAccelerationX;
     this.accelerationY = newAccelerationY;
     this.x = newX;
@@ -118,7 +123,7 @@ class Player {
       let direction = GRAVITY > 0 ? 'upright' : 'reverse';
       this.jumpPressTime = 0;
       this.accelerationY =
-        direction === 'upright' ? -this.height / 5 : this.height / 5;
+        direction === 'upright' ? -this.height / 5.5 : this.height / 5.5;
     }
   }
 
@@ -134,7 +139,9 @@ class Player {
 
   die(spike) {
     spike.deathColoringPhase++;
+    this.momentum = 0;
     this.level.score++;
+    this.level.reset();
     return [this.initialValues.x, this.initialValues.y]; //back to start level
   }
 
