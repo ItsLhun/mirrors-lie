@@ -11,6 +11,7 @@ class Player {
     //acceleration
     this.accelerationX = 0;
     this.accelerationY = 0;
+    //jump timer
     this.jumpPressTime = 0;
     this.friction = 20;
     this.momentum = 0;
@@ -93,10 +94,10 @@ class Player {
         newAccelerationY = 0;
         this.grounded = true;
         console.log('touched the spike vertically, you die!');
-        //this.die();
-        //newY = this.y;
-        newY = this.initialValues.y;
-        newX = this.initialValues.x;
+        let stats = this.die(spike);
+       
+        newX = stats[0];
+        newY = stats[1];
         this.groundedTimer = 80;
       }
     }
@@ -122,9 +123,10 @@ class Player {
     }, 1);
   }
 
-  die() {
-    this.x = this.initialValues.x;
-    this.y = this.initialValues.y;
+  die(spike) {
+    spike.deathColoringPhase++;
+    this.level.score++;
+    return [this.initialValues.x, this.initialValues.y];
   }
 
   paint() {

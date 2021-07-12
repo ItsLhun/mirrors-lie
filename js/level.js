@@ -5,6 +5,7 @@ class Level {
     this.platformsArr = platformsArr;
     this.spikesArr = spikesArr;
     this.player = player;
+    this.score = 0;
   }
 
   start() {
