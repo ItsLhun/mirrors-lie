@@ -2,6 +2,7 @@ class BasicCharacterControllerInput {
   constructor(object) {
     this.Initiate();
     this.target = object;
+    this.enabled = true;
   }
 
   Initiate() {
@@ -14,24 +15,36 @@ class BasicCharacterControllerInput {
       shift: false,
       jumping: false
     };
-    document.addEventListener('keydown', (e) => this.onKeyDown(e));
-    document.addEventListener('keyup', (e) => this.onKeyUp(e));
+    document.addEventListener('keydown', (e) => {
+      if (this.enabled) {
+        this.onKeyDown(e);
+      }
+    });
+    document.addEventListener('keyup', (e) => {
+      
+        this.onKeyUp(e);
+      
+    });
+  }
+  disableController(){
+    this.enabled = false;
+    setTimeout(() => this.enabled = true, 100);
   }
 
   onKeyDown(event) {
     switch (event.code) {
       case 'ArrowUp':
-        if (!this._keys.jumping){
-          this.target.jump("upright");
+        if (!this._keys.jumping) {
+          this.target.jump('upright');
         }
         this._keys.up = true;
         this._keys.jumping = true;
         break;
-      case 'ArrowLeft':      
+      case 'ArrowLeft':
         this._keys.left = true;
         break;
       case 'ArrowDown':
-        this.target.jump("reverse");
+        this.target.jump('reverse');
         this._keys.down = true;
         break;
       case 'ArrowRight':

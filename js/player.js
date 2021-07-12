@@ -110,8 +110,8 @@ class Player {
       }
     }
     // player position when scrolling
-    if (this.x > this.level.game.canvas.width / 2.5){
-    //  newAccelerationX = 0;
+    if (this.x > this.level.game.canvas.width / 2.5) {
+      //  newAccelerationX = 0;
       newX = this.level.game.canvas.width / 2.5;
     }
     this.accelerationX = newAccelerationX;
@@ -142,7 +142,15 @@ class Player {
     this.momentum = 0;
     this.level.score++;
     this.level.reset();
-    return [this.initialValues.x, this.initialValues.y]; //back to start level
+    this.accelerationX = 0;
+    this.accelerationY = 0;
+
+    this._input.disableController();
+    let xOffset =
+      this.x > this.level.game.canvas.width / 2.6
+        ? this.x > this.level.game.canvas.width / 2.6
+        : 0;
+    return [this.initialValues.x - xOffset, this.initialValues.y]; //back to start level
   }
 
   paint() {
