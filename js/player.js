@@ -88,6 +88,14 @@ class Player {
       if (horizontalIntersection) {
         newAccelerationX = 0;
         newX = this.x;
+        if (
+          spike.direction === 'pointLeft' ||
+          spike.direction === 'pointRight'
+        ) {
+          let stats = this.die(spike);
+          newX = stats[0];
+          newY = stats[1];
+        }
         console.log('touched the spike horizontally!');
       }
       if (verticalIntersection) {
@@ -95,7 +103,7 @@ class Player {
         this.grounded = true;
         console.log('touched the spike vertically, you die!');
         let stats = this.die(spike);
-       
+
         newX = stats[0];
         newY = stats[1];
         this.groundedTimer = 80;
@@ -109,7 +117,8 @@ class Player {
     if (this.groundedTimer > 0 && this.jumpPressTime > 0) {
       let direction = GRAVITY > 0 ? 'upright' : 'reverse';
       this.jumpPressTime = 0;
-      this.accelerationY = direction === 'upright' ? -6 : 6;
+      this.accelerationY =
+        direction === 'upright' ? -this.height / 5 : this.height / 5;
     }
   }
 
@@ -126,7 +135,7 @@ class Player {
   die(spike) {
     spike.deathColoringPhase++;
     this.level.score++;
-    return [this.initialValues.x, this.initialValues.y];
+    return [this.initialValues.x, this.initialValues.y]; //back to start level
   }
 
   paint() {

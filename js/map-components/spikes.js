@@ -1,29 +1,43 @@
+const processDirection = direction => {
+  switch (direction) {
+    case 5: //'upright':
+      return 'upright';
+    case 6: //'point-right':
+      return 'pointRight';
+    case 7: //'reverse':
+      return 'reverse';
+    case 8: //'point-left':
+      return 'pointLeft';
+  }
+}
+
 class Spike extends Platform {
   constructor(game, x, y, direction) {
     super(game, x, y, 'black');
-    this.direction = direction;
+    this.direction = processDirection(direction);
     this.color = 'red';
     this.deathColoringPhase = 0;
   }
+
 
   paint() {
     const ctx = this.game.ctx;
     ctx.save();
     switch (this.direction) {
-      case 5: //'upright':
+      case 'upright': //'upright':
         break;
-      case 6: //'point-right':
-        ctx.translate(this.x+this.width, this.y);
+      case 'pointRight': //'point-right':
+        ctx.translate(this.x + this.width, this.y);
         ctx.rotate((90 * Math.PI) / 180);
         ctx.translate(-this.x, -this.y);
         break;
-      case 7: //'reverse':
-        ctx.translate(this.x+this.width, this.y+this.height);
+      case 'reverse': //'reverse':
+        ctx.translate(this.x + this.width, this.y + this.height);
         ctx.rotate((180 * Math.PI) / 180);
         ctx.translate(-this.x, -this.y);
         break;
-      case 8: //'point-left':
-        ctx.translate(this.x, this.y+this.height);
+      case 'pointLeft': //'point-left':
+        ctx.translate(this.x, this.y + this.height);
         ctx.rotate((270 * Math.PI) / 180);
         ctx.translate(-this.x, -this.y);
         break;
