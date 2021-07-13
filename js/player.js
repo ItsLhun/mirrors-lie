@@ -24,10 +24,10 @@ class Player {
   runLogic() {
     this.momentum = 0;
     const activeControls = this._input._keys;
-    if (activeControls.right === true && activeControls.left === false) {
+    if (activeControls.right && !activeControls.left) {
       this.momentum = 1;
       this.facing = 'right';
-    } else if (activeControls.right === false && activeControls.left === true) {
+    } else if (!activeControls.right && activeControls.left) {
       this.momentum = -1;
       this.facing = 'left';
     }
@@ -36,6 +36,7 @@ class Player {
       this.momentum * 1;
     let newAccelerationY = this.accelerationY + (GRAVITY / 1000) * 20;
     let newX = this.x + newAccelerationX;
+   // console.log("oldX", this.x, "newX", newX, "diff", this.x - newX)
     let newY = this.y + newAccelerationY;
 
     for (let platform of this.level.platformsArr) {
@@ -114,21 +115,23 @@ class Player {
       }
     }
     // player position when scrolling
-    if (this.x >= this.level.game.canvas.width * 0.45) {
-      newX = this.level.game.canvas.width * 0.45 - 1;
+    if (
+      this.x >= this.level.game.rightBreakpoint && !activeControls.left
+    ) {
+      newX = this.level.game.rightBreakpoint;
       this.pastStart = true;
-     
+      console.log("right", this.x - newX);
     } else if (
       this.pastStart &&
-      this.x <= this.level.game.canvas.width * 0.2 &&
-      activeControls.left === true
+      this.x <= this.level.game.leftBreakpoint &&
+      activeControls.left
     ) {
-      newX = this.level.game.canvas.width * 0.2 - 1;
- 
+      newX = this.level.game.leftBreakpoint - 2;
+      console.log("left", this.x - newX);
+
     }
     this.accelerationX = newAccelerationX;
     this.accelerationY = newAccelerationY;
-   // console.log("this.X", this.x, "newX", newX)
     this.x = newX;
     this.y = newY;
 

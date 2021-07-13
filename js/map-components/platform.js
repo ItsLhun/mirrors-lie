@@ -1,14 +1,13 @@
-const processStyle = style => {
-  switch(style){
-    case "red":
-      return "red";
-      case "transparent":
-      return "rgba(0,0,0,0.0)";
-      default: 
-      return "green";
+const processStyle = (style) => {
+  switch (style) {
+    case 'red':
+      return 'red';
+    case 'transparent':
+      return 'rgba(0,0,0,0.0)';
+    default:
+      return 'green';
   }
-}
-
+};
 
 class Platform {
   constructor(game, x, y, style) {
@@ -20,7 +19,6 @@ class Platform {
     this.style = style;
     this.initialPosition = { x: x, y: y };
     this.pastStart = false;
-
   }
 
   checkIntersection(playerPosition) {
@@ -45,14 +43,15 @@ class Platform {
   }
 
   paint(player) {
+    let offSet;
     let playerDistance = 0;
     playerDistance =
-        this.game.canvas.width *0.45- player.x - player.accelerationX;
-    if (player.x > this.game.canvas.width *0.45) {
+      this.game.rightBreakpoint - player.x - player.accelerationX;
+    if (player.x >= this.game.rightBreakpoint) {
       this.x += playerDistance;
       //this.pastStart = true;
-    } else if (player.pastStart && player.x <= this.game.canvas.width * 0.2) {
-      this.x -= player.accelerationX; 
+    } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
+      this.x -= player.accelerationX;
     }
     const context = this.game.ctx;
     context.save();

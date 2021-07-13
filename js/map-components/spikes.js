@@ -25,9 +25,9 @@ class Spike extends Platform {
 
   paint(player) {
     let playerDistance = 0
-    if (player.x > this.game.canvas.width *0.45){
-      playerDistance = (this.game.canvas.width) *0.45 - player.x - player.accelerationX;
-    } else if (player.pastStart && player.x <= this.game.canvas.width * 0.2) {
+    if (player.x >= this.game.rightBreakpoint){
+      playerDistance = this.game.rightBreakpoint - player.x - player.accelerationX;
+    } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
       this.x -= player.accelerationX; 
     }
     const ctx = this.game.ctx;

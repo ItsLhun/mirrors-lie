@@ -3,8 +3,8 @@ class Game {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.running = false;
-    this.platforms = [];
-    this.spikes = [];
+    this.rightBreakpoint = Math.floor(canvas.width*0.45);
+    this.leftBreakpoint = Math.floor(canvas.width*0.2);
   }
 
   start() {
@@ -50,13 +50,6 @@ class Game {
     //this.background.paint();
     if (this.running) {
       this.activeLevel.paint();
-      //this.player.paint();
-      /*for (let platform of this.platforms) {
-        platform.paint();
-      }
-      for (let spike of this.spikes) {
-        spike.paint();
-      }*/
     }
     /* if (this.lost) {
       this.paintGameOver();
