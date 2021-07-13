@@ -19,10 +19,21 @@ class Spike extends Platform {
     this.deathColoringPhase = 0;
   }
 
+  increasePhase(){
+    this.deathColoringPhase++;
+  }
 
-  paint() {
+  paint(player) {
+    let playerDistance = 0
+    if (player.x > this.game.canvas.width / 2.5){
+      playerDistance = (this.game.canvas.width) /2.5 - player.x - player.accelerationX;
+    } else if (player.pastStart && player.x <= this.game.canvas.width * 0.2) {
+      this.x -= player.accelerationX; 
+    }
     const ctx = this.game.ctx;
     ctx.save();
+    this.x+=playerDistance
+
     switch (this.direction) {
       case 'upright': //'upright':
         break;

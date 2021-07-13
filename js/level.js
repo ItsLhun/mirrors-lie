@@ -17,10 +17,15 @@ class Level {
     this.background.paint();
     this.player.paint();
     for (let platform of this.platformsArr) {
-      platform.paint();
+      platform.paint(this.player);
     }
     for (let spike of this.spikesArr) {
-      spike.paint();
+      spike.paint(this.player);
+    }
+  }
+  reset(){
+    for (const platformTile of [...this.platformsArr, ...this.spikesArr]) {
+      platformTile.reset();
     }
   }
 }

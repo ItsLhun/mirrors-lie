@@ -1,7 +1,8 @@
 class BasicCharacterControllerInput {
-  constructor(object) {
+  constructor(player) {
     this.Initiate();
-    this.target = object;
+    this.target = player;
+    this.enabled = true;
   }
 
   Initiate() {
@@ -14,24 +15,40 @@ class BasicCharacterControllerInput {
       shift: false,
       jumping: false
     };
-    document.addEventListener('keydown', (e) => this.onKeyDown(e));
-    document.addEventListener('keyup', (e) => this.onKeyUp(e));
+    document.addEventListener('keydown', (e) => {
+      if (this.enabled) {
+        this.onKeyDown(e);
+      }
+    });
+    document.addEventListener('keyup', (e) => {
+      
+        this.onKeyUp(e);
+      
+    });
+  }
+  disableController(){
+    this._keys.right = false;
+    this._keys.left = false;
+    this._keys.up = false;
+
+    this.enabled = false;
+    setTimeout(() => this.enabled = true, 1300);
   }
 
   onKeyDown(event) {
     switch (event.code) {
       case 'ArrowUp':
-        if (!this._keys.jumping){
-          this.target.jump("upright");
+        if (!this._keys.jumping) {
+          this.target.jump('upright');
         }
         this._keys.up = true;
         this._keys.jumping = true;
         break;
-      case 'ArrowLeft':      
+      case 'ArrowLeft':
         this._keys.left = true;
         break;
       case 'ArrowDown':
-        this.target.jump("reverse");
+        this.target.jump('reverse');
         this._keys.down = true;
         break;
       case 'ArrowRight':
