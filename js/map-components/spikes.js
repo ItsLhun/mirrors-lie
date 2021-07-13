@@ -1,4 +1,4 @@
-const processDirection = direction => {
+const processDirection = (direction) => {
   switch (direction) {
     case 5: //'upright':
       return 'upright';
@@ -9,7 +9,7 @@ const processDirection = direction => {
     case 8: //'point-left':
       return 'pointLeft';
   }
-}
+};
 
 class Spike extends Platform {
   constructor(game, x, y, direction) {
@@ -19,20 +19,21 @@ class Spike extends Platform {
     this.deathColoringPhase = 0;
   }
 
-  increasePhase(){
+  increasePhase() {
     this.deathColoringPhase++;
   }
 
   paint(player) {
-    let playerDistance = 0
-    if (player.x >= this.game.rightBreakpoint){
-      playerDistance = this.game.rightBreakpoint - player.x - player.accelerationX;
+    let playerDistance = 0;
+    if (player.x >= this.game.rightBreakpoint) {
+      playerDistance =
+        this.game.rightBreakpoint - player.x - player.accelerationX;
     } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
-      this.x -= player.accelerationX; 
+      this.x -= player.accelerationX;
     }
     const ctx = this.game.ctx;
     ctx.save();
-    this.x+=playerDistance
+    this.x += playerDistance;
 
     switch (this.direction) {
       case 'upright': //'upright':
@@ -61,11 +62,44 @@ class Spike extends Platform {
       this.x + this.width / 2,
       this.y + this.height
     );
-    gradient.addColorStop(0, this.color);
-    gradient.addColorStop(0.25, this.color);
-    gradient.addColorStop(0.5, 'grey');
-    gradient.addColorStop(0.75, 'grey');
-    gradient.addColorStop(1, 'darkgrey');
+    const gradientColors = {
+      0: 'grey',
+      0.25: 'grey',
+      0.5: 'grey',
+      0.75: 'grey',
+      1: 'grey'
+    };
+    switch (this.deathColoringPhase) {
+      case 1:
+        gradientColors['0'] = this.color;
+        break;
+      case 2:
+        gradientColors['0'] = this.color;
+        gradientColors['0.25'] = this.color;
+        break;
+      case 3:
+        gradientColors['0'] = this.color;
+        gradientColors['0.25'] = this.color;
+        gradientColors['0.5'] = this.color;
+        break;
+      case 4:
+        gradientColors['0'] = this.color;
+        gradientColors['0.25'] = this.color;
+        gradientColors['0.5'] = this.color;
+        gradientColors['0.75'] = this.color;
+    }
+    if (this.deathColoringPhase > 4) {
+      gradientColors['0'] = this.color;
+      gradientColors['0.25'] = this.color;
+      gradientColors['0.5'] = this.color;
+      gradientColors['0.75'] = this.color;
+    }
+
+    gradient.addColorStop(0, gradientColors['0']);
+    gradient.addColorStop(0.25, gradientColors['0.25']);
+    gradient.addColorStop(0.5, gradientColors['0.5']);
+    gradient.addColorStop(0.75, gradientColors['0.75']);
+    gradient.addColorStop(1, gradientColors['1']);
 
     ctx.fillStyle = gradient;
     ctx.beginPath();

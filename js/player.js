@@ -36,7 +36,6 @@ class Player {
       this.momentum * 1;
     let newAccelerationY = this.accelerationY + (GRAVITY / 1000) * 20;
     let newX = this.x + newAccelerationX;
-    // console.log("oldX", this.x, "newX", newX, "diff", this.x - newX)
     let newY = this.y + newAccelerationY;
 
     for (let platform of this.level.platformsArr) {
@@ -96,14 +95,12 @@ class Player {
           newX = stats[0];
           newY = stats[1];
         }
-        console.log('touched the spike horizontally!');
       }
       if (verticalIntersection) {
         newAccelerationY = 0;
         newAccelerationX = 0;
 
         this.grounded = true;
-        console.log('touched the spike vertically, you die!');
         let stats = this.die(spike);
         this.dead = true;
         this.x = this.initialValues.x;
@@ -118,14 +115,12 @@ class Player {
     if (this.x >= this.level.game.rightBreakpoint && !activeControls.left) {
       newX = this.level.game.rightBreakpoint;
       this.pastStart = true;
-      console.log('right', this.x - newX);
     } else if (
       this.pastStart &&
       this.x <= this.level.game.leftBreakpoint &&
       activeControls.left
     ) {
       newX = this.level.game.leftBreakpoint;
-      console.log('left', this.x - newX);
     }
     this.accelerationX = newAccelerationX;
     this.accelerationY = newAccelerationY;

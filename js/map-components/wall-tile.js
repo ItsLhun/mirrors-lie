@@ -1,5 +1,5 @@
 class LeftWall extends Platform{
     constructor(game, x, y) {
-        super(game, x, y, SQUARE, SQUARE)
+        super(game, x, y, "transparent")
     }
 }

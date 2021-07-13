@@ -10,7 +10,8 @@ class Game {
   start() {
     this.running = true;
     this.score = 0;
-    let levelOne = new LevelTest(this);
+    let levelTest = new LevelTest(this);
+    const levelOne = new LevelOne(this);
     this.activeLevel = levelOne;
     this.loop();
   }
