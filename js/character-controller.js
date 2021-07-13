@@ -1,7 +1,7 @@
 class BasicCharacterControllerInput {
-  constructor(object) {
+  constructor(player) {
     this.Initiate();
-    this.target = object;
+    this.target = player;
     this.enabled = true;
   }
 
@@ -27,17 +27,12 @@ class BasicCharacterControllerInput {
     });
   }
   disableController(){
-    this._keys = {
-      up: false,
-      down: false,
-      left: false,
-      right: false,
-      space: false,
-      shift: false,
-      jumping: false
-    };
+    this._keys.right = false;
+    this._keys.left = false;
+    this._keys.up = false;
+
     this.enabled = false;
-    setTimeout(() => this.enabled = true, 1000);
+    setTimeout(() => this.enabled = true, 1300);
   }
 
   onKeyDown(event) {

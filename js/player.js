@@ -18,6 +18,7 @@ class Player {
     this.hat = 'darkred';
     this.facing = 'right';
     this.initialValues = { x: x, y: y };
+    this.pastStart = false;
   }
 
   runLogic() {
@@ -30,7 +31,6 @@ class Player {
       this.momentum = -1;
       this.facing = 'left';
     }
-
     let newAccelerationX =
       this.accelerationX / (1 + (this.friction / 1000) * 22) +
       this.momentum * 1;
@@ -86,6 +86,7 @@ class Player {
         height: this.height
       });
       if (horizontalIntersection) {
+        console.log(this.accelerationX)
         newAccelerationX = 0;
         newX = this.x;
         if (
@@ -100,20 +101,24 @@ class Player {
       }
       if (verticalIntersection) {
         newAccelerationY = 0;
+        newAccelerationX = 0;
+
         this.grounded = true;
         console.log('touched the spike vertically, you die!');
         let stats = this.die(spike);
-
         newX = stats[0];
         newY = stats[1];
         this.groundedTimer = 80;
+        
+        console.log(activeControls.right)
       }
     }
     // player position when scrolling
     if (this.x >= this.level.game.canvas.width / 2.5) {
       newX = this.level.game.canvas.width / 2.5-1;
-    } else if (this.x < this.level.game.canvas.width / 2.5 && this.x > this.level.game.canvas.width *0.12){
-      //newX = this.level.game.canvas.width *0.12-1;;
+      this.pastStart = true;
+    } else if (this.pastStart && this.x <= this.level.game.canvas.width *0.2 && activeControls.left === true){
+      newX = this.level.game.canvas.width * 0.2 -1;
     }
     this.accelerationX = newAccelerationX;
     this.accelerationY = newAccelerationY;
@@ -141,17 +146,17 @@ class Player {
   die(spike) {
     spike.increasePhase();
     this.level.score++;
-    this.level.reset();
-    this.accelerationX = 0;
-    this.accelerationY = 0;
     this._input.disableController();
-    let xOffset =
-      this.x > this.initialValues.x 
-        ? this.x
-        : 0;
-        console.log(xOffset)
-        console.log(this.initialValues.x)
-
+    this.level.reset();
+  //  this.accelerationX = 0;
+   // this.accelerationY = 0;
+    // let xOffset =
+      // this.x > this.initialValues.x 
+        // ? this.x
+        // : 0;
+        // console.log(xOffset)
+        // console.log(this.initialValues.x)
+    console.log(this.x, this.y, "momentum: ", this.momentum)
     return [this.initialValues.x, this.initialValues.y]; //back to start level
   }
 
