@@ -47,8 +47,8 @@ class Platform {
   paint(player) {
     let playerDistance = 0;
     playerDistance =
-        this.game.canvas.width / 2.5 - player.x - player.accelerationX;
-    if (player.x > this.game.canvas.width / 2.5) {
+        this.game.canvas.width *0.45- player.x - player.accelerationX;
+    if (player.x > this.game.canvas.width *0.45) {
       this.x += playerDistance;
       //this.pastStart = true;
     } else if (player.pastStart && player.x <= this.game.canvas.width * 0.2) {

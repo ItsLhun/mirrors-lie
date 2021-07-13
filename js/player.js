@@ -72,7 +72,6 @@ class Player {
     }
 
     for (let spike of this.level.spikesArr) {
-      //console.log('running logic');
       const horizontalIntersection = spike.checkIntersection({
         x: newX,
         y: this.y,
@@ -86,7 +85,6 @@ class Player {
         height: this.height
       });
       if (horizontalIntersection) {
-        console.log(this.accelerationX)
         newAccelerationX = 0;
         newX = this.x;
         if (
@@ -106,22 +104,31 @@ class Player {
         this.grounded = true;
         console.log('touched the spike vertically, you die!');
         let stats = this.die(spike);
+        this.dead = true;
+        this.x = this.initialValues.x;
+        this.y = this.initialValues.y;
+
         newX = stats[0];
         newY = stats[1];
         this.groundedTimer = 80;
-        
-        console.log(activeControls.right)
       }
     }
     // player position when scrolling
-    if (this.x >= this.level.game.canvas.width / 2.5) {
-      newX = this.level.game.canvas.width / 2.5-1;
+    if (this.x >= this.level.game.canvas.width * 0.45) {
+      newX = this.level.game.canvas.width * 0.45 - 1;
       this.pastStart = true;
-    } else if (this.pastStart && this.x <= this.level.game.canvas.width *0.2 && activeControls.left === true){
-      newX = this.level.game.canvas.width * 0.2 -1;
+     
+    } else if (
+      this.pastStart &&
+      this.x <= this.level.game.canvas.width * 0.2 &&
+      activeControls.left === true
+    ) {
+      newX = this.level.game.canvas.width * 0.2 - 1;
+ 
     }
     this.accelerationX = newAccelerationX;
     this.accelerationY = newAccelerationY;
+   // console.log("this.X", this.x, "newX", newX)
     this.x = newX;
     this.y = newY;
 
@@ -134,7 +141,7 @@ class Player {
   }
 
   jump() {
-    this.jumpPressTime = 100;
+    this.jumpPressTime = 80;
     let intervalID = setInterval((e) => {
       this.jumpPressTime--;
       if (this.jumpPressTime <= 0) {
@@ -144,19 +151,11 @@ class Player {
   }
 
   die(spike) {
+    this.momentum = 0;
     spike.increasePhase();
     this.level.score++;
     this._input.disableController();
     this.level.reset();
-  //  this.accelerationX = 0;
-   // this.accelerationY = 0;
-    // let xOffset =
-      // this.x > this.initialValues.x 
-        // ? this.x
-        // : 0;
-        // console.log(xOffset)
-        // console.log(this.initialValues.x)
-    console.log(this.x, this.y, "momentum: ", this.momentum)
     return [this.initialValues.x, this.initialValues.y]; //back to start level
   }
 
