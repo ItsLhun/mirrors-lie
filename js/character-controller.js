@@ -27,8 +27,17 @@ class BasicCharacterControllerInput {
     });
   }
   disableController(){
+    this._keys = {
+      up: false,
+      down: false,
+      left: false,
+      right: false,
+      space: false,
+      shift: false,
+      jumping: false
+    };
     this.enabled = false;
-    setTimeout(() => this.enabled = true, 100);
+    setTimeout(() => this.enabled = true, 1000);
   }
 
   onKeyDown(event) {

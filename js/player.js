@@ -32,7 +32,7 @@ class Player {
     }
 
     let newAccelerationX =
-      this.accelerationX / (1 + (this.friction / 1000) * 20) +
+      this.accelerationX / (1 + (this.friction / 1000) * 22) +
       this.momentum * 1;
     let newAccelerationY = this.accelerationY + (GRAVITY / 1000) * 20;
     let newX = this.x + newAccelerationX;
@@ -110,9 +110,10 @@ class Player {
       }
     }
     // player position when scrolling
-    if (this.x > this.level.game.canvas.width / 2.5) {
-      //  newAccelerationX = 0;
-      newX = this.level.game.canvas.width / 2.5;
+    if (this.x >= this.level.game.canvas.width / 2.5) {
+      newX = this.level.game.canvas.width / 2.5-1;
+    } else if (this.x < this.level.game.canvas.width / 2.5 && this.x > this.level.game.canvas.width *0.12){
+      //newX = this.level.game.canvas.width *0.12-1;;
     }
     this.accelerationX = newAccelerationX;
     this.accelerationY = newAccelerationY;
@@ -138,19 +139,20 @@ class Player {
   }
 
   die(spike) {
-    spike.deathColoringPhase++;
-    this.momentum = 0;
+    spike.increasePhase();
     this.level.score++;
     this.level.reset();
     this.accelerationX = 0;
     this.accelerationY = 0;
-
     this._input.disableController();
     let xOffset =
-      this.x > this.level.game.canvas.width / 2.6
-        ? this.x > this.level.game.canvas.width / 2.6
+      this.x > this.initialValues.x 
+        ? this.x
         : 0;
-    return [this.initialValues.x - xOffset, this.initialValues.y]; //back to start level
+        console.log(xOffset)
+        console.log(this.initialValues.x)
+
+    return [this.initialValues.x, this.initialValues.y]; //back to start level
   }
 
   paint() {

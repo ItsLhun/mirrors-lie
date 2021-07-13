@@ -24,11 +24,8 @@ class Level {
     }
   }
   reset(){
-    for (let platform of this.platformsArr) {
-      platform.reset();
-    }
-    for (let spike of this.spikesArr) {
-      spike.reset();
+    for (const platformTile of [...this.platformsArr, ...this.spikesArr]) {
+      platformTile.reset();
     }
   }
 }
