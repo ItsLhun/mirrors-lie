@@ -59,6 +59,7 @@ class BasicCharacterControllerInput {
         break;
       case 'ShiftLeft':
         this._keys.shift = true;
+        this.target.level.flipGravity();
         break;
     }
   }

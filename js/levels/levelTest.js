@@ -45,7 +45,7 @@ class LevelTest extends Level {
       new Background(game, 'red'),
       mapElements.platforms,
       mapElements.spikes,
-      new Player(game, SQUARE * 3, SQUARE * 16)
+      new Player(game, SQUARE * 3, SQUARE * 22)
     );
     this.player.level = this;
   }

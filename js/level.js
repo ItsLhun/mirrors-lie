@@ -6,6 +6,7 @@ class Level {
     this.spikesArr = spikesArr;
     this.player = player;
     this.score = 0;
+    this.GRAVITY;
   }
 
   start() {
@@ -16,6 +17,7 @@ class Level {
   paint() {
     this.background.paint();
     this.player.paint();
+    this.player.paintMirror();
     for (let platform of this.platformsArr) {
       platform.paint(this.player);
     }
@@ -27,5 +29,8 @@ class Level {
     for (const platformTile of [...this.platformsArr, ...this.spikesArr]) {
       platformTile.reset();
     }
+  }
+  flipGravity(){
+    this.GRAVITY*=-1;
   }
 }

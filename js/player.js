@@ -34,7 +34,7 @@ class Player {
     let newAccelerationX =
       this.accelerationX / (1 + (this.friction / 1000) * 22) +
       this.momentum * 1;
-    let newAccelerationY = this.accelerationY + (GRAVITY / 1000) * 20;
+    let newAccelerationY = this.accelerationY + (this.level.GRAVITY / 1000) * 20;
     let newX = this.x + newAccelerationX;
     let newY = this.y + newAccelerationY;
 
@@ -128,7 +128,7 @@ class Player {
     this.y = newY;
 
     if (this.groundedTimer > 0 && this.jumpPressTime > 0) {
-      let direction = GRAVITY > 0 ? 'upright' : 'reverse';
+      let direction = this.level.GRAVITY > 0 ? 'upright' : 'reverse';
       this.jumpPressTime = 0;
       this.accelerationY =
         direction === 'upright' ? -this.height / 5.5 : this.height / 5.5;
@@ -164,13 +164,12 @@ class Player {
 
     ctx.save();
     ctx.beginPath();
-    //ctx.globalAlpha = 0.1;
+
     ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'burgundy';
-    /*if (GRAVITY < 0 ){
-      ctx.scale(1,-1)*/
+
     if (this.facing === 'right') {
-      ctx.fillRect(this.x + 3, this.y * 1.01, 4, 4); //eyes
+      ctx.fillRect(this.x + 8, this.y * 1.01, 4, 4); //eyes
       // ctx.fillRect(this.x*1.5, this.y + 15, this.width - 15, this.height - 36); //mouth
       //  ctx.fillRect(this.x + 18, this.y + 17, this.width - 18, this.height - 36); //lower mouth
     } else {
@@ -179,6 +178,32 @@ class Player {
       // ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
     }
     /*}*/
+    ctx.restore();
+  }
+  paintMirror(){
+    const ctx = this.level.game.ctx;
+    ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = this.hat;
+    ctx.translate(0,this.level.game.canvas.height);
+    ctx.scale(1,-1)
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+
+    ctx.beginPath();
+
+    ctx.globalCompositeOperation = 'source-atop';
+    ctx.fillStyle = 'white';
+
+    if (this.facing === 'right') {
+      ctx.fillRect(this.x + 8, this.y * 1.01, 4, 4); //eyes
+      // ctx.fillRect(this.x*1.5, this.y + 15, this.width - 15, this.height - 36); //mouth
+      //  ctx.fillRect(this.x + 18, this.y + 17, this.width - 18, this.height - 36); //lower mouth
+    } else {
+      ctx.fillRect(this.x + 3, this.y * 1.01, 4, 4);
+      // ctx.fillRect(this.x, this.y + 15, this.width - 15, this.height - 36);
+      // ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
+    }
+
     ctx.restore();
   }
 }
