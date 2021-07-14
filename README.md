@@ -1,6 +1,7 @@
-### Mirrors Lie
+# Mirrors Lie
 
 Live deployment: http://mirrors-lie.netlify.app
+
 
 
 ## Description
