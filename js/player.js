@@ -34,7 +34,8 @@ class Player {
     let newAccelerationX =
       this.accelerationX / (1 + (this.friction / 1000) * 22) +
       this.momentum * 1;
-    let newAccelerationY = this.accelerationY + (this.level.GRAVITY / 1000) * 20;
+    let newAccelerationY =
+      this.accelerationY + (this.level.GRAVITY / 1000) * 20;
     let newX = this.x + newAccelerationX;
     let newY = this.y + newAccelerationY;
 
@@ -167,26 +168,30 @@ class Player {
 
     ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'burgundy';
-
+    let yOffset = 0;
     if (this.facing === 'right') {
-      ctx.fillRect(this.x + 8, this.y * 1.01, 4, 4); //eyes
+      yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
+      ctx.fillRect(this.x + 8, this.y + 3 + yOffset, 4, 4); //eyes
       // ctx.fillRect(this.x*1.5, this.y + 15, this.width - 15, this.height - 36); //mouth
       //  ctx.fillRect(this.x + 18, this.y + 17, this.width - 18, this.height - 36); //lower mouth
     } else {
-      ctx.fillRect(this.x + 3, this.y * 1.01, 4, 4);
+      yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
+
+      ctx.fillRect(this.x + 3, this.y + 3 + yOffset, 4, 4);
+
       // ctx.fillRect(this.x, this.y + 15, this.width - 15, this.height - 36);
       // ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
     }
     /*}*/
     ctx.restore();
   }
-  paintMirror(){
+  paintMirror() {
     const ctx = this.level.game.ctx;
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = this.hat;
-    ctx.translate(0,this.level.game.canvas.height);
-    ctx.scale(1,-1)
+    ctx.translate(0, this.level.game.canvas.height);
+    ctx.scale(1, -1);
     ctx.fillRect(this.x, this.y, this.width, this.height);
 
     ctx.beginPath();
@@ -194,12 +199,15 @@ class Player {
     ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'white';
 
+    let yOffset = 0;
     if (this.facing === 'right') {
-      ctx.fillRect(this.x + 8, this.y * 1.01, 4, 4); //eyes
+      yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
+      ctx.fillRect(this.x + 8, this.y + 3 + yOffset, 4, 4); //eyes
       // ctx.fillRect(this.x*1.5, this.y + 15, this.width - 15, this.height - 36); //mouth
       //  ctx.fillRect(this.x + 18, this.y + 17, this.width - 18, this.height - 36); //lower mouth
     } else {
-      ctx.fillRect(this.x + 3, this.y * 1.01, 4, 4);
+      yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
+      ctx.fillRect(this.x + 3, this.y + 3 + yOffset, 4, 4);
       // ctx.fillRect(this.x, this.y + 15, this.width - 15, this.height - 36);
       // ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
     }

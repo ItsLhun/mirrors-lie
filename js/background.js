@@ -14,7 +14,7 @@ class Background {
     // check if the passet image is part of the images object, otherwise default to grey BG.
     if (Object.keys(backgrounds).includes(this.backgroundName)) {
       let imageObject = bgImage;
-      imageObject.src = backgrounds[backgroundName];
+      imageObject.src = backgrounds[this.backgroundName];
       this.image = imageObject;
       this.game.ctx.drawImage(
         this.image,
