@@ -94,15 +94,15 @@ class Player {
           spike.direction === 'pointRight'
         ) {
           let stats = this.die(spike);
-          newX = stats[0];
-          newY = stats[1];
+         // newX = stats[0];
+         // newY = stats[1];
         }
       }
       if (verticalIntersection) {
         this.grounded = true;
         let stats = this.die(spike);
-        newX = stats[0];
-        newY = stats[1];
+        //newX = stats[0];
+        //newY = stats[1];
         this.groundedTimer = 80;
       }
     }
@@ -118,8 +118,6 @@ class Player {
       ) {
         newX = this.level.game.leftBreakpoint;
       }
-
-      console.log(newAccelerationX)
 
       this.accelerationX = isEpsilon(newAccelerationX) ? 0 : newAccelerationX;
       this.accelerationY = isEpsilon(newAccelerationY) ? 0 : newAccelerationY;;
@@ -151,7 +149,7 @@ class Player {
       this.deadTimeout = false;
     }, 600);
     this._input.disableController();
-    this.momentum = 0;
+   // this.momentum = 0;
     this.accelerationX = 0;
     this.accelerationY = 0;
 
@@ -162,31 +160,38 @@ class Player {
     this.level.reset();
     this.x = this.initialValues.x;
     this.y = this.initialValues.y;
+    console.log("AccX",this.accelerationX,"AccY",this.accelerationY, "X", this.x, "Y", this.y)
     return [this.initialValues.x, this.initialValues.y]; //back to start level
   }
 
   paint() {
     const ctx = this.level.game.ctx;
     ctx.save();
-    //ctx.save();
-   /* if (Math.abs(this.accelerationX) < 1e-10) {
-      console.log(this.accelerationX)
-      ctx.transform(1, 0, 0.2, 1, 0, 0);
-    } else if (this.accelerationX < 0) {
-    } else {
-      ctx.restore();
-    }*/
+  
+
     ctx.beginPath();
+   /* if (this.accelerationX > 0) {
+      console.log(this.accelerationX)
+      ctx.transform(1, 0, 0.1, 1, -this.width*4, 0);
+    } else if (this.accelerationX < 0){
+      ctx.transform(1, 0, -0.1, 1, this.width*4, 0);
+    }*/
     ctx.fillStyle = 'darkred';
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.restore();
 
-    ctx.save();
-    ctx.beginPath();
-
+     ctx.save();
+     ctx.beginPath();
     ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'burgundy';
     let yOffset = 0;
+    // if (this.accelerationX > 0) {
+    //   console.log(this.accelerationX)
+    //   ctx.transform(1, 0, 0.18, 1, -this.width*6.4, 0);
+    // } else if (this.accelerationX < 0){
+    //   ctx.transform(1, 0, -0.18, 1, this.width*6.4, 0);
+
+    // }
     if (this.facing === 'right') {
       yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
       ctx.fillRect(this.x + 8, this.y + 3 + yOffset, 4, 4); //eyes

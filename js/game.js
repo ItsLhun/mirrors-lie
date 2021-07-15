@@ -50,12 +50,8 @@ class Game {
 
   paint() {
     this.clearScreen();
-    //this.background.paint();
     if (this.running) {
       this.activeLevel.paint();
     }
-    /* if (this.lost) {
-      this.paintGameOver();
-    }*/
   }
 }

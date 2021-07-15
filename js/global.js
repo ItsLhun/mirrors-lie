@@ -2,7 +2,7 @@ const SQUARE = 16;
 let GRAVITY = 10;
 
 function isEpsilon(number){ 
-    if(Math.abs(number) < 1e-8) 
+    if(Math.abs(number) < 1e-2) 
       return true; 
     else 
       false; 
