@@ -13,7 +13,8 @@ class BasicCharacterControllerInput {
       right: false,
       space: false,
       shift: false,
-      jumping: false
+      jumping: false,
+      reset: false
     };
     document.addEventListener('keydown', (e) => {
       if (this.enabled) {
@@ -21,18 +22,16 @@ class BasicCharacterControllerInput {
       }
     });
     document.addEventListener('keyup', (e) => {
-      
-        this.onKeyUp(e);
-      
+      this.onKeyUp(e);
     });
   }
-  disableController(){
+  disableController() {
     this._keys.right = false;
     this._keys.left = false;
     this._keys.up = false;
 
     this.enabled = false;
-    setTimeout(() => this.enabled = true, 1300);
+    setTimeout(() => (this.enabled = true), 600);
   }
 
   onKeyDown(event) {
@@ -61,6 +60,10 @@ class BasicCharacterControllerInput {
         this._keys.shift = true;
         this.target.level.flipGravity();
         break;
+      case 'KeyR':
+        this._keys.reset = true;
+        this.target.die();
+        break;
     }
   }
 
@@ -84,6 +87,10 @@ class BasicCharacterControllerInput {
         break;
       case 'ShiftLeft':
         this._keys.shift = false;
+        break;
+      case 'KeyR':
+        this._keys.reset = false;
+
         break;
     }
   }

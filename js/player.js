@@ -19,6 +19,7 @@ class Player {
     this.facing = 'right';
     this.initialValues = { x: x, y: y };
     this.pastStart = false;
+    this.deadTimeout = false;
   }
 
   runLogic() {
@@ -98,41 +99,39 @@ class Player {
         }
       }
       if (verticalIntersection) {
-        newAccelerationY = 0;
-        newAccelerationX = 0;
-
         this.grounded = true;
         let stats = this.die(spike);
-        this.dead = true;
-        this.x = this.initialValues.x;
-        this.y = this.initialValues.y;
-
         newX = stats[0];
         newY = stats[1];
         this.groundedTimer = 80;
       }
     }
-    // player position when scrolling
-    if (this.x >= this.level.game.rightBreakpoint && !activeControls.left) {
-      newX = this.level.game.rightBreakpoint;
-      this.pastStart = true;
-    } else if (
-      this.pastStart &&
-      this.x <= this.level.game.leftBreakpoint &&
-      activeControls.left
-    ) {
-      newX = this.level.game.leftBreakpoint;
-    }
-    this.accelerationX = newAccelerationX;
-    this.accelerationY = newAccelerationY;
-    this.x = newX;
-    this.y = newY;
+    if (!this.deadTimeout) {
+      // player position when scrolling
+      if (this.x >= this.level.game.rightBreakpoint && !activeControls.left) {
+        newX = this.level.game.rightBreakpoint;
+        this.pastStart = true;
+      } else if (
+        this.pastStart &&
+        this.x <= this.level.game.leftBreakpoint &&
+        activeControls.left
+      ) {
+        newX = this.level.game.leftBreakpoint;
+      }
 
-    if (this.groundedTimer > 0 && this.jumpPressTime > 0) {
-      let direction = this.level.GRAVITY > 0 ? 'upright' : 'reverse';
-      this.jumpPressTime = 0;
-      this.accelerationY =
-        direction === 'upright' ? -this.height / 5.5 : this.height / 5.5;
+      console.log(newAccelerationX)
+
+      this.accelerationX = isEpsilon(newAccelerationX) ? 0 : newAccelerationX;
+      this.accelerationY = isEpsilon(newAccelerationY) ? 0 : newAccelerationY;;
+      this.x = newX;
+      this.y = newY;
+
+      if (this.groundedTimer > 0 && this.jumpPressTime > 0) {
+        let direction = this.level.GRAVITY > 0 ? 'upright' : 'reverse';
+        this.jumpPressTime = 0;
+        this.accelerationY =
+          direction === 'upright' ? -this.height / 5.5 : this.height / 5.5;
+      }
     }
   }
 
@@ -147,19 +146,38 @@ class Player {
   }
 
   die(spike) {
-    this.momentum = 0;
-    spike.increasePhase();
-    this.level.score++;
+    this.deadTimeout = true;
+    setTimeout(() => {
+      this.deadTimeout = false;
+    }, 600);
     this._input.disableController();
+    this.momentum = 0;
+    this.accelerationX = 0;
+    this.accelerationY = 0;
+
+    if (spike) {
+      spike.increasePhase();
+    }
+    this.level.score++;
     this.level.reset();
+    this.x = this.initialValues.x;
+    this.y = this.initialValues.y;
     return [this.initialValues.x, this.initialValues.y]; //back to start level
   }
 
   paint() {
     const ctx = this.level.game.ctx;
     ctx.save();
+    //ctx.save();
+   /* if (Math.abs(this.accelerationX) < 1e-10) {
+      console.log(this.accelerationX)
+      ctx.transform(1, 0, 0.2, 1, 0, 0);
+    } else if (this.accelerationX < 0) {
+    } else {
+      ctx.restore();
+    }*/
     ctx.beginPath();
-    ctx.fillStyle = this.hat;
+    ctx.fillStyle = 'darkred';
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.restore();
 
@@ -172,44 +190,30 @@ class Player {
     if (this.facing === 'right') {
       yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
       ctx.fillRect(this.x + 8, this.y + 3 + yOffset, 4, 4); //eyes
-      // ctx.fillRect(this.x*1.5, this.y + 15, this.width - 15, this.height - 36); //mouth
-      //  ctx.fillRect(this.x + 18, this.y + 17, this.width - 18, this.height - 36); //lower mouth
     } else {
       yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
-
       ctx.fillRect(this.x + 3, this.y + 3 + yOffset, 4, 4);
-
-      // ctx.fillRect(this.x, this.y + 15, this.width - 15, this.height - 36);
-      // ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
     }
-    /*}*/
     ctx.restore();
   }
   paintMirror() {
     const ctx = this.level.game.ctx;
     ctx.save();
     ctx.beginPath();
-    ctx.fillStyle = this.hat;
+    ctx.fillStyle = 'hsl(350,40%,50%)';
     ctx.translate(0, this.level.game.canvas.height);
     ctx.scale(1, -1);
     ctx.fillRect(this.x, this.y, this.width, this.height);
-
     ctx.beginPath();
-
     ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'white';
-
     let yOffset = 0;
     if (this.facing === 'right') {
       yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
       ctx.fillRect(this.x + 8, this.y + 3 + yOffset, 4, 4); //eyes
-      // ctx.fillRect(this.x*1.5, this.y + 15, this.width - 15, this.height - 36); //mouth
-      //  ctx.fillRect(this.x + 18, this.y + 17, this.width - 18, this.height - 36); //lower mouth
     } else {
       yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
       ctx.fillRect(this.x + 3, this.y + 3 + yOffset, 4, 4);
-      // ctx.fillRect(this.x, this.y + 15, this.width - 15, this.height - 36);
-      // ctx.fillRect(this.x, this.y + 17, this.width - 18, this.height - 36);
     }
 
     ctx.restore();

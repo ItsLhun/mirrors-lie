@@ -43,19 +43,17 @@ class Platform {
   }
 
   paint(player) {
-    let offSet;
     let playerDistance = 0;
     playerDistance =
       this.game.rightBreakpoint - player.x - player.accelerationX;
     if (player.x >= this.game.rightBreakpoint) {
       this.x += playerDistance;
-      //this.pastStart = true;
     } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
       this.x -= player.accelerationX;
     }
     const context = this.game.ctx;
     context.save();
-    context.fillStyle = processStyle(this.style);
+    context.fillStyle = this.style;
     context.fillRect(this.x, this.y, this.width, this.height);
     context.restore();
   }

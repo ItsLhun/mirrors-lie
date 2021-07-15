@@ -15,7 +15,7 @@ class Spike extends Platform {
   constructor(game, x, y, direction) {
     super(game, x, y, 'black');
     this.direction = processDirection(direction);
-    this.color = 'red';
+    this.color = 'darkred';
     this.deathColoringPhase = 0;
   }
 

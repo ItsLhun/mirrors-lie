@@ -17,7 +17,9 @@ class Game {
   }
 
   loop() {
-    this.runLogic();
+    if (!this.activeLevel.player.deadTimeout){
+      this.runLogic();
+    }
     this.paint();
     if (this.running) {
       window.requestAnimationFrame(() => {
