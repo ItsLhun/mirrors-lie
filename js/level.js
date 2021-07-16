@@ -13,6 +13,9 @@ class Level {
     // place obstacles, player at beginning
     //differente for every extension
   }
+  increaseScore(){
+    this.score++;
+  }
 
   paint() {
     // if (this.player.deadTimeout) {

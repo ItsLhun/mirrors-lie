@@ -45,7 +45,7 @@ class LevelOne extends Level {
       new Background(game, 'ews'),
       mapElements.platforms,
       mapElements.spikes,
-      new Player(game, SQUARE * 3, SQUARE * 31)
+      new Player(game, SQUARE * 3, SQUARE * 31, "aqua")
     );
     this.player.level = this;
     this.GRAVITY = GRAVITY;

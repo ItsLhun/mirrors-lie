@@ -3,8 +3,9 @@ class Game {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.running = false;
-    this.rightBreakpoint = Math.floor(canvas.width*0.45);
-    this.leftBreakpoint = Math.floor(canvas.width*0.2);
+    this.rightBreakpoint = Math.floor(canvas.width * 0.45);
+    this.leftBreakpoint = Math.floor(canvas.width * 0.2);
+    this.activeLevel;
   }
 
   start() {
@@ -13,14 +14,15 @@ class Game {
     let levelTest = new LevelTest(this);
     const levelOne = new LevelOne(this);
     this.activeLevel = levelOne;
+    this.scoreCounter = new ScoreCounter(this, 15, 15);
     this.loop();
   }
 
   loop() {
-    if (!this.activeLevel.player.deadTimeout){
+    this.paint();
+    if (!this.activeLevel.player.deadTimeout) {
       this.runLogic();
     }
-    this.paint();
     if (this.running) {
       window.requestAnimationFrame(() => {
         this.loop();
@@ -34,6 +36,7 @@ class Game {
       this.running = false;
       this.lost = true;
     }
+    this.scoreCounter.runLogic();
   }
 
   collectGarbage() {}
@@ -53,5 +56,6 @@ class Game {
     if (this.running) {
       this.activeLevel.paint();
     }
+    this.scoreCounter.paint();
   }
 }
