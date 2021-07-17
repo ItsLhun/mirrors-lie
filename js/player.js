@@ -30,7 +30,6 @@ class Player {
   }
 
   runLogic() {
-
     this.momentum = 0;
     const activeControls = this._input._keys;
     if (activeControls.right && !activeControls.left) {
@@ -78,8 +77,6 @@ class Player {
         // console.log("player Right X", this.x+this.width, "plat left X", platform.x)
       }
       if (verticalIntersection) {
-        //console.log("vertical intersect")
-
         newAccelerationY = 0;
         newY = this.y;
         this.grounded = true;

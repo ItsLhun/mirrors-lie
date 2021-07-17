@@ -5,6 +5,7 @@ class Level {
     this.platformsArr = platformsArr;
     this.spikesArr = spikesArr;
     this.collectiblesArr = collectiblesArr;
+    this.collected = [];
     this.player = player;
     this.score = 0;
     this.GRAVITY = SQUARE*0.625;
@@ -40,6 +41,16 @@ class Level {
     /* if (this.player.deadTimeout) {
       this.game.ctx.restore();
     }*/
+  }
+  runLogic(){
+    this.checkCollectibles();
+  }
+  checkCollectibles(){
+    for (const collectible of this.collectiblesArr){
+      if (collectible.checkPickup(this.player)){
+        this.collected.push(this.collectiblesArr.splice(this.collectiblesArr.indexOf(collectible), 1));
+      }
+    }
   }
   reset() {
     for (const platformTile of [...this.platformsArr, ...this.spikesArr, ...this.collectiblesArr]) {

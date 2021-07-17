@@ -40,6 +40,7 @@ class Game {
       this.running = false;
       this.lost = true;
     }
+    this.activeLevel.runLogic();
     this.scoreCounter.runLogic();
   }
 
