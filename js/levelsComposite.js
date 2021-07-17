@@ -5,6 +5,7 @@ class LevelsComposite {
     this.tilesColor = tilesColor;
     this.spikes = [];
     this.platforms = [];
+    this.collectibles = [];
     this.parseMap();
   }
 
@@ -28,8 +29,8 @@ class LevelsComposite {
             this.platforms.push(
               new Platform(
                 this.game,
-                SQUARE * (column - 1),
-                SQUARE * (row - 1),
+                Math.round((SQUARE * (column - 1))*10/10),
+                Math.round((SQUARE * (row - 1))*10)/10,
                 this.tilesColor
               )
             );
@@ -52,6 +53,8 @@ class LevelsComposite {
               )
             );
             break;
+            case "C":
+              this.collectibles.push(new Collectible(this.game, SQUARE * (column - 1), SQUARE * (row - 1)))
         }
       }
     }

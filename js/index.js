@@ -1,6 +1,10 @@
 const canvasElement = document.querySelector('canvas');
 
 canvasElement.isFullScreen = false;
+
+let windowWidth = window.innerWidth;
+let windowHeight = window.innerHeight;
+
 canvasElement.width = 1920 / (canvasElement.isFullScreen ? 1 : 2);
 canvasElement.height = 1056 / (canvasElement.isFullScreen ? 1 : 2);
 
