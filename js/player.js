@@ -13,7 +13,7 @@ class Player {
     this.y = y;
     //size
     this.width = SQUARE - 1;
-    this.height = SQUARE * 2 - 1;
+    this.height = SQUARE * 2;
     //acceleration
     this.accelerationX = 0;
     this.accelerationY = 0;
@@ -26,11 +26,11 @@ class Player {
     this.initialValues = { x: x, y: y };
     this.pastStart = false;
     this.deadTimeout = false;
+    this.newAccelerationX;
   }
 
   runLogic() {
-    if (this.deadTimeout) {
-    }
+
     this.momentum = 0;
     const activeControls = this._input._keys;
     if (activeControls.right && !activeControls.left) {
@@ -40,16 +40,16 @@ class Player {
       this.momentum = -1;
       this.facing = 'left';
     }
-    let newAccelerationX =
+    this.newAccelerationX =
       this.accelerationX / (1 + (this.friction / 1000) * 22) +
       this.momentum * 1;
     let newAccelerationY =
       this.accelerationY + (this.level.GRAVITY / 1000) * 22;
-    let newX = this.x + newAccelerationX;
+    let newX = this.x + this.newAccelerationX;
     let newY = this.y + newAccelerationY;
 
     for (let platform of this.level.platformsArr) {
-      let priorCollision = {x: this.x, y: this.y}
+      let priorCollision = { x: this.x, y: this.y };
       const horizontalIntersection = platform.checkIntersection({
         x: newX,
         y: this.y,
@@ -63,18 +63,25 @@ class Player {
         height: this.height
       });
       if (horizontalIntersection) {
-       // console.log("horizontal intersect")
-        newAccelerationX = 0;
-        newX = priorCollision.x;
-        //console.log("intersect")
-        this.x = newX;
-        //this.y = newY;
+        
+        this.newAccelerationX = 0;
+        this.accelerationX = 0;
+        newX = this.x;
+        // if (this.x+this.width > platform.x && this.facing === "right"){
+          
+        //   newX = this.x-(this.x+this.width - platform.x)
+        // } else if (this.x+this.width < platform.x && this.facing === "left"){
+
+        // } else {
+        //   newX = this.x;
+        // }
+        // console.log("player Right X", this.x+this.width, "plat left X", platform.x)
       }
       if (verticalIntersection) {
         //console.log("vertical intersect")
 
         newAccelerationY = 0;
-        newY = priorCollision.y;
+        newY = this.y;
         this.grounded = true;
         this.groundedTimer = 80;
       } else {
@@ -102,15 +109,13 @@ class Player {
         height: this.height
       });
       if (horizontalIntersection) {
-        newAccelerationX = 0;
+        this.newAccelerationX = 0;
         newX = this.x;
         if (
           spike.direction === 'pointLeft' ||
           spike.direction === 'pointRight'
         ) {
           this.die(spike);
-          // newX = stats[0]
-          // newY = stats[1];
         }
       }
       if (verticalIntersection) {
@@ -132,9 +137,9 @@ class Player {
         newX = this.level.game.leftBreakpoint;
       }
 
-      this.accelerationX = isEpsilon(newAccelerationX) ? 0 : newAccelerationX;
+      this.accelerationX = isEpsilon(this.newAccelerationX) ? 0 : this.newAccelerationX;
       this.accelerationY = isEpsilon(newAccelerationY) ? 0 : newAccelerationY;
-     // console.log("when stuck check", this.x, this.y)
+      // console.log("when stuck check", this.x, this.y)
       this.x = newX;
       this.y = newY;
 
@@ -174,6 +179,7 @@ class Player {
     this.level.reset();
     this.x = this.initialValues.x;
     this.y = this.initialValues.y;
+    
   }
 
   paint() {

@@ -12,7 +12,7 @@ class Game {
   start() {
     this.running = true;
     this.globalScore = 0;
-    let levelTest = new LevelTest(this);
+  //  let levelTest = new LevelTest(this);
     const levelOne = new LevelOne(this);
     this.activeLevel = levelOne;
     this.scoreCounter = new ScoreCounter(this, 15, 15);

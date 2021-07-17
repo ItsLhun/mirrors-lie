@@ -1,5 +1,5 @@
 const SQUARE = 16;
-let GRAVITY = 10;
+//let GRAVITY = SQUARE*0.625;
 
 function isEpsilon(number){ 
     if(Math.abs(number) < 1e-2) 
