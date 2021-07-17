@@ -1,6 +1,7 @@
 let presetColor = {
   red: 350,
-  aqua: 180
+  aqua: 180,
+  green: 100
 };
 
 class Player {
@@ -20,7 +21,7 @@ class Player {
     this.jumpPressTime = 0;
     this.friction = 20;
     this.momentum = 0;
-    this.color = presetColor[color];
+    this.color = presetColor[color] ? presetColor[color] : 350;
     this.facing = 'right';
     this.initialValues = { x: x, y: y };
     this.pastStart = false;
@@ -48,6 +49,7 @@ class Player {
     let newY = this.y + newAccelerationY;
 
     for (let platform of this.level.platformsArr) {
+      let priorCollision = {x: this.x, y: this.y}
       const horizontalIntersection = platform.checkIntersection({
         x: newX,
         y: this.y,
@@ -61,13 +63,18 @@ class Player {
         height: this.height
       });
       if (horizontalIntersection) {
+       // console.log("horizontal intersect")
         newAccelerationX = 0;
-        newX = this.x;
+        newX = priorCollision.x;
         //console.log("intersect")
+        this.x = newX;
+        //this.y = newY;
       }
       if (verticalIntersection) {
+        //console.log("vertical intersect")
+
         newAccelerationY = 0;
-        newY = this.y;
+        newY = priorCollision.y;
         this.grounded = true;
         this.groundedTimer = 80;
       } else {
@@ -108,10 +115,8 @@ class Player {
       }
       if (verticalIntersection) {
         this.grounded = true;
-        this.die(spike);
-        //newX = stats[0];
-        //newY = stats[1];
         this.groundedTimer = 80;
+        this.die(spike);
       }
     }
     if (!this.deadTimeout) {
@@ -124,12 +129,12 @@ class Player {
         this.x <= this.level.game.leftBreakpoint &&
         activeControls.left
       ) {
-        console.log('we are here', this.deadTimeout);
         newX = this.level.game.leftBreakpoint;
       }
 
       this.accelerationX = isEpsilon(newAccelerationX) ? 0 : newAccelerationX;
       this.accelerationY = isEpsilon(newAccelerationY) ? 0 : newAccelerationY;
+     // console.log("when stuck check", this.x, this.y)
       this.x = newX;
       this.y = newY;
 
@@ -155,37 +160,33 @@ class Player {
   die(spike) {
     this.deadTimeout = true;
     this.pastStart = false;
-
+    this.facing = 'right';
     setTimeout(() => {
       this.deadTimeout = false;
     }, 600);
     this._input.disableController();
     this.accelerationX = 0;
     this.accelerationY = 0;
-
     if (spike) {
       spike.increasePhase();
     }
     this.level.increaseScore();
-
     this.level.reset();
     this.x = this.initialValues.x;
     this.y = this.initialValues.y;
-
-    //  return [this.initialValues.x, this.initialValues.y]; //back to start level
   }
 
   paint() {
     const ctx = this.level.game.ctx;
     ctx.save();
-
     ctx.beginPath();
-    /* if (this.accelerationX > 0) {
-      console.log(this.accelerationX)
-      ctx.transform(1, 0, 0.1, 1, -this.width*4, 0);
-    } else if (this.accelerationX < 0){
-      ctx.transform(1, 0, -0.1, 1, this.width*4, 0);
-    }*/
+    //  if (this.accelerationX > 0) {
+    //   //ctx.translate(this.x - this.width / 2, this.y - this.height/2)
+    //   ctx.translate(this.x, this.y);
+    //   ctx.transform(1, 0, 10/100, 1, 0, 0);
+    // } else if (this.accelerationX < 0){
+    //   ctx.transform(1, 0, -10/100, 1, 0, 0);
+    // }
     ctx.fillStyle = `hsl(${this.color},68%,32%)`;
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.restore();
@@ -196,7 +197,7 @@ class Player {
     ctx.fillStyle = 'burgundy';
     let yOffset = 0;
     // if (this.accelerationX > 0) {
-    //   console.log(this.accelerationX)
+
     //   ctx.transform(1, 0, 0.18, 1, -this.width*6.4, 0);
     // } else if (this.accelerationX < 0){
     //   ctx.transform(1, 0, -0.18, 1, this.width*6.4, 0);

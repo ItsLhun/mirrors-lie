@@ -15,7 +15,6 @@ class Spike extends Platform {
   constructor(game, x, y, direction) {
     super(game, x, y, 'black');
     this.direction = processDirection(direction);
-    this.color = 'darkred';
     this.deathColoringPhase = 0;
   }
 
@@ -24,6 +23,7 @@ class Spike extends Platform {
   }
 
   paint(player) {
+    this.color = `hsl(${this.game.activeLevel.player.color},73%,28%)`;
     let playerDistance = 0;
     if (player.x >= this.game.rightBreakpoint) {
       playerDistance =
@@ -63,7 +63,7 @@ class Spike extends Platform {
       this.y + this.height
     );
     const gradientColors = {
-      0: 'grey',
+      0.1: 'grey',
       0.25: 'grey',
       0.5: 'grey',
       0.75: 'grey',
@@ -71,31 +71,31 @@ class Spike extends Platform {
     };
     switch (this.deathColoringPhase) {
       case 1:
-        gradientColors['0'] = this.color;
+        gradientColors['0.1'] = this.color;
         break;
       case 2:
-        gradientColors['0'] = this.color;
+        gradientColors['0.1'] = this.color;
         gradientColors['0.25'] = this.color;
         break;
       case 3:
-        gradientColors['0'] = this.color;
+        gradientColors['0.1'] = this.color;
         gradientColors['0.25'] = this.color;
         gradientColors['0.5'] = this.color;
         break;
       case 4:
-        gradientColors['0'] = this.color;
+        gradientColors['0.1'] = this.color;
         gradientColors['0.25'] = this.color;
         gradientColors['0.5'] = this.color;
         gradientColors['0.75'] = this.color;
     }
     if (this.deathColoringPhase > 4) {
-      gradientColors['0'] = this.color;
+      gradientColors['0.1'] = this.color;
       gradientColors['0.25'] = this.color;
       gradientColors['0.5'] = this.color;
       gradientColors['0.75'] = this.color;
     }
 
-    gradient.addColorStop(0, gradientColors['0']);
+    gradient.addColorStop(0, gradientColors['0.1']);
     gradient.addColorStop(0.25, gradientColors['0.25']);
     gradient.addColorStop(0.5, gradientColors['0.5']);
     gradient.addColorStop(0.75, gradientColors['0.75']);

@@ -15,6 +15,7 @@ class Level {
   }
   increaseScore(){
     this.score++;
+    this.game.increaseGlobalScore();
   }
 
   paint() {

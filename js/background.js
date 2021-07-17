@@ -1,7 +1,8 @@
 const bgImage = new Image();
 //collection of all background images
 const backgrounds = {
-  blueScreen: '/images/background/blue-screen.jpg'
+  blueScreen: '/images/background/blue-screen.jpg',
+  impossible: null
 };
 
 class Background {
