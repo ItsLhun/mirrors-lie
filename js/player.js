@@ -1,7 +1,7 @@
 let presetColor = {
   red: 350,
   aqua: 180
-}
+};
 
 class Player {
   constructor(level, x, y, color) {
@@ -28,6 +28,8 @@ class Player {
   }
 
   runLogic() {
+    if (this.deadTimeout) {
+    }
     this.momentum = 0;
     const activeControls = this._input._keys;
     if (activeControls.right && !activeControls.left) {
@@ -61,6 +63,7 @@ class Player {
       if (horizontalIntersection) {
         newAccelerationX = 0;
         newX = this.x;
+        //console.log("intersect")
       }
       if (verticalIntersection) {
         newAccelerationY = 0;
@@ -121,6 +124,7 @@ class Player {
         this.x <= this.level.game.leftBreakpoint &&
         activeControls.left
       ) {
+        console.log('we are here', this.deadTimeout);
         newX = this.level.game.leftBreakpoint;
       }
 
@@ -150,32 +154,24 @@ class Player {
 
   die(spike) {
     this.deadTimeout = true;
+    this.pastStart = false;
+
     setTimeout(() => {
       this.deadTimeout = false;
     }, 600);
     this._input.disableController();
-    // this.momentum = 0;
     this.accelerationX = 0;
     this.accelerationY = 0;
 
     if (spike) {
       spike.increasePhase();
     }
-    this.level.increaseScore()
-    console.log(this.level.score);
+    this.level.increaseScore();
+
     this.level.reset();
     this.x = this.initialValues.x;
     this.y = this.initialValues.y;
-    console.log(
-      'AccX',
-      this.accelerationX,
-      'AccY',
-      this.accelerationY,
-      'X',
-      this.x,
-      'Y',
-      this.y
-    );
+
     //  return [this.initialValues.x, this.initialValues.y]; //back to start level
   }
 
@@ -209,17 +205,17 @@ class Player {
     if (this.facing === 'right') {
       yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
       ctx.fillRect(this.x + 8, this.y + 3 + yOffset, 4, 4); //eyes
-      ctx.save()
-      ctx.fillStyle = "white";
-      ctx.fillRect(this.x + 11, this.y + 4 + yOffset, 1, 2); 
-      ctx.restore()
+      ctx.save();
+      ctx.fillStyle = 'white';
+      ctx.fillRect(this.x + 11, this.y + 4 + yOffset, 1, 2);
+      ctx.restore();
     } else {
       yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
       ctx.fillRect(this.x + 3, this.y + 3 + yOffset, 4, 4);
-      ctx.save()
-      ctx.fillStyle = "white";
+      ctx.save();
+      ctx.fillStyle = 'white';
       ctx.fillRect(this.x + 3, this.y + 4 + yOffset, 1, 2);
-      ctx.restore()
+      ctx.restore();
     }
     ctx.restore();
   }

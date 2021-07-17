@@ -17,6 +17,8 @@ class BasicCharacterControllerInput {
       reset: false
     };
     document.addEventListener('keydown', (e) => {
+     
+    
       if (this.enabled) {
         this.onKeyDown(e);
       }
