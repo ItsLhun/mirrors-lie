@@ -62,12 +62,11 @@ class Player {
         height: this.height
       });
       if (horizontalIntersection) {
-        
         this.newAccelerationX = 0;
         this.accelerationX = 0;
         newX = this.x;
         // if (this.x+this.width > platform.x && this.facing === "right"){
-          
+
         //   newX = this.x-(this.x+this.width - platform.x)
         // } else if (this.x+this.width < platform.x && this.facing === "left"){
 
@@ -82,13 +81,17 @@ class Player {
         this.grounded = true;
         this.groundedTimer = 80;
       } else {
-        let intervalID = setInterval((e) => {
-          this.groundedTimer--;
-          if (this.groundedTimer <= 0) {
-            this.grounded = false;
-            clearInterval(intervalID);
-          }
-        }, 1);
+        //console.log("mid air")
+        let timeoutID = setTimeout((e) => {
+          let intervalID = setInterval((e) => {
+            this.groundedTimer--;
+            if (this.groundedTimer <= 0) {
+              this.grounded = false;
+              clearInterval(intervalID);
+            }
+          }, 1);
+        }, 90)
+        
       }
     }
 
@@ -134,7 +137,9 @@ class Player {
         newX = this.level.game.leftBreakpoint;
       }
 
-      this.accelerationX = isEpsilon(this.newAccelerationX) ? 0 : this.newAccelerationX;
+      this.accelerationX = isEpsilon(this.newAccelerationX)
+        ? 0
+        : this.newAccelerationX;
       this.accelerationY = isEpsilon(newAccelerationY) ? 0 : newAccelerationY;
       // console.log("when stuck check", this.x, this.y)
       this.x = newX;
@@ -176,7 +181,6 @@ class Player {
     this.level.reset();
     this.x = this.initialValues.x;
     this.y = this.initialValues.y;
-    
   }
 
   paint() {

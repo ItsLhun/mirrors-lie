@@ -23,7 +23,7 @@ class Spike extends Platform {
   }
 
   paint(player) {
-    this.color = `hsl(${this.game.activeLevel.player.color},73%,28%)`;
+    this.playerBaseColor = this.game.activeLevel.player.color;
     let playerDistance = 0;
     if (player.x >= this.game.rightBreakpoint) {
       playerDistance =
@@ -63,36 +63,62 @@ class Spike extends Platform {
       this.y + this.height
     );
     const gradientColors = {
-      0.1: 'grey',
-      0.25: 'grey',
-      0.5: 'grey',
-      0.75: 'grey',
-      1: 'grey'
+      0.1: `hsl(0,0%,18%)`,
+      0.25: 'hsl(0, 0%, 30%)',
+      0.5: 'hsl(0, 0%, 35%)',
+      0.75: 'hsl(0, 0%, 40%)',
+      1: 'hsl(0, 0%, 42%)'
     };
     switch (this.deathColoringPhase) {
       case 1:
-        gradientColors['0.1'] = this.color;
+        gradientColors['0.1'] = `hsl(${this.playerBaseColor},73%,18%)`;
         break;
       case 2:
-        gradientColors['0.1'] = this.color;
-        gradientColors['0.25'] = this.color;
+        gradientColors[
+          '0.1'
+        ] = `hsl(${this.game.activeLevel.player.color},73%,14%)`;
+        gradientColors[
+          '0.25'
+        ] = `hsl(${this.game.activeLevel.player.color},73%,18%)`;
         break;
       case 3:
-        gradientColors['0.1'] = this.color;
-        gradientColors['0.25'] = this.color;
-        gradientColors['0.5'] = this.color;
+        gradientColors[
+          '0.1'
+        ] = `hsl(${this.game.activeLevel.player.color},73%,14%)`;
+        gradientColors[
+          '0.25'
+        ] = `hsl(${this.game.activeLevel.player.color},73%,18%)`;
+        gradientColors[
+          '0.5'
+        ] = `hsl(${this.game.activeLevel.player.color},73%,22%)`;
         break;
       case 4:
-        gradientColors['0.1'] = this.color;
-        gradientColors['0.25'] = this.color;
-        gradientColors['0.5'] = this.color;
-        gradientColors['0.75'] = this.color;
+        gradientColors[
+          '0.1'
+        ] = `hsl(${this.game.activeLevel.player.color},73%,14%)`;
+        gradientColors[
+          '0.25'
+        ] = `hsl(${this.game.activeLevel.player.color},73%,18%)`;
+        gradientColors[
+          '0.5'
+        ] = `hsl(${this.game.activeLevel.player.color},73%,22%)`;
+        gradientColors[
+          '0.75'
+        ] = `hsl(${this.game.activeLevel.player.color},73%,30%)`;
     }
     if (this.deathColoringPhase > 4) {
-      gradientColors['0.1'] = this.color;
-      gradientColors['0.25'] = this.color;
-      gradientColors['0.5'] = this.color;
-      gradientColors['0.75'] = this.color;
+      gradientColors[
+        '0.1'
+      ] = `hsl(${this.game.activeLevel.player.color},73%,14%)`;
+      gradientColors[
+        '0.25'
+      ] = `hsl(${this.game.activeLevel.player.color},73%,18%)`;
+      gradientColors[
+        '0.5'
+      ] = `hsl(${this.game.activeLevel.player.color},73%,22%)`;
+      gradientColors[
+        '0.75'
+      ] = `hsl(${this.game.activeLevel.player.color},73%,30%)`;
     }
 
     gradient.addColorStop(0, gradientColors['0.1']);

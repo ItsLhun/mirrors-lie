@@ -5,6 +5,8 @@ canvasElement.isFullScreen = false;
 let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight;
 
+console.log(windowHeight / 33);
+let keepProportion = true;
 canvasElement.width = 1920 / (canvasElement.isFullScreen ? 1 : 2);
 canvasElement.height = 1056 / (canvasElement.isFullScreen ? 1 : 2);
 
