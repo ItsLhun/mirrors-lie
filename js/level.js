@@ -35,7 +35,6 @@ class Level {
     // }
     this.background.paint();
     this.player.paint();
-    this.player.paintMirror();
     for (let platform of this.platformsArr) {
       platform.paint(this.player);
     }

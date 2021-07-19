@@ -12,14 +12,14 @@ class Player {
     this.x = x;
     this.y = y;
     //size
-    this.width = SQUARE - (SQUARE*0.0625);
+    this.width = SQUARE - SQUARE * 0.0625;
     this.height = SQUARE * 2;
     //acceleration
     this.accelerationX = 0;
     this.accelerationY = 0;
     //jump timer
     this.jumpPressTime = 0;
-    this.friction = SQUARE*1.25
+    this.friction = SQUARE * 1.25;
     this.momentum = 0;
     this.color = presetColor[color] ? presetColor[color] : 350;
     this.facing = 'right';
@@ -27,33 +27,28 @@ class Player {
     this.pastStart = false;
     this.deadTimeout = false;
     this.newAccelerationX;
-  }
-  updateValues(){
-    this.friction = SQUARE*1.25
-    this.x = this.x;
-    this.y = this.y;
-    this.width = SQUARE - (SQUARE*0.0625);
-    this.height = SQUARE * 2;
+    this.mirrorEnabled = true;
   }
 
   runLogic() {
     this.momentum = 0;
     const activeControls = this._input._keys;
     if (activeControls.right && !activeControls.left) {
-      this.momentum = (SQUARE*0.0625);
+      this.momentum = SQUARE * 0.0625;
       this.facing = 'right';
     } else if (!activeControls.right && activeControls.left) {
-      this.momentum = -(SQUARE*0.0625);
+      this.momentum = -(SQUARE * 0.0625);
       this.facing = 'left';
     }
     this.newAccelerationX =
-     this.accelerationX / (1 + (this.friction / (SQUARE*62.5)) * 22) +
-       this.momentum * 1;
-      // this.accelerationX / ((SQUARE*0.0625) + (this.friction / (SQUARE*62.5)) * (SQUARE*1.375)) +
-      // this.momentum * (SQUARE*0.0625);
-     // console.log(this.newAccelerationX)
+      this.accelerationX / (1 + (this.friction / (SQUARE * 62.5)) * 22) +
+      this.momentum * 1;
+    // this.accelerationX / ((SQUARE*0.0625) + (this.friction / (SQUARE*62.5)) * (SQUARE*1.375)) +
+    // this.momentum * (SQUARE*0.0625);
+    // console.log(this.newAccelerationX)
     let newAccelerationY =
-      this.accelerationY + (this.level.GRAVITY / (SQUARE*62.5)) * SQUARE*1.375;
+      this.accelerationY +
+      (this.level.GRAVITY / (SQUARE * 62.5)) * SQUARE * 1.375;
     let newX = this.x + this.newAccelerationX;
     let newY = this.y + newAccelerationY;
 
@@ -81,16 +76,14 @@ class Player {
         this.grounded = true;
         this.groundedTimer = 80;
       } else {
-       // let timeoutID = setTimeout((e) => {
-          // let intervalID = setInterval((e) => {
-          //   this.groundedTimer--;
-          //   if (this.groundedTimer <= 0) {
-          //     this.grounded = false;
-          //     clearInterval(intervalID);
-          //   }
-          // }, 1);
-       // }, 90)
-        
+        let intervalID = setInterval((e) => {
+          this.groundedTimer--;
+          if (this.groundedTimer <= 0) {
+            this.grounded = false;
+           
+            clearInterval(intervalID);
+          }
+        }, 1);
       }
     }
 
@@ -183,6 +176,10 @@ class Player {
   }
 
   paint() {
+    this.paintPlayer();
+    this.mirrorEnabled ? this.paintMirror() : null;
+  }
+  paintPlayer(){
     const ctx = this.level.game.ctx;
     ctx.save();
     ctx.beginPath();
@@ -210,18 +207,38 @@ class Player {
 
     // }
     if (this.facing === 'right') {
-      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE*1.25 : 0;
-      ctx.fillRect(this.x + (SQUARE*0.5), this.y + (SQUARE*0.1875) + yOffset, (SQUARE*0.25), (SQUARE*0.25)); //eyes
+      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE * 1.25 : 0;
+      ctx.fillRect(
+        this.x + SQUARE * 0.5,
+        this.y + SQUARE * 0.1875 + yOffset,
+        SQUARE * 0.25,
+        SQUARE * 0.25
+      ); //eyes
       ctx.save();
       ctx.fillStyle = 'white';
-      ctx.fillRect(this.x + (SQUARE*0.6875), this.y + (SQUARE*0.25) + yOffset, (SQUARE*0.0625), (SQUARE*0.125));
+      ctx.fillRect(
+        this.x + SQUARE * 0.6875,
+        this.y + SQUARE * 0.25 + yOffset,
+        SQUARE * 0.0625,
+        SQUARE * 0.125
+      );
       ctx.restore();
     } else {
-      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE*1.25 : 0;
-      ctx.fillRect(this.x + (SQUARE*0.1875), this.y + (SQUARE*0.1875) + yOffset, (SQUARE*0.25), (SQUARE*0.25));
+      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE * 1.25 : 0;
+      ctx.fillRect(
+        this.x + SQUARE * 0.1875,
+        this.y + SQUARE * 0.1875 + yOffset,
+        SQUARE * 0.25,
+        SQUARE * 0.25
+      );
       ctx.save();
       ctx.fillStyle = 'white';
-      ctx.fillRect(this.x + (SQUARE*0.1875), this.y + (SQUARE*0.25) + yOffset, (SQUARE*0.0625), (SQUARE*0.125));
+      ctx.fillRect(
+        this.x + SQUARE * 0.1875,
+        this.y + SQUARE * 0.25 + yOffset,
+        SQUARE * 0.0625,
+        SQUARE * 0.125
+      );
       ctx.restore();
     }
     ctx.restore();
@@ -239,11 +256,21 @@ class Player {
     ctx.fillStyle = 'white';
     let yOffset = 0;
     if (this.facing === 'right') {
-      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE*1.25 : 0;
-      ctx.fillRect(this.x + (SQUARE*0.5), this.y + (SQUARE*0.1875) + yOffset, (SQUARE*0.25), (SQUARE*0.25)); //eyes
+      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE * 1.25 : 0;
+      ctx.fillRect(
+        this.x + SQUARE * 0.5,
+        this.y + SQUARE * 0.1875 + yOffset,
+        SQUARE * 0.25,
+        SQUARE * 0.25
+      ); //eyes
     } else {
-      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE*1.25 : 0;
-      ctx.fillRect(this.x + (SQUARE*0.1875), this.y + (SQUARE*0.1875) + yOffset, (SQUARE*0.25), (SQUARE*0.25));
+      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE * 1.25 : 0;
+      ctx.fillRect(
+        this.x + SQUARE * 0.1875,
+        this.y + SQUARE * 0.1875 + yOffset,
+        SQUARE * 0.25,
+        SQUARE * 0.25
+      );
     }
 
     ctx.restore();

@@ -14,13 +14,12 @@ class Game {
     this.running = true;
     this.globalScore = 0;
   //  let levelTest = new LevelTest(this);
+   const tutorialOne = new TutorialOne(this);
     const levelOne = new LevelOne(this);
-    this.activeLevel = levelOne;
+    this.activeLevel = tutorialOne;
     this.scoreCounter = new ScoreCounter(this, 15, 15);
     this.loop();
-    window.addEventListener('resize', (e)=>{
-      this.activeLevel.player.updateValues();
-      
+    window.addEventListener('resize', (e) =>{
       this.paint()
     })
   }
