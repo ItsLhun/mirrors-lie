@@ -19,7 +19,7 @@ class Player {
     this.accelerationY = 0;
     //jump timer
     this.jumpPressTime = 0;
-    this.friction = SQUARE*1.6;
+    this.friction = SQUARE*1.25
     this.momentum = 0;
     this.color = presetColor[color] ? presetColor[color] : 350;
     this.facing = 'right';
@@ -27,6 +27,13 @@ class Player {
     this.pastStart = false;
     this.deadTimeout = false;
     this.newAccelerationX;
+  }
+  updateValues(){
+    this.friction = SQUARE*1.25
+    this.x = this.x;
+    this.y = this.y;
+    this.width = SQUARE - (SQUARE*0.0625);
+    this.height = SQUARE * 2;
   }
 
   runLogic() {
@@ -40,15 +47,17 @@ class Player {
       this.facing = 'left';
     }
     this.newAccelerationX =
-      this.accelerationX / ((SQUARE*0.0625) + (this.friction / (SQUARE*62.5)) * SQUARE*1.375) +
-      this.momentum * (SQUARE*0.0625);
+     this.accelerationX / (1 + (this.friction / (SQUARE*62.5)) * 22) +
+       this.momentum * 1;
+      // this.accelerationX / ((SQUARE*0.0625) + (this.friction / (SQUARE*62.5)) * (SQUARE*1.375)) +
+      // this.momentum * (SQUARE*0.0625);
+     // console.log(this.newAccelerationX)
     let newAccelerationY =
       this.accelerationY + (this.level.GRAVITY / (SQUARE*62.5)) * SQUARE*1.375;
     let newX = this.x + this.newAccelerationX;
     let newY = this.y + newAccelerationY;
 
     for (let platform of this.level.platformsArr) {
-      let priorCollision = { x: this.x, y: this.y };
       const horizontalIntersection = platform.checkIntersection({
         x: newX,
         y: this.y,
@@ -65,15 +74,6 @@ class Player {
         this.newAccelerationX = 0;
         this.accelerationX = 0;
         newX = this.x;
-        // if (this.x+this.width > platform.x && this.facing === "right"){
-
-        //   newX = this.x-(this.x+this.width - platform.x)
-        // } else if (this.x+this.width < platform.x && this.facing === "left"){
-
-        // } else {
-        //   newX = this.x;
-        // }
-        // console.log("player Right X", this.x+this.width, "plat left X", platform.x)
       }
       if (verticalIntersection) {
         newAccelerationY = 0;
@@ -81,16 +81,15 @@ class Player {
         this.grounded = true;
         this.groundedTimer = 80;
       } else {
-        //console.log("mid air")
-        let timeoutID = setTimeout((e) => {
-          let intervalID = setInterval((e) => {
-            this.groundedTimer--;
-            if (this.groundedTimer <= 0) {
-              this.grounded = false;
-              clearInterval(intervalID);
-            }
-          }, 1);
-        }, 90)
+       // let timeoutID = setTimeout((e) => {
+          // let intervalID = setInterval((e) => {
+          //   this.groundedTimer--;
+          //   if (this.groundedTimer <= 0) {
+          //     this.grounded = false;
+          //     clearInterval(intervalID);
+          //   }
+          // }, 1);
+       // }, 90)
         
       }
     }

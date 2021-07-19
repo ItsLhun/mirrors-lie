@@ -18,7 +18,6 @@ class Collectible extends Platform {
 
   paint(player) {
     if (!this.picked) {
-      
       const ctx = this.game.ctx;
       let playerDistance = 0;
       playerDistance =
@@ -31,7 +30,7 @@ class Collectible extends Platform {
       ctx.save();
       ctx.fillStyle = 'gold';
       ctx.fillRect(this.x, this.y, this.width, this.height);
-      ctx.lineWidth = 0.2
+      ctx.lineWidth = SQUARE*0.0125
       ctx.strokeRect(this.x, this.y, this.width, this.height);
 
       ctx.restore();

@@ -54,7 +54,7 @@ class Platform {
     const context = this.game.ctx;
     context.save();
     context.fillStyle = this.style;
-    context.fillRect(this.x, this.y, this.width, this.height);
+    context.fillRect(this.x-1, this.y-1, this.width+2, this.height+2);
     context.restore();
   }
   reset() {

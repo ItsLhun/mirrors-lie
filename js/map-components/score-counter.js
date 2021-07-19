@@ -2,8 +2,6 @@ class ScoreCounter {
   constructor(game) {
     this.game = game;
     this.levelCounter = this.game.activeLevel.score;
-    //this.offsetX = 50;
-    // this.offsetY = 50;
     this.player = this.game.player;
     this.ctx = this.game.ctx;
   }

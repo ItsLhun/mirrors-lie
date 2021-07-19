@@ -7,6 +7,7 @@ class Game {
     this.leftBreakpoint = Math.floor(canvas.width * 0.2);
     this.activeLevel;
     this.globalScore = 0;
+    this.squareSize = SQUARE;
   }
 
   start() {
@@ -17,6 +18,11 @@ class Game {
     this.activeLevel = levelOne;
     this.scoreCounter = new ScoreCounter(this, 15, 15);
     this.loop();
+    window.addEventListener('resize', (e)=>{
+      this.activeLevel.player.updateValues();
+      
+      this.paint()
+    })
   }
   increaseGlobalScore() {
     this.globalScore++;
@@ -24,6 +30,7 @@ class Game {
 
   loop() {
     this.paint();
+    
     if (!this.activeLevel.player.deadTimeout) {
       this.runLogic();
     }
@@ -52,9 +59,9 @@ class Game {
 
   paint() {
     this.clearScreen();
-    if (this.running) {
+  //  if (this.running) {
       this.activeLevel.paint();
-    }
+    //}
     this.scoreCounter.paint();
   }
 }

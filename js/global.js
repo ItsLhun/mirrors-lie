@@ -1,4 +1,3 @@
-const SQUARE = 32;
 //let GRAVITY = SQUARE*0.625;
 
 function isEpsilon(number){ 
