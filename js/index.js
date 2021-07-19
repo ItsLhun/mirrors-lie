@@ -1,6 +1,6 @@
 const canvasElement = document.querySelector('canvas');
 
-canvasElement.isFullScreen = false;
+canvasElement.isFullScreen = true;
 
 let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight;

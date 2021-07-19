@@ -12,14 +12,14 @@ class Player {
     this.x = x;
     this.y = y;
     //size
-    this.width = SQUARE - 1;
+    this.width = SQUARE - (SQUARE*0.0625);
     this.height = SQUARE * 2;
     //acceleration
     this.accelerationX = 0;
     this.accelerationY = 0;
     //jump timer
     this.jumpPressTime = 0;
-    this.friction = 20;
+    this.friction = SQUARE*1.6;
     this.momentum = 0;
     this.color = presetColor[color] ? presetColor[color] : 350;
     this.facing = 'right';
@@ -33,17 +33,17 @@ class Player {
     this.momentum = 0;
     const activeControls = this._input._keys;
     if (activeControls.right && !activeControls.left) {
-      this.momentum = 1;
+      this.momentum = (SQUARE*0.0625);
       this.facing = 'right';
     } else if (!activeControls.right && activeControls.left) {
-      this.momentum = -1;
+      this.momentum = -(SQUARE*0.0625);
       this.facing = 'left';
     }
     this.newAccelerationX =
-      this.accelerationX / (1 + (this.friction / 1000) * 22) +
-      this.momentum * 1;
+      this.accelerationX / ((SQUARE*0.0625) + (this.friction / (SQUARE*62.5)) * SQUARE*1.375) +
+      this.momentum * (SQUARE*0.0625);
     let newAccelerationY =
-      this.accelerationY + (this.level.GRAVITY / 1000) * 22;
+      this.accelerationY + (this.level.GRAVITY / (SQUARE*62.5)) * SQUARE*1.375;
     let newX = this.x + this.newAccelerationX;
     let newY = this.y + newAccelerationY;
 
@@ -211,18 +211,18 @@ class Player {
 
     // }
     if (this.facing === 'right') {
-      yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
-      ctx.fillRect(this.x + 8, this.y + 3 + yOffset, 4, 4); //eyes
+      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE*1.25 : 0;
+      ctx.fillRect(this.x + (SQUARE*0.5), this.y + (SQUARE*0.1875) + yOffset, (SQUARE*0.25), (SQUARE*0.25)); //eyes
       ctx.save();
       ctx.fillStyle = 'white';
-      ctx.fillRect(this.x + 11, this.y + 4 + yOffset, 1, 2);
+      ctx.fillRect(this.x + (SQUARE*0.6875), this.y + (SQUARE*0.25) + yOffset, (SQUARE*0.0625), (SQUARE*0.125));
       ctx.restore();
     } else {
-      yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
-      ctx.fillRect(this.x + 3, this.y + 3 + yOffset, 4, 4);
+      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE*1.25 : 0;
+      ctx.fillRect(this.x + (SQUARE*0.1875), this.y + (SQUARE*0.1875) + yOffset, (SQUARE*0.25), (SQUARE*0.25));
       ctx.save();
       ctx.fillStyle = 'white';
-      ctx.fillRect(this.x + 3, this.y + 4 + yOffset, 1, 2);
+      ctx.fillRect(this.x + (SQUARE*0.1875), this.y + (SQUARE*0.25) + yOffset, (SQUARE*0.0625), (SQUARE*0.125));
       ctx.restore();
     }
     ctx.restore();
@@ -240,11 +240,11 @@ class Player {
     ctx.fillStyle = 'white';
     let yOffset = 0;
     if (this.facing === 'right') {
-      yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
-      ctx.fillRect(this.x + 8, this.y + 3 + yOffset, 4, 4); //eyes
+      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE*1.25 : 0;
+      ctx.fillRect(this.x + (SQUARE*0.5), this.y + (SQUARE*0.1875) + yOffset, (SQUARE*0.25), (SQUARE*0.25)); //eyes
     } else {
-      yOffset = this.y < this.level.game.canvas.height / 2 ? 20 : 0;
-      ctx.fillRect(this.x + 3, this.y + 3 + yOffset, 4, 4);
+      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE*1.25 : 0;
+      ctx.fillRect(this.x + (SQUARE*0.1875), this.y + (SQUARE*0.1875) + yOffset, (SQUARE*0.25), (SQUARE*0.25));
     }
 
     ctx.restore();
