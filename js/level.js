@@ -15,7 +15,7 @@ class Level {
     this.collected = [];
     this.player = player;
     this.score = 0;
-    this.GRAVITY = SQUARE * 0.625;
+    this.GRAVITY = SQUARE * 0.655;
     this.initialGravity = this.GRAVITY;
   }
 

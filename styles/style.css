@@ -11,4 +11,5 @@ canvas {
     //height: 100%;*/
   border: 1px solid black;
   /*   transform: scale(1.5)*/
+  color:hsl(27, 69%, 15%); /* just to use color picking tool */
 }

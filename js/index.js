@@ -1,20 +1,8 @@
-const canvasElement = document.querySelector('canvas');
 
-canvasElement.isFullScreen = true;
 
-let windowWidth = window.innerWidth;
-let windowHeight = window.innerHeight;
 
-console.log(windowHeight / 33);
-let keepProportion = true;
-let proportion = 1920 / 1056;
-canvasElement.width =
-  (windowWidth * 0.8 ) / (canvasElement.isFullScreen ? 1 : 2);
-canvasElement.height =
-  (windowHeight * 0.8) / (canvasElement.isFullScreen ? 1 : 2);
-var SQUARE = (windowHeight * 0.8) / 33;
 const game = new Game(canvasElement);
-window.addEventListener('resize', (e) => {
+/*window.addEventListener('resize', (e) => {
   console.log('resized');
   windowWidth = window.innerWidth;
   windowHeight = window.innerHeight;
@@ -23,7 +11,7 @@ window.addEventListener('resize', (e) => {
 canvasElement.height =
   (windowHeight * 0.8) / (canvasElement.isFullScreen ? 1 : 2);
   SQUARE = (windowHeight * 0.8) / 33;
-});
+});*/
 
 game.start();
 /*

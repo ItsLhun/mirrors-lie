@@ -19,7 +19,7 @@ class Player {
     this.accelerationY = 0;
     //jump timer
     this.jumpPressTime = 0;
-    this.friction = SQUARE * 1.25;
+    this.friction = SQUARE * 1.35;
     this.momentum = 0;
     this.color = presetColor[color] ? presetColor[color] : 350;
     this.facing = 'right';
@@ -34,10 +34,10 @@ class Player {
     this.momentum = 0;
     const activeControls = this._input._keys;
     if (activeControls.right && !activeControls.left) {
-      this.momentum = SQUARE * 0.0625;
+      this.momentum = SQUARE * 0.0620;
       this.facing = 'right';
     } else if (!activeControls.right && activeControls.left) {
-      this.momentum = -(SQUARE * 0.0625);
+      this.momentum = -(SQUARE * 0.0605);
       this.facing = 'left';
     }
     this.newAccelerationX =
