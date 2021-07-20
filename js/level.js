@@ -5,7 +5,8 @@ class Level {
     platformsArr,
     spikesArr,
     collectiblesArr,
-    player
+    player,
+    name
   ) {
     this.game = game;
     this.background = background;
@@ -15,8 +16,10 @@ class Level {
     this.collected = [];
     this.player = player;
     this.score = 0;
+    this.title = new TitleOverlay(this, name);
     this.GRAVITY = SQUARE * 0.655;
     this.initialGravity = this.GRAVITY;
+    this.started = false;
   }
 
   start() {
@@ -47,6 +50,7 @@ class Level {
     /* if (this.player.deadTimeout) {
       this.game.ctx.restore();
     }*/
+    this.title.paint();
   }
   runLogic() {
     this.checkCollectibles();

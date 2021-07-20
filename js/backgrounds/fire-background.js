@@ -25,7 +25,7 @@ class FireBackground extends Background {
   }
 
   start() {
-    this.generatePoints(this.game.canvas.width / 7);
+    this.generatePoints(this.game.canvas.width / 10);
     this.started = true;
   }
   paint() {
@@ -106,7 +106,7 @@ class FireBackground extends Background {
       fireFlake.x = this.game.canvas.width + this.maxDistance;
     }
     if (fireFlake.y > this.game.canvas.height + this.maxDistance) {
-      fireFlake.y = /*-(this.maxDistance) + */ game.canvas.height / 2;
+      fireFlake.y = game.canvas.height / 2;
     } else if (fireFlake.y < -this.maxDistance) {
       fireFlake.y = this.game.canvas.height / 2 + this.maxDistance;
     }

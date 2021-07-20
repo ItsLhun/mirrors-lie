@@ -38,7 +38,7 @@ tutorialOneLayout = [
 ];
 
 class TutorialOne extends Level {
-  constructor(game) {
+  constructor(game, name) {
     let mapElements = new LevelsComposite(
       game,
       tutorialOneLayout,
@@ -52,7 +52,8 @@ class TutorialOne extends Level {
       mapElements.platforms,
       mapElements.spikes,
       mapElements.collectibles,
-      player
+      player,
+      name
     );
     player.level = this;
   }
