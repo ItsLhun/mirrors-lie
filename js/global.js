@@ -16,13 +16,7 @@ var SQUARE = (windowHeight * 0.95) / 33;
 console.log("SQUARE: ", SQUARE)
 
 function isEpsilon(number){ 
-    if(Math.abs(number) < 1e-2){
-      return true; 
-    } else
-    {
-      return false
-    } 
-      false; 
+    return (Math.abs(number) < 1e-2);
   } 
 
 let baseMapLevel = [

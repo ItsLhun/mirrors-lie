@@ -1,14 +1,11 @@
 * {
-    margin: 0;
-    padding: 0;
-    
-  }
-  @font-face {
-    font-family: 'STIX Two Math', serif;
-    src: url('https://fonts.googleapis.com/css2?family=STIX+Two+Math&display=swap');
+  margin: 0;
+  padding: 0;
 }
-html, body{
-    box-sizing: content-box;
-    margin: inherit;
-    padding: inherit;
+
+html,
+body {
+  box-sizing: content-box;
+  margin: inherit;
+  padding: inherit;
 }

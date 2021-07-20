@@ -6,7 +6,8 @@ class Level {
     spikesArr,
     collectiblesArr,
     player,
-    name
+    title,
+    subtitle
   ) {
     this.game = game;
     this.background = background;
@@ -16,7 +17,9 @@ class Level {
     this.collected = [];
     this.player = player;
     this.score = 0;
-    this.title = new TitleOverlay(this, name);
+    this.title = new TitleOverlay(this, title);
+    this.subtitle = new SubtitleOverlay(this, subtitle);
+
     this.GRAVITY = SQUARE * 0.655;
     this.initialGravity = this.GRAVITY;
     this.started = false;
@@ -51,6 +54,8 @@ class Level {
       this.game.ctx.restore();
     }*/
     this.title.paint();
+    this.subtitle.paint();
+
   }
   runLogic() {
     this.checkCollectibles();
