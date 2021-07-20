@@ -5,6 +5,7 @@ class Level {
     platformsArr,
     spikesArr,
     collectiblesArr,
+    helpersArr,
     player,
     title,
     subtitle
@@ -14,6 +15,8 @@ class Level {
     this.platformsArr = platformsArr;
     this.spikesArr = spikesArr;
     this.collectiblesArr = collectiblesArr;
+    this.helpersArr = helpersArr;
+
     this.collected = [];
     this.player = player;
     this.score = 0;
@@ -49,6 +52,9 @@ class Level {
     }
     for (let collectible of this.collectiblesArr) {
       collectible.paint(this.player);
+    }
+    for (let helperText of this.helpersArr) {
+      helperText.paint(this.player);
     }
     /* if (this.player.deadTimeout) {
       this.game.ctx.restore();

@@ -14,7 +14,7 @@ class Game {
     this.running = true;
     this.globalScore = 0;
   //  let levelTest = new LevelTest(this);
-   const tutorialOne = new TutorialOne(this,"THE IMPOSSIBLE", "FLY, FAR AWAY");
+   const tutorialOne = new TutorialOne(this,"WELCOME", "A JOURNEY BEGINS");
   //  const levelOne = new LevelOne(this);
     this.activeLevel = tutorialOne;
     this.scoreCounter = new ScoreCounter(this, 15, 15);

@@ -2,7 +2,7 @@ class TitleOverlay {
   constructor(level, name) {
     this.level = level;
     this.name = name;
-    this.duration = 4150;
+    this.duration = 3900;
     this.fadeInAlpha = 0;
     this.ongoing = false;
   }

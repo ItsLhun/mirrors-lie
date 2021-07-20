@@ -27,14 +27,14 @@ class Player {
     this.pastStart = false;
     this.deadTimeout = false;
     this.newAccelerationX;
-    this.mirrorEnabled = true;
+    this.mirrorEnabled;
   }
 
   runLogic() {
     this.momentum = 0;
     const activeControls = this._input._keys;
     if (activeControls.right && !activeControls.left) {
-      this.momentum = SQUARE * 0.0620;
+      this.momentum = SQUARE * 0.062;
       this.facing = 'right';
     } else if (!activeControls.right && activeControls.left) {
       this.momentum = -(SQUARE * 0.0605);
@@ -80,7 +80,7 @@ class Player {
           this.groundedTimer--;
           if (this.groundedTimer <= 0) {
             this.grounded = false;
-           
+
             clearInterval(intervalID);
           }
         }, 1);
@@ -179,7 +179,7 @@ class Player {
     this.paintPlayer();
     this.mirrorEnabled ? this.paintMirror() : null;
   }
-  paintPlayer(){
+  paintPlayer() {
     const ctx = this.level.game.ctx;
     ctx.save();
     ctx.beginPath();
@@ -207,7 +207,11 @@ class Player {
 
     // }
     if (this.facing === 'right') {
-      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE * 1.25 : 0;
+      yOffset = !this.mirrorEnabled
+        ? 0
+        : this.y < this.level.game.canvas.height / 2
+        ? SQUARE * 1.25
+        : 0;
       ctx.fillRect(
         this.x + SQUARE * 0.5,
         this.y + SQUARE * 0.1875 + yOffset,
@@ -224,7 +228,11 @@ class Player {
       );
       ctx.restore();
     } else {
-      yOffset = this.y < this.level.game.canvas.height / 2 ? SQUARE * 1.25 : 0;
+      yOffset = !this.mirrorEnabled
+        ? 0
+        : this.y < this.level.game.canvas.height / 2
+        ? SQUARE * 1.25
+        : 0;
       ctx.fillRect(
         this.x + SQUARE * 0.1875,
         this.y + SQUARE * 0.1875 + yOffset,

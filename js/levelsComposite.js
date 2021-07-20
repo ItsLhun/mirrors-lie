@@ -1,11 +1,13 @@
 class LevelsComposite {
-  constructor(game, gameMap, tilesColor) {
+  constructor(game, gameMap, tilesColor, helperTextsArray) {
     this.game = game;
     this.gameMap = gameMap;
     this.tilesColor = tilesColor;
     this.spikes = [];
     this.platforms = [];
     this.collectibles = [];
+    this.helpers = [];
+    this.helperTextsArray = [...helperTextsArray]
     this.parseMap();
   }
 
@@ -29,8 +31,8 @@ class LevelsComposite {
             this.platforms.push(
               new Platform(
                 this.game,
-                Math.round((SQUARE * (column - 1))*10/10),
-                Math.round((SQUARE * (row - 1))*10)/10,
+                Math.round((SQUARE * (column - 1) * 10) / 10),
+                Math.round(SQUARE * (row - 1) * 10) / 10,
                 this.tilesColor
               )
             );
@@ -53,8 +55,25 @@ class LevelsComposite {
               )
             );
             break;
-            case "C":
-              this.collectibles.push(new Collectible(this.game, SQUARE * (column - 1), SQUARE * (row - 1)))
+          case 'C':
+            this.collectibles.push(
+              new Collectible(
+                this.game,
+                SQUARE * (column - 1),
+                SQUARE * (row - 1)
+              )
+            );
+            break;
+            case 'H':
+              this.helpers.push(
+                new HelperText(
+                  this.game,
+                  SQUARE * (column - 1),
+                  SQUARE * (row - 1),
+                  this.helperTextsArray[this.helpers.length]
+                )
+              );
+              break;
         }
       }
     }
