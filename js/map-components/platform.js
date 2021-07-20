@@ -10,13 +10,14 @@ const processStyle = (style) => {
 };
 
 class Platform {
-  constructor(game, x, y, style) {
+  constructor(game, x, y, style, strokeStyle = 'transparent') {
     this.game = game;
     this.x = x;
     this.y = y;
     this.width = SQUARE;
     this.height = SQUARE;
     this.style = style;
+    this.strokeStyle = strokeStyle;
     this.initialPosition = { x: x, y: y };
     this.pastStart = false;
   }
@@ -55,6 +56,10 @@ class Platform {
     context.save();
     context.fillStyle = this.style;
     context.fillRect(this.x-1, this.y-1, this.width+2, this.height+2);
+    context.lineWidth = 4;
+    context.strokeStyle = this.strokeStyle;
+    context.strokeRect(this.x-1, this.y-1, this.width+2, this.height+2);
+    
     context.restore();
   }
   reset() {

@@ -4,11 +4,11 @@ class Star {
       Math.random() * (game.canvas.width + maxDistance) - maxDistance / 2;
     this.y =
       Math.random() * (game.canvas.height + maxDistance) - maxDistance / 2;
-    this.z = Math.random() * 0.4 + 0.5;
+    this.z = Math.random() * SQUARE/150 + SQUARE/100;
     this.fillColor = `rgba(255,255,${255 * Math.random() + 240},${
       0.4 * Math.random() + 0.5
     })`;
-    this.diameter = (Math.random() * 2.5 + 2) * this.z;
+    this.diameter = (Math.random() * SQUARE/40 + SQUARE/15) * this.z;
   }
 }
 
@@ -50,10 +50,31 @@ class StarBackground extends Background {
     }
   }
   drawPoint(star) {
+    let player = this.game.activeLevel.player;
+    let playerDistance = 0;
     let ctx = this.game.ctx;
     ctx.beginPath();
     ctx.strokeStyle = 'transparent';
     ctx.fillStyle = star.fillColor;
+
+    playerDistance =
+      this.game.rightBreakpoint - player.x - player.accelerationX;
+    if (player.x >= this.game.rightBreakpoint) {
+      star.x += playerDistance * 0.5;
+    } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
+      star.x -= player.accelerationX * 0.5;
+    }
+
+    if (star.x > this.game.canvas.width + this.maxDistance) {
+      star.x = -this.maxDistance;
+    } else if (star.x < -this.maxDistance) {
+      star.x = this.game.canvas.width + this.maxDistance;
+    }
+  /*  if (star.y > this.game.canvas.height + this.maxDistance) {
+      star.y = game.canvas.height / 2;
+    } else if (star.y < -this.maxDistance) {
+      star.y = this.game.canvas.height / 2 + this.maxDistance;
+    }*/
     ctx.arc(star.x, star.y, star.diameter, 0, 2 * Math.PI);
     ctx.closePath();
     ctx.stroke();
@@ -62,7 +83,7 @@ class StarBackground extends Background {
   updatePoint(star) {
     let updateChange = Math.floor(Math.random() * 1000);
     if (updateChange === 3) {
-      star.diameter = (Math.random() * 2.5 + 2) * star.z;
+      star.diameter = (Math.random() * 2.5 + 3) * star.z;
     }
   }
 }
