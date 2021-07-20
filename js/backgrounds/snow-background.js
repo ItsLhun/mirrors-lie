@@ -66,7 +66,7 @@ class SnowBackground extends Background {
     snow.y += snow.vy;
     if (snow.x > this.game.canvas.width + this.maxDistance / 2) {
       snow.x = -(this.maxDistance / 2);
-    } else if (snow.xpos < -(this.maxDistance / 2)) {
+    } else if (snow.x < -(this.maxDistance / 2)) {
       snow.x = this.game.canvas.width + this.maxDistance / 2;
     }
     if (snow.y > this.game.canvas.height + this.maxDistance / 2) {

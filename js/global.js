@@ -6,7 +6,6 @@ canvasElement.isFullScreen = true;
 let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight;
 
-console.log(windowHeight / 33);
 let keepProportion = true;
 let proportion = 1920 / 1056;
 canvasElement.width =
@@ -14,6 +13,7 @@ canvasElement.width =
 canvasElement.height =
   (windowHeight * 0.95) / (canvasElement.isFullScreen ? 1 : 2);
 var SQUARE = (windowHeight * 0.95) / 33;
+console.log("SQUARE: ", SQUARE)
 
 function isEpsilon(number){ 
     if(Math.abs(number) < 1e-2) 
