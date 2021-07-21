@@ -6,6 +6,7 @@ class Level {
     spikesArr,
     collectiblesArr,
     helpersArr,
+    othersArr,
     player,
     title,
     subtitle
@@ -16,6 +17,7 @@ class Level {
     this.spikesArr = spikesArr;
     this.collectiblesArr = collectiblesArr;
     this.helpersArr = helpersArr;
+    this.othersArr = othersArr;
 
     this.collected = [];
     this.player = player;
@@ -47,12 +49,10 @@ class Level {
         this.shakingCounter++;
       }
     }
-
     this.background.paint();
     this.player.paint();
-    let elementsArr = [...this.platformsArr, ...this.spikesArr, ...this.collectiblesArr, ...this.helpersArr];
+    let elementsArr = [...this.platformsArr, ...this.spikesArr, ...this.collectiblesArr, ...this.helpersArr, ...this.othersArr];
     for (let i = 0; i < elementsArr.length; i++ ){
-      
       if (elementsArr[i].x < this.game.canvas.width && elementsArr[i].x > 0-SQUARE){
           elementsArr[i].paint(this.player);
       }
@@ -63,13 +63,9 @@ class Level {
   }
 
   runLogic() {
-    let elementsArr = [...this.platformsArr, ...this.spikesArr, ...this.collectiblesArr, ...this.helpersArr];
+    let elementsArr = [...this.platformsArr, ...this.spikesArr, ...this.collectiblesArr, ...this.helpersArr, ...this.othersArr];
     for (let i = 0; i < elementsArr.length; i++ ){
-      
-      //if (elementsArr[i].x < this.game.canvas.width+SQUARE && elementsArr[i].x > 0){
-
           elementsArr[i].runMovementLogic(this.player);
-     // }
     }
     this.checkCollectibles();
   }
@@ -90,7 +86,9 @@ class Level {
       ...this.platformsArr,
       ...this.spikesArr,
       ...this.collectiblesArr,
-      ...this.helpersArr
+      ...this.helpersArr,
+      ...this.othersArr
+
     ]) {
       platformTile.reset();
     }

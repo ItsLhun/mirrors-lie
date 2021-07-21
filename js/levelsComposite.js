@@ -7,7 +7,8 @@ class LevelsComposite {
     this.platforms = [];
     this.collectibles = [];
     this.helpers = [];
-    this.helperTextsArray = [...helperTextsArray]
+    this.others = [];
+    this.helperTextsArray = [...helperTextsArray];
     this.parseMap();
   }
 
@@ -64,16 +65,25 @@ class LevelsComposite {
               )
             );
             break;
-            case 'H':
-              this.helpers.push(
-                new HelperText(
-                  this.game,
-                  SQUARE * (column - 1),
-                  SQUARE * (row - 1),
-                  this.helperTextsArray[this.helpers.length]
-                )
-              );
-              break;
+          case 'H':
+            this.helpers.push(
+              new HelperText(
+                this.game,
+                SQUARE * (column - 1),
+                SQUARE * (row - 1),
+                this.helperTextsArray[this.helpers.length]
+              )
+            );
+            break;
+          case 'P':
+            this.others.push(
+              new EndPortal(
+                this.game,
+                SQUARE * (column - 1),
+                SQUARE * (row - 1)
+              )
+            );
+            break;
         }
       }
     }

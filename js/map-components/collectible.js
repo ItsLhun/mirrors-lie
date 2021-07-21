@@ -8,8 +8,6 @@ class Collectible extends Platform {
   ) {
     super(game, positionX, positionY, 'black');
     this.game = game;
-    this.x = positionX;
-    this.y = positionY;
     this.width = width;
     this.height = height;
     this.picked = false;
