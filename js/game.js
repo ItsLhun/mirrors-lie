@@ -51,8 +51,6 @@ class Game {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  paintBackground() {}
-
   paint() {
     this.clearScreen();
   //  if (this.running) {

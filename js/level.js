@@ -26,6 +26,8 @@ class Level {
     this.GRAVITY = SQUARE * 0.655;
     this.initialGravity = this.GRAVITY;
     this.started = false;
+    this.shaking = false;
+    this.shakingCounter = 0;
   }
 
   start() {
@@ -38,10 +40,18 @@ class Level {
   }
 
   paint() {
-    // if (this.player.deadTimeout) {
-    //   console.log('dead');
-    //   this.preShakeprep(Date.now());
-    // }
+    if (this.player.deadTimeout) {
+      console.log('dead');
+      let chance = Math.random()*5;
+      if (chance > 4){
+        this.preShakeprep();
+        this.shakingCounter++;
+      }
+     // if (!this.shaking){
+    //    this.shaking = true;
+    //  }
+    }
+
     this.background.paint();
     this.player.paint();
     for (let platform of this.platformsArr) {
@@ -56,12 +66,13 @@ class Level {
     for (let helperText of this.helpersArr) {
       helperText.paint(this.player);
     }
-    /* if (this.player.deadTimeout) {
-      this.game.ctx.restore();
-    }*/
     this.title.paint();
     this.subtitle.paint();
 
+    this.game.ctx.restore();
+ /*   if (this.shakingCounter === 5){
+      this.shaking = false;
+    }*/
   }
   runLogic() {
     this.checkCollectibles();
@@ -82,7 +93,8 @@ class Level {
     for (const platformTile of [
       ...this.platformsArr,
       ...this.spikesArr,
-      ...this.collectiblesArr
+      ...this.collectiblesArr,
+      ...this.helpersArr
     ]) {
       platformTile.reset();
     }
@@ -94,19 +106,13 @@ class Level {
   resetGravity() {
     this.GRAVITY = this.initialGravity;
   }
-  // preShakeprep(shakeStartTime) {
-  // let shakeDuration = 1500;
-  // if (shakeStartTime == -1) return;
-  // var dt = Date.now() - shakeStartTime;
-  // if (dt > shakeDuration) {
-  // shakeStartTime = -1;
-  // return;
-  // }
-  // var easingCoef = dt / shakeDuration;
-  // var easing = Math.pow(easingCoef - 1, 3) + 1;
-  // this.game.ctx.save();
-  // let dx = easing * (Math.cos(dt * 0.1) + Math.cos(dt * 0.3115)) * 15;
-  // let dy = easing * (Math.sin(dt * 0.05) + Math.sin(dt * 0.057113)) * 15;
-  // this.game.ctx.translate(dx, dy);
-  // }
+  preShakeprep() {
+    console.log("in prep")
+    
+    let shakeOffsetX = (Math.random()*SQUARE*0.4)-SQUARE*0.1;
+    let shakeOffsetY = (Math.random()*SQUARE*0.4)-SQUARE*0.1;
+    
+    this.game.ctx.save();
+    this.game.ctx.translate(shakeOffsetX,shakeOffsetY);
+  }
 }

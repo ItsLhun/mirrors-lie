@@ -52,16 +52,35 @@ class Platform {
     } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
       this.x -= player.accelerationX;
     }
-    const context = this.game.ctx;
+    const ctx = this.game.ctx;
+    ctx.save();
+    ctx.fillStyle = this.style;
+    ctx.fillRect(this.x-1, this.y-1, this.width+2, this.height+2);
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = this.strokeStyle;
+    ctx.strokeRect(this.x-1, this.y-1, this.width+2, this.height+2);
+    
+    ctx.restore();
+  }
+  strokeTop(){
+    const ctx = this.game.ctx;
     context.save();
-    context.fillStyle = this.style;
-    context.fillRect(this.x-1, this.y-1, this.width+2, this.height+2);
     context.lineWidth = 4;
     context.strokeStyle = this.strokeStyle;
     context.strokeRect(this.x-1, this.y-1, this.width+2, this.height+2);
-    
     context.restore();
   }
+  strokeRight(){
+
+  }
+  strokeBottom(){
+
+  }
+  strokeLeft(){
+
+  }
+
+
   reset() {
     this.x = this.initialPosition.x;
     this.y = this.initialPosition.y;

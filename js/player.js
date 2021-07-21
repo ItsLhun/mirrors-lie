@@ -162,6 +162,10 @@ class Player {
     this.facing = 'right';
     setTimeout(() => {
       this.deadTimeout = false;
+      this.level.reset();
+      this.x = this.initialValues.x;
+      this.y = this.initialValues.y;
+      this.width = SQUARE - SQUARE * 0.0625;
     }, 600);
     this._input.disableController();
     this.accelerationX = 0;
@@ -170,42 +174,39 @@ class Player {
       spike.increasePhase();
     }
     this.level.increaseScore();
-    this.level.reset();
-    this.x = this.initialValues.x;
-    this.y = this.initialValues.y;
   }
 
   paint() {
     this.paintPlayer();
     this.mirrorEnabled ? this.paintMirror() : null;
   }
+
   paintPlayer() {
+    let eyeBlackWidth = SQUARE * 0.25;
+    let eyeWhiteWidth = SQUARE * 0.0625;
+    if (this.deadTimeout && this.width >= 0) {
+      this.width -= SQUARE * 0.05;
+      eyeBlackWidth /= 2
+      eyeWhiteWidth /= 2
+      if (this.width < SQUARE * 0.05) {
+        this.width = 0;
+        eyeBlackWidth = 0;
+        eyeWhiteWidth = 0;
+      }
+    }
+    
     const ctx = this.level.game.ctx;
     ctx.save();
     ctx.beginPath();
-    //  if (this.accelerationX > 0) {
-    //   //ctx.translate(this.x - this.width / 2, this.y - this.height/2)
-    //   ctx.translate(this.x, this.y);
-    //   ctx.transform(1, 0, 10/100, 1, 0, 0);
-    // } else if (this.accelerationX < 0){
-    //   ctx.transform(1, 0, -10/100, 1, 0, 0);
-    // }
     ctx.fillStyle = `hsl(${this.color},68%,32%)`;
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.restore();
-
     ctx.save();
     ctx.beginPath();
     ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'burgundy';
     let yOffset = 0;
-    // if (this.accelerationX > 0) {
 
-    //   ctx.transform(1, 0, 0.18, 1, -this.width*6.4, 0);
-    // } else if (this.accelerationX < 0){
-    //   ctx.transform(1, 0, -0.18, 1, this.width*6.4, 0);
-
-    // }
     if (this.facing === 'right') {
       yOffset = !this.mirrorEnabled
         ? 0
@@ -215,7 +216,7 @@ class Player {
       ctx.fillRect(
         this.x + SQUARE * 0.5,
         this.y + SQUARE * 0.1875 + yOffset,
-        SQUARE * 0.25,
+        eyeBlackWidth,
         SQUARE * 0.25
       ); //eyes
       ctx.save();
@@ -223,7 +224,7 @@ class Player {
       ctx.fillRect(
         this.x + SQUARE * 0.6875,
         this.y + SQUARE * 0.25 + yOffset,
-        SQUARE * 0.0625,
+        eyeWhiteWidth,
         SQUARE * 0.125
       );
       ctx.restore();
@@ -236,7 +237,7 @@ class Player {
       ctx.fillRect(
         this.x + SQUARE * 0.1875,
         this.y + SQUARE * 0.1875 + yOffset,
-        SQUARE * 0.25,
+        eyeBlackWidth,
         SQUARE * 0.25
       );
       ctx.save();
@@ -244,7 +245,7 @@ class Player {
       ctx.fillRect(
         this.x + SQUARE * 0.1875,
         this.y + SQUARE * 0.25 + yOffset,
-        SQUARE * 0.0625,
+        eyeWhiteWidth,
         SQUARE * 0.125
       );
       ctx.restore();

@@ -4,6 +4,7 @@ class HelperText {
     this.x = x;
     this.y = y;
     this.text = text;
+    this.initialPosition = { x: x, y: y };
   }
 
   runLogic(player) {
@@ -22,7 +23,6 @@ class HelperText {
     const ctx = this.game.ctx;
     if (this.game.activeLevel.started) {
       ctx.save();
-
       ctx.shadowColor = 'blue';
       ctx.shadowBlur = SQUARE * 1;
       ctx.fillStyle = 'white';
@@ -35,4 +35,8 @@ class HelperText {
     }
   }
   paintFrame() {}
+  reset() {
+    this.x = this.initialPosition.x;
+    this.y = this.initialPosition.y;
+  }
 }

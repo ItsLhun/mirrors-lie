@@ -39,7 +39,7 @@ class LevelsComposite {
             break;
           case 4: // wall
             this.platforms.push(
-              new LeftWall(this.game, SQUARE * (column - 1), SQUARE * (row - 1))
+              new WallTile(this.game, SQUARE * (column - 1), SQUARE * (row - 1))
             );
             break;
           case 5:
