@@ -41,40 +41,36 @@ class Level {
 
   paint() {
     if (this.player.deadTimeout) {
-      console.log('dead');
       let chance = Math.random()*5;
       if (chance > 4){
         this.preShakeprep();
         this.shakingCounter++;
       }
-     // if (!this.shaking){
-    //    this.shaking = true;
-    //  }
     }
 
     this.background.paint();
     this.player.paint();
-    for (let platform of this.platformsArr) {
-      platform.paint(this.player);
-    }
-    for (let spike of this.spikesArr) {
-      spike.paint(this.player);
-    }
-    for (let collectible of this.collectiblesArr) {
-      collectible.paint(this.player);
-    }
-    for (let helperText of this.helpersArr) {
-      helperText.paint(this.player);
+    let elementsArr = [...this.platformsArr, ...this.spikesArr, ...this.collectiblesArr, ...this.helpersArr];
+    for (let i = 0; i < elementsArr.length; i++ ){
+      
+      if (elementsArr[i].x < this.game.canvas.width && elementsArr[i].x > 0-SQUARE){
+          elementsArr[i].paint(this.player);
+      }
     }
     this.title.paint();
     this.subtitle.paint();
-
     this.game.ctx.restore();
- /*   if (this.shakingCounter === 5){
-      this.shaking = false;
-    }*/
   }
+
   runLogic() {
+    let elementsArr = [...this.platformsArr, ...this.spikesArr, ...this.collectiblesArr, ...this.helpersArr];
+    for (let i = 0; i < elementsArr.length; i++ ){
+      
+      //if (elementsArr[i].x < this.game.canvas.width+SQUARE && elementsArr[i].x > 0){
+
+          elementsArr[i].runMovementLogic(this.player);
+     // }
+    }
     this.checkCollectibles();
   }
   checkCollectibles() {
@@ -107,8 +103,6 @@ class Level {
     this.GRAVITY = this.initialGravity;
   }
   preShakeprep() {
-    console.log("in prep")
-    
     let shakeOffsetX = (Math.random()*SQUARE*0.4)-SQUARE*0.1;
     let shakeOffsetY = (Math.random()*SQUARE*0.4)-SQUARE*0.1;
     

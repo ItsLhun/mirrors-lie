@@ -42,8 +42,7 @@ class Platform {
     const intersection = checkCollision(playerOutline, platformOutline);
     return intersection;
   }
-
-  paint(player) {
+  runMovementLogic(player){
     let playerDistance = 0;
     playerDistance =
       this.game.rightBreakpoint - player.x - player.accelerationX;
@@ -52,6 +51,8 @@ class Platform {
     } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
       this.x -= player.accelerationX;
     }
+  }
+  paint() {
     const ctx = this.game.ctx;
     ctx.save();
     ctx.fillStyle = this.style;
@@ -59,16 +60,19 @@ class Platform {
     ctx.lineWidth = 4;
     ctx.strokeStyle = this.strokeStyle;
     ctx.strokeRect(this.x-1, this.y-1, this.width+2, this.height+2);
+    //this.strokeTop();
     
     ctx.restore();
   }
   strokeTop(){
     const ctx = this.game.ctx;
-    context.save();
-    context.lineWidth = 4;
-    context.strokeStyle = this.strokeStyle;
-    context.strokeRect(this.x-1, this.y-1, this.width+2, this.height+2);
-    context.restore();
+    ctx.save();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = this.strokeStyle;
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.x + this.width, this.y);
+    ctx.stroke();
+    ctx.restore();
   }
   strokeRight(){
 

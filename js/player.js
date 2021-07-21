@@ -12,7 +12,7 @@ class Player {
     this.x = x;
     this.y = y;
     //size
-    this.width = SQUARE - SQUARE * 0.0625;
+    this.width = SQUARE * 0.9375;
     this.height = SQUARE * 2;
     //acceleration
     this.accelerationX = 0;

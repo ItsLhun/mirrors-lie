@@ -1,13 +1,11 @@
-class HelperText {
+class HelperText extends Platform{
   constructor(game, x, y, text) {
-    this.game = game;
-    this.x = x;
-    this.y = y;
+    super(game, x, y, "transparent", 'transparent')
     this.text = text;
     this.initialPosition = { x: x, y: y };
   }
 
-  runLogic(player) {
+  runMovementLogic(player) {
     let playerDistance = 0;
     playerDistance =
       this.game.rightBreakpoint - player.x - player.accelerationX;
@@ -18,8 +16,7 @@ class HelperText {
     }
   }
 
-  paint(player) {
-    this.runLogic(player);
+  paint() {
     const ctx = this.game.ctx;
     if (this.game.activeLevel.started) {
       ctx.save();

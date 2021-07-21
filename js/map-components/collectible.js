@@ -18,15 +18,8 @@ class Collectible extends Platform {
 
   paint(player) {
     if (!this.picked) {
+     // console.log("shiny", this.x, this.y)
       const ctx = this.game.ctx;
-      let playerDistance = 0;
-      playerDistance =
-        this.game.rightBreakpoint - player.x - player.accelerationX;
-      if (player.x >= this.game.rightBreakpoint) {
-        this.x += playerDistance;
-      } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
-        this.x -= player.accelerationX;
-      }
       ctx.save();
       ctx.fillStyle = 'gold';
       ctx.fillRect(this.x, this.y, this.width, this.height);

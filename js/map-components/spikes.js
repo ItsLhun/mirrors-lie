@@ -24,16 +24,8 @@ class Spike extends Platform {
 
   paint(player) {
     this.playerBaseColor = this.game.activeLevel.player.color;
-    let playerDistance = 0;
-    if (player.x >= this.game.rightBreakpoint) {
-      playerDistance =
-        this.game.rightBreakpoint - player.x - player.accelerationX;
-    } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
-      this.x -= player.accelerationX;
-    }
     const ctx = this.game.ctx;
     ctx.save();
-    this.x += playerDistance;
 
     switch (this.direction) {
       case 'upright': //'upright':

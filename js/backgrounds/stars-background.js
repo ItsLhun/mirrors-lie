@@ -4,11 +4,15 @@ class Star {
       Math.random() * (game.canvas.width + maxDistance) - maxDistance / 2;
     this.y =
       Math.random() * (game.canvas.height + maxDistance) - maxDistance / 2;
-    this.z = Math.random() * SQUARE/150 + SQUARE/100;
+    this.z =
+      (Math.random() * (SQUARE * 0.9375)) / 150 + (SQUARE * 0.9375) / 120;
     this.fillColor = `rgba(255,230,${255 * Math.random() + 90},${
       0.6 * Math.random() + 0.4
     })`;
-    this.diameter = (Math.random() * SQUARE/40 + SQUARE/15) * this.z;
+    this.diameter =
+      (Math.random() * (SQUARE * 0.9375)) / 40 +
+      (SQUARE * 0.9375) / 15 +
+      this.z;
   }
 }
 
@@ -21,7 +25,7 @@ class StarBackground extends Background {
   }
 
   start() {
-    this.generatePoints(this.game.canvas.width / 9);
+    this.generatePoints(this.game.canvas.width / 5);
     this.started = true;
   }
   paint() {
@@ -70,7 +74,7 @@ class StarBackground extends Background {
     } else if (star.x < -this.maxDistance) {
       star.x = this.game.canvas.width + this.maxDistance;
     }
-  /*  if (star.y > this.game.canvas.height + this.maxDistance) {
+    /*  if (star.y > this.game.canvas.height + this.maxDistance) {
       star.y = game.canvas.height / 2;
     } else if (star.y < -this.maxDistance) {
       star.y = this.game.canvas.height / 2 + this.maxDistance;
