@@ -2,9 +2,13 @@ class Square {
   constructor(game, basePositionX, basePositionY, maxDistance, basePortal) {
     this.game = game;
     this.basePortal = basePortal;
-    this.x = (Math.random() * basePositionX) / 8 + basePositionX - SQUARE;
+    this.initialValues = {
+      x: (Math.random() * basePositionX) / 8 + basePositionX - SQUARE,
+      y: (Math.random() * basePositionY) / 8 + basePositionY - SQUARE * 2
+    };
+    this.x = this.initialValues.x;
 
-    this.y = (Math.random() * basePositionY) / 8 + basePositionY - SQUARE * 2;
+    this.y = this.initialValues.y;
 
     this.fillColor = `rgba(0,0,0,${0.95 * Math.random() + 0.35})`;
   }
@@ -28,8 +32,10 @@ class Square {
     ctx.strokeStyle = 'white';
     ctx.strokeRect(this.x, this.y, SQUARE, SQUARE);
     ctx.restore();
-
-    ctx.save();
+  }
+  reset() {
+    this.x = this.initialValues.x;
+    this.y = this.initialValues.y;
   }
 }
 
@@ -117,6 +123,12 @@ class EndPortal extends Platform {
     for (let i = 0; i < this.squares.length; i++) {
       this.squares[i].runSquareLogic(this.x, this.y);
     }
-  
+  }
+  reset() {
+    this.x = this.initialPosition.x;
+    this.y = this.initialPosition.y;
+    for (let i = 0; i < this.squares.length; i++) {
+      this.squares[i].reset();
+    }
   }
 }

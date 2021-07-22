@@ -85,7 +85,7 @@ class Level {
   checkEnd(){
     for (const endPortal of this.othersArr) {
       if (endPortal.checkFinished(this.player)) {
-        //this.collected.push(
+
         }
       }
   }
