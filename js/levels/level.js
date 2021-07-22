@@ -68,6 +68,7 @@ class Level {
           elementsArr[i].runMovementLogic(this.player);
     }
     this.checkCollectibles();
+    this.checkEnd();
   }
   checkCollectibles() {
     for (const collectible of this.collectiblesArr) {
@@ -80,6 +81,13 @@ class Level {
         );
       }
     }
+  }
+  checkEnd(){
+    for (const endPortal of this.othersArr) {
+      if (endPortal.checkFinished(this.player)) {
+        //this.collected.push(
+        }
+      }
   }
   reset() {
     for (const platformTile of [
