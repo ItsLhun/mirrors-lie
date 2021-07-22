@@ -189,9 +189,6 @@ class Player {
   }
 
   paintPlayer() {
-    if (this.activeHat){
-      this.activeHat.processPicked(this);
-    }
     let eyeBlackWidth = SQUARE * 0.25;
     let eyeWhiteWidth = SQUARE * 0.0625;
     if (this.deadTimeout && this.width >= 0) {
@@ -262,7 +259,7 @@ class Player {
     }
     ctx.restore();
     if (this.activeHat){
-      this.activeHat.paintOnPlayer(this);
+      this.activeHat.processPicked(this);
     }
   }
   paintMirror() {

@@ -8,7 +8,7 @@ class Game {
     this.activeLevel;
     this.globalScore = 0;
     this.squareSize = SQUARE;
-    this.currentLevelIndex = 1;
+    this.currentLevelIndex = 0;
     this.levels = [];
   }
 
@@ -73,6 +73,7 @@ class Game {
   paint() {
     this.clearScreen();
     //  if (this.running) {
+  //    console.log(this.activeLevel)
     this.activeLevel.paint();
     //}
     this.scoreCounter.paint();

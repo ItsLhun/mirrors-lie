@@ -53,6 +53,9 @@ class Collectible extends Platform {
       return true;
     }
   }
+  processPicked(player){
+ 
+}
   playSound() {}
   dissapear(){
     const ctx = this.game.ctx;

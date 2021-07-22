@@ -27,7 +27,7 @@ class HelperText extends Platform{
       ctx.shadowOffsetY = SQUARE * 0.02;
       }
       ctx.fillStyle = 'white';
-      ctx.font = `${SQUARE * 1.2}px STIX Two Math`; //
+      ctx.font = `${SQUARE * 1.2}px Ubuntu Mono`;//STIX Two Math
       ctx.textAlign = 'center';
       ctx.fillText(`${this.text}`, this.x, this.y);
       ctx.restore();

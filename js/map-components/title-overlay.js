@@ -47,7 +47,7 @@ class TitleOverlay {
     
       }
       ctx.fillStyle = 'white';
-      ctx.font = `${SQUARE * 2.5}px STIX Two Math`;
+      ctx.font = `${SQUARE * 2.5}px Ubuntu Mono`;//STIX Two Math
       ctx.textAlign = 'center';
       ctx.fillText(
         `${this.name}`,

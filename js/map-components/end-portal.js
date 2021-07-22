@@ -81,16 +81,28 @@ class EndPortal extends Platform {
       height: player.height
     });
     if (horizontalIntersection) {
+      if (!this.touched){
+        this.processEndOfLevel();
+
+      }
       this.touched = true;
-      console.log('Touched the Portal');
       return true;
     }
     if (verticalIntersection) {
-      console.log('Touched the Portal!');
+     // this.processEndOfLevel();
       this.touched = true;
       return true;
     }
   }
+  processEndOfLevel(){
+      this.playSound();
+      setTimeout((e)=> {
+        this.game.currentLevelIndex++;
+      },2500)
+      //duration of timeout to be set at victory sound duration
+    
+  }
+
   playSound() {}
   paint() {
     if (!this.started) {

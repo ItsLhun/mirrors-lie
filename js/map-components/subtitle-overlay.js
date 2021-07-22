@@ -26,7 +26,7 @@ class SubtitleOverlay extends TitleOverlay {
           
           }
         ctx.fillStyle = 'white';
-        ctx.font = `${SQUARE * 1.5}px STIX Two Math`;
+        ctx.font = `${SQUARE * 1.5}px Ubuntu Mono`;//STIX Two Math
         ctx.textAlign = 'center';
         ctx.fillText(
           `${this.name}`,
