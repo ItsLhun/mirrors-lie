@@ -8,6 +8,7 @@ class Game {
     this.activeLevel;
     this.globalScore = 0;
     this.squareSize = SQUARE;
+    this.currentLevelIndex = 0;
   }
 
   start() {
@@ -15,8 +16,8 @@ class Game {
     this.globalScore = 0;
   //  let levelTest = new LevelTest(this);
    const tutorialOne = new TutorialOne(this,"WELCOME", "A JOURNEY BEGINS");
-  //  const levelOne = new LevelOne(this);
-    this.activeLevel = tutorialOne;
+    const levelOne = new LevelOne(this, "NOT ALONE", "MEETING A FAMILIAR FACE");
+    this.activeLevel = levelOne;
     this.scoreCounter = new ScoreCounter(this, 15, 15);
     this.loop();
   }

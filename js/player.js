@@ -28,6 +28,7 @@ class Player {
     this.deadTimeout = false;
     this.newAccelerationX;
     this.mirrorEnabled;
+    this.flipGravity = true;
   }
 
   runLogic() {
@@ -253,6 +254,13 @@ class Player {
     ctx.restore();
   }
   paintMirror() {
+    let eyeWhiteWidth = SQUARE * 0.25;
+    if (this.deadTimeout && this.width >= 0) {
+      eyeWhiteWidth /= 2
+      if (this.width < SQUARE * 0.05) {
+        eyeWhiteWidth = 0;
+      }
+    }
     const ctx = this.level.game.ctx;
     ctx.save();
     ctx.beginPath();
@@ -269,7 +277,7 @@ class Player {
       ctx.fillRect(
         this.x + SQUARE * 0.5,
         this.y + SQUARE * 0.1875 + yOffset,
-        SQUARE * 0.25,
+        eyeWhiteWidth,
         SQUARE * 0.25
       ); //eyes
     } else {
@@ -277,7 +285,7 @@ class Player {
       ctx.fillRect(
         this.x + SQUARE * 0.1875,
         this.y + SQUARE * 0.1875 + yOffset,
-        SQUARE * 0.25,
+        eyeWhiteWidth,
         SQUARE * 0.25
       );
     }
