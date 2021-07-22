@@ -21,11 +21,11 @@ class StarBackground extends Background {
     super(game, backgroundName);
     this.stars = [];
     this.started = false;
-    this.maxDistance = SQUARE * 3;
+    this.maxDistance = SQUARE/3 ;
   }
 
   start() {
-    this.generatePoints(this.game.canvas.width / 5);
+    this.generatePoints(this.game.canvas.width / 4);
     this.started = true;
   }
   paint() {
@@ -74,11 +74,7 @@ class StarBackground extends Background {
     } else if (star.x < -this.maxDistance) {
       star.x = this.game.canvas.width + this.maxDistance;
     }
-    /*  if (star.y > this.game.canvas.height + this.maxDistance) {
-      star.y = game.canvas.height / 2;
-    } else if (star.y < -this.maxDistance) {
-      star.y = this.game.canvas.height / 2 + this.maxDistance;
-    }*/
+
     ctx.arc(star.x, star.y, star.diameter, 0, 2 * Math.PI);
     ctx.closePath();
     ctx.stroke();

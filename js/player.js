@@ -38,7 +38,7 @@ class Player {
       this.momentum = SQUARE * 0.062;
       this.facing = 'right';
     } else if (!activeControls.right && activeControls.left) {
-      this.momentum = -(SQUARE * 0.0605);
+      this.momentum = -(SQUARE * 0.062);
       this.facing = 'left';
     }
     this.newAccelerationX =

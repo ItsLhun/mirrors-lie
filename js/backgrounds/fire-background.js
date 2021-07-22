@@ -12,7 +12,7 @@ class Fireflake {
     this.fillColor = `rgba(255,${150 * Math.random()},0,${
       0.4 * Math.random() + 0.5
     })`;
-    this.diameter = (Math.random() * SQUARE * 0.09 + SQUARE * 0.05) * this.z;
+    this.diameter = (Math.random() * SQUARE * 0.95 + SQUARE * 0.5) * this.z;
   }
 }
 

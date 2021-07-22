@@ -20,14 +20,16 @@ class HelperText extends Platform{
     const ctx = this.game.ctx;
     if (this.game.activeLevel.started) {
       ctx.save();
-      ctx.shadowColor = 'blue';
-      ctx.shadowBlur = SQUARE * 1;
+      if (!IS_FIREFOX){
+        ctx.shadowColor = 'blue';
+        ctx.shadowBlur = SQUARE * 1;
+        ctx.shadowOffsetX = SQUARE * 0.02;
+      ctx.shadowOffsetY = SQUARE * 0.02;
+      }
       ctx.fillStyle = 'white';
-      ctx.font = `${SQUARE * 1.2}px STIX Two Math`;
+      ctx.font = `${SQUARE * 1.2}px STIX Two Math`; //
       ctx.textAlign = 'center';
       ctx.fillText(`${this.text}`, this.x, this.y);
-      ctx.shadowOffsetX = SQUARE * 0.02;
-      ctx.shadowOffsetY = SQUARE * 0.02;
       ctx.restore();
     }
   }

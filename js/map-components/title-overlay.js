@@ -39,9 +39,13 @@ class TitleOverlay {
         this.level.game.canvas.width,
         this.level.game.canvas.height
       );
-
-      ctx.shadowColor = 'blue';
-      ctx.shadowBlur = SQUARE * 1;
+      if( !IS_FIREFOX){
+        ctx.shadowColor = 'blue';
+        ctx.shadowBlur = SQUARE * 1;
+        ctx.shadowOffsetX = SQUARE * 0.02;
+        ctx.shadowOffsetY = SQUARE * 0.02;
+    
+      }
       ctx.fillStyle = 'white';
       ctx.font = `${SQUARE * 2.5}px STIX Two Math`;
       ctx.textAlign = 'center';
@@ -50,9 +54,7 @@ class TitleOverlay {
         this.level.game.canvas.width / 2,
         this.level.game.canvas.height * 0.35
       );
-      ctx.shadowOffsetX = SQUARE * 0.02;
-      ctx.shadowOffsetY = SQUARE * 0.02;
-
+      
       ctx.restore();
     }
   }

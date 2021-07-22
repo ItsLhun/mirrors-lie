@@ -1,6 +1,11 @@
 //let GRAVITY = SQUARE*0.625;
 const canvasElement = document.querySelector('canvas');
 
+
+//detect BROWSER
+const IS_FIREFOX = navigator.userAgent.includes("Firefox");
+console.log(IS_FIREFOX)
+
 canvasElement.isFullScreen = true;
 
 let windowWidth = window.innerWidth;
@@ -18,6 +23,8 @@ console.log("SQUARE: ", SQUARE)
 function isEpsilon(number){ 
     return (Math.abs(number) < 1e-2);
   } 
+
+
 
 let baseMapLevel = [
     [4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4],
