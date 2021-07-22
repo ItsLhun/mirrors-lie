@@ -6,13 +6,13 @@ class Fireflake {
       Math.random() * (game.canvas.height / 2 + maxDistance) -
       maxDistance / 2 +
       game.canvas.height / 2;
-    this.z = (Math.random() * SQUARE) / 195 + SQUARE / 155;
+    this.z = (Math.random() * SQUARE) / 195 + SQUARE / 100;
     this.vx = ((Math.random() * SQUARE) / 44 - SQUARE / 155) * this.z;
     this.vy = (Math.random() * SQUARE * 0.06 + SQUARE * 0.02) * this.z;
     this.fillColor = `rgba(255,${150 * Math.random()},0,${
       0.4 * Math.random() + 0.5
     })`;
-    this.diameter = (Math.random() * SQUARE * 0.95 + SQUARE * 0.5) * this.z;
+    this.diameter = (Math.random() * SQUARE * 0.45 + SQUARE * 0.3) * this.z;
   }
 }
 
@@ -21,7 +21,7 @@ class FireBackground extends Background {
     super(game, backgroundName);
     this.fireParticles = [];
     this.started = false;
-    this.maxDistance = SQUARE * 1;
+    this.maxDistance = SQUARE * 0.5;
   }
 
   start() {

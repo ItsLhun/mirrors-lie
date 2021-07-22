@@ -43,11 +43,13 @@ class Collectible extends Platform {
     if (horizontalIntersection) {
       this.picked = true;
       console.log('picked up the object!');
+      player.activeHat = this;
       return true;
     }
     if (verticalIntersection) {
       console.log('picked up the object!');
       this.picked = true;
+      player.activeHat = this;
       return true;
     }
   }

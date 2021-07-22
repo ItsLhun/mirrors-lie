@@ -8,15 +8,19 @@ class Game {
     this.activeLevel;
     this.globalScore = 0;
     this.squareSize = SQUARE;
-    this.currentLevelIndex = 0;
+    this.currentLevelIndex = 1;
+    this.levels = [];
   }
 
   start() {
     this.running = true;
     this.globalScore = 0;
-  //  let levelTest = new LevelTest(this);
-   const tutorialOne = new TutorialOne(this,"WELCOME", "A JOURNEY BEGINS");
-    const levelOne = new LevelOne(this, "NOT ALONE", "MEETING A FAMILIAR FACE");
+    
+    const tutorialOne = new TutorialOne(this, 'WELCOME', 'A JOURNEY BEGINS');
+    this.levels.push(tutorialOne)
+    const levelOne = new LevelOne(this, 'NOT ALONE', 'MEETING A FAMILIAR FACE');
+    this.levels.push(levelOne)
+    
     this.activeLevel = levelOne;
     this.scoreCounter = new ScoreCounter(this, 15, 15);
     this.loop();
@@ -26,8 +30,22 @@ class Game {
   }
 
   loop() {
+    switch (this.currentLevelIndex) {
+      case 0:
+        this.activeLevel = this.levels[0];
+        break;
+      case 1:
+        this.activeLevel = this.levels[1];
+        break;
+      case 2:
+        this.activeLevel = this.levels[2];
+        break;
+      case 3:
+        this.activeLevel = this.levels[3];
+        break;
+    }
     this.paint();
-    
+
     if (!this.activeLevel.player.deadTimeout) {
       this.runLogic();
     }
@@ -54,8 +72,8 @@ class Game {
 
   paint() {
     this.clearScreen();
-  //  if (this.running) {
-      this.activeLevel.paint();
+    //  if (this.running) {
+    this.activeLevel.paint();
     //}
     this.scoreCounter.paint();
   }

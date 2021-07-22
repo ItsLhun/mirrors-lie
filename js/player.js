@@ -28,9 +28,15 @@ class Player {
     this.deadTimeout = false;
     this.newAccelerationX;
     this.mirrorEnabled;
+    this.flipGravity = false;
+    this.activeHat;
+  }
+  enableFlipGravity(){
     this.flipGravity = true;
   }
-
+  disableFlipGravity(){
+    this.flipGravity = false;
+  }
   runLogic() {
     this.momentum = 0;
     const activeControls = this._input._keys;
@@ -148,7 +154,7 @@ class Player {
   }
 
   jump() {
-    this.jumpPressTime = 80;
+    this.jumpPressTime = 30;
     let intervalID = setInterval((e) => {
       this.jumpPressTime--;
       if (this.jumpPressTime <= 0) {
@@ -183,6 +189,9 @@ class Player {
   }
 
   paintPlayer() {
+    if (this.activeHat){
+      this.activeHat.processPicked(this);
+    }
     let eyeBlackWidth = SQUARE * 0.25;
     let eyeWhiteWidth = SQUARE * 0.0625;
     if (this.deadTimeout && this.width >= 0) {
@@ -252,6 +261,9 @@ class Player {
       ctx.restore();
     }
     ctx.restore();
+    if (this.activeHat){
+      this.activeHat.paintOnPlayer(this);
+    }
   }
   paintMirror() {
     let eyeWhiteWidth = SQUARE * 0.25;
@@ -265,6 +277,7 @@ class Player {
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = `hsl(${this.color},40%,50%)`;
+    ctx.globalAlpha = 0.8
     ctx.translate(0, this.level.game.canvas.height);
     ctx.scale(1, -1);
     ctx.fillRect(this.x, this.y, this.width, this.height);
