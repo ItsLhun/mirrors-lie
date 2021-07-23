@@ -182,6 +182,21 @@ class Player {
     }
     this.level.increaseScore();
   }
+  softReset(){
+    this.deadTimeout = true;
+    this.pastStart = false;
+    this.facing = 'right';
+    setTimeout(() => {
+      this.deadTimeout = false;
+      this.level.reset();
+      this.x = this.initialValues.x;
+      this.y = this.initialValues.y;
+      this.width = SQUARE - SQUARE * 0.0625;
+    }, 600);
+    this._input.disableController();
+    this.accelerationX = 0;
+    this.accelerationY = 0;
+  }
 
   paint() {
     this.paintPlayer();

@@ -66,7 +66,7 @@ class BasicCharacterControllerInput {
         break;
       case 'KeyR':
         this._keys.reset = true;
-        this.target.die();
+        this.target.softReset();
         break;
     }
   }
