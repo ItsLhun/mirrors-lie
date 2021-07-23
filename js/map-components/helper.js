@@ -23,8 +23,6 @@ class HelperText extends Platform{
       if (!IS_FIREFOX){
         ctx.shadowColor = 'blue';
         ctx.shadowBlur = SQUARE * 1;
-        ctx.shadowOffsetX = SQUARE * 0.02;
-      ctx.shadowOffsetY = SQUARE * 0.02;
       }
       ctx.fillStyle = 'white';
       ctx.font = `${SQUARE * 1.2}px Ubuntu Mono`;//STIX Two Math

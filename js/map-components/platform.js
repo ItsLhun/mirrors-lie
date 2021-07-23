@@ -10,10 +10,18 @@ const processStyle = (style) => {
 };
 
 class Platform {
-  constructor(game, x, y, style, strokeStyle = 'transparent') {
+  constructor(
+    game,
+    x,
+    y,
+    style,
+    strokeStyle = 'transparent',
+    borders = [0,0,0,0]
+  ) {
     this.game = game;
     this.x = x;
     this.y = y;
+    this.borders = [1,0,0,0];
     this.width = SQUARE;
     this.height = SQUARE;
     this.style = style;
@@ -42,7 +50,7 @@ class Platform {
     const intersection = checkCollision(playerOutline, platformOutline);
     return intersection;
   }
-  runMovementLogic(player){
+  runMovementLogic(player) {
     let playerDistance = 0;
     playerDistance =
       this.game.rightBreakpoint - player.x - player.accelerationX;
@@ -56,34 +64,52 @@ class Platform {
     const ctx = this.game.ctx;
     ctx.save();
     ctx.fillStyle = this.style;
-    ctx.fillRect(this.x-1, this.y-1, this.width+2, this.height+2);
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = this.strokeStyle;
-    ctx.strokeRect(this.x-1, this.y-1, this.width+2, this.height+2);
-    //this.strokeTop();
-    
+    ctx.fillRect(this.x - 1, this.y - 1, this.width + 2, this.height + 2);
     ctx.restore();
+  //  this.paintBorders();
   }
-  strokeTop(){
+
+  paintBorders() { 
     const ctx = this.game.ctx;
     ctx.save();
-    ctx.lineWidth = 4;
+    //ctx.lineWidth = SQUARE*0.05;
     ctx.strokeStyle = this.strokeStyle;
-    ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.x + this.width, this.y);
+    this.borders[0] === 1 ? this.strokeTop() : 0;
+    this.borders[1] === 1 ? this.strokeRight() : 0;
+    this.borders[2] === 1 ? this.strokeBottom() : 0;
+    this.borders[3] === 1 ? this.strokeLeft() : 0;
     ctx.stroke();
     ctx.restore();
   }
-  strokeRight(){
 
+  strokeTop() {
+    const ctx = this.game.ctx;
+    ctx.save();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.x + this.width, this.y);
+    ctx.restore();
   }
-  strokeBottom(){
-
+  strokeRight() {
+    const ctx = this.game.ctx;
+    ctx.save();
+    ctx.moveTo(this.x+ this.width, this.y);
+    ctx.lineTo(this.x + this.width, this.y+this.height);
+    ctx.restore();
   }
-  strokeLeft(){
-
+  strokeBottom() {
+    const ctx = this.game.ctx;
+    ctx.save();
+    ctx.moveTo(this.x, this.y+this.height);
+    ctx.lineTo(this.x + this.width, this.y+this.height);
+    ctx.restore();
   }
-
+  strokeLeft() {
+    const ctx = this.game.ctx;
+    ctx.save();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.x, this.y+this.height);
+    ctx.restore();
+  }
 
   reset() {
     this.x = this.initialPosition.x;

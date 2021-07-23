@@ -8,7 +8,7 @@ class Game {
     this.activeLevel;
     this.globalScore = 0;
     this.squareSize = SQUARE;
-    this.currentLevelIndex = 0;
+    this.currentLevelIndex = 1;
     this.levels = [];
   }
 

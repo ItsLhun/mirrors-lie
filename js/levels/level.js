@@ -111,7 +111,6 @@ class Level {
   preShakeprep() {
     let shakeOffsetX = (Math.random()*SQUARE*0.4)-SQUARE*0.1;
     let shakeOffsetY = (Math.random()*SQUARE*0.4)-SQUARE*0.1;
-    
     this.game.ctx.save();
     this.game.ctx.translate(shakeOffsetX,shakeOffsetY);
   }

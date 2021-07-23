@@ -1,22 +1,28 @@
 //let GRAVITY = SQUARE*0.625;
-const canvasElement = document.querySelector('canvas');
+//const canvasElement = document.querySelector('canvas');
+const bodyElement = document.querySelector('body');
+const mainCanvasElement = document.createElement('canvas');
 
+const startScreenCanvas = document.createElement('canvas');
+
+
+
+bodyElement.insertBefore(mainCanvasElement, bodyElement.firstChild);
 
 //detect BROWSER
 const IS_FIREFOX = navigator.userAgent.includes("Firefox");
-console.log(IS_FIREFOX)
 
-canvasElement.isFullScreen = true;
+mainCanvasElement.isFullScreen = true;
 
 let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight;
 
 let keepProportion = true;
 let proportion = 1920 / 1056;
-canvasElement.width =
-  (windowWidth * 0.95 ) / (canvasElement.isFullScreen ? 1 : 2);
-canvasElement.height =
-  (windowHeight * 0.95) / (canvasElement.isFullScreen ? 1 : 2);
+mainCanvasElement.width =
+  (windowWidth * 0.95 ) / (mainCanvasElement.isFullScreen ? 1 : 2);
+  mainCanvasElement.height =
+  (windowHeight * 0.95) / (mainCanvasElement.isFullScreen ? 1 : 2);
 var SQUARE = (windowHeight * 0.95) / 33;
 console.log("SQUARE: ", SQUARE)
 

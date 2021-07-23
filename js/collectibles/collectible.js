@@ -3,8 +3,8 @@ class Collectible extends Platform {
     game,
     positionX,
     positionY,
-    width = SQUARE / 1.5,
-    height = SQUARE / 1.5
+    width = SQUARE*0.8,
+    height = SQUARE*0.8
   ) {
     super(game, positionX, positionY, 'black');
     this.game = game;
@@ -16,16 +16,28 @@ class Collectible extends Platform {
 
   paint(player) {
     if (!this.picked) {
-     // console.log("shiny", this.x, this.y)
+     this.paintAura()
       const ctx = this.game.ctx;
       ctx.save();
       ctx.fillStyle = 'gold';
-      ctx.fillRect(this.x, this.y, this.width, this.height);
+      ctx.fillRect(this.x+SQUARE*0.1, this.y-this.height/2, this.width, this.height);
       ctx.lineWidth = SQUARE*0.0125
-      ctx.strokeRect(this.x, this.y, this.width, this.height);
-
+      ctx.strokeRect(this.x+SQUARE*0.1, this.y-this.height/2, this.width, this.height);
       ctx.restore();
     }
+  }
+  paintAura() {
+    const ctx = this.game.ctx;
+    ctx.save();
+    ctx.beginPath();
+    let radialGrad = ctx.createRadialGradient(this.x+SQUARE/2,this.y,SQUARE*1.5, this.x+SQUARE/2,this.y,SQUARE*0.4)
+    radialGrad.addColorStop(0.2, 'transparent');
+    radialGrad.addColorStop(0.4, 'rgba(255,255,255,0.2');
+    radialGrad.addColorStop(1, 'rgba(255,215,0,0.5)');
+    ctx.fillStyle = radialGrad;
+    ctx.arc(this.x+SQUARE/2, this.y, SQUARE*1.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
   }
   checkPickup(player) {
     const horizontalIntersection = this.checkIntersection({
@@ -43,9 +55,10 @@ class Collectible extends Platform {
     if (horizontalIntersection) {
       this.picked = true;
       console.log('picked up the object!');
-      player.activeHat = this;
+      
       return true;
     }
+    player.activeHat = this;
     if (verticalIntersection) {
       console.log('picked up the object!');
       this.picked = true;

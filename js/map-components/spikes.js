@@ -13,7 +13,7 @@ const processDirection = (direction) => {
 
 class Spike extends Platform {
   constructor(game, x, y, direction) {
-    super(game, x, y, 'black');
+    super(game, x, y, 0, 'black');
     this.direction = processDirection(direction);
     this.deathColoringPhase = 0;
   }

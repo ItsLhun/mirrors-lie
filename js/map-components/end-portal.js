@@ -98,7 +98,7 @@ class EndPortal extends Platform {
       this.playSound();
       setTimeout((e)=> {
         this.game.currentLevelIndex++;
-      },2500)
+      },1500)
       //duration of timeout to be set at victory sound duration
     
   }

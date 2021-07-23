@@ -35,6 +35,8 @@ class FireBackground extends Background {
     let ctx = this.game.ctx;
     ctx.save();
     ctx.fillStyle = `hsl(359, 94%, 5%)`;
+   // ctx.fillStyle = `white`;
+    
     ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
     ctx.restore();
 

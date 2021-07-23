@@ -1,7 +1,7 @@
 
 
 
-const game = new Game(canvasElement);
+const game = new Game(mainCanvasElement);
 /*window.addEventListener('resize', (e) => {
   console.log('resized');
   windowWidth = window.innerWidth;

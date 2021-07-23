@@ -1,8 +1,9 @@
 class LevelsComposite {
-  constructor(game, gameMap, tilesColor, helperTextsArray) {
+  constructor(game, gameMap, tilesColor, borderColor, helperTextsArray) {
     this.game = game;
     this.gameMap = gameMap;
     this.tilesColor = tilesColor;
+    this.borderColor = borderColor;
     this.spikes = [];
     this.platforms = [];
     this.collectibles = [];
@@ -34,7 +35,8 @@ class LevelsComposite {
                 this.game,
                 Math.round((SQUARE * (column - 1) * 10) / 10),
                 Math.round(SQUARE * (row - 1) * 10) / 10,
-                this.tilesColor
+                this.tilesColor,
+                this.borderColor
               )
             );
             break;

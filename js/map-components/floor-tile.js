@@ -1,6 +1,6 @@
 class FloorTile extends Platform{
     constructor(game, x, y) {
-        super(game, x, y, SQUARE, SQUARE)
+        super(game, x, y, 'transparent', 'transparent', [0,0,0,0])
     }
   
     paint(player) {
