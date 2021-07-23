@@ -1,7 +1,9 @@
 let presetColor = {
   red: 350,
   aqua: 180,
-  green: 100
+  green: 100,
+  pink: 310
+
 };
 
 class Player {
@@ -31,6 +33,7 @@ class Player {
     this.flipGravity = false;
     this.activeHat;
     this.deathSound = new Audio ('/sounds/Fail 1c_compressed.wav');
+    this.jumpSound = new Audio ('/sounds/jump.wav');
     
   }
   enableFlipGravity(){
@@ -148,6 +151,7 @@ class Player {
 
       if (this.groundedTimer > 0 && this.jumpPressTime > 0) {
         let direction = this.level.GRAVITY > 0 ? 'upright' : 'reverse';
+        this.playJumpSound();
         this.jumpPressTime = 0;
         this.accelerationY =
           direction === 'upright' ? -this.height / 5.5 : this.height / 5.5;
@@ -155,6 +159,11 @@ class Player {
     }
   }
 
+  playJumpSound(){
+    this.jumpSound.currentTime = 0;
+    this.jumpSound.volume = 0.3;
+    this.jumpSound.play();
+  }
   jump() {
     this.jumpPressTime = 30;
     let intervalID = setInterval((e) => {
@@ -167,7 +176,7 @@ class Player {
 
   die(spike) {
     this.deathSound.play();
-    this.deadTimeout = true;
+   /* this.deadTimeout = true;
     this.pastStart = false;
     this.facing = 'right';
     setTimeout(() => {
@@ -183,7 +192,7 @@ class Player {
     if (spike) {
       spike.increasePhase();
     }
-    this.level.increaseScore();
+    this.level.increaseScore();*/
   }
   softReset(){
     this.deadTimeout = true;

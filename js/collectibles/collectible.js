@@ -54,12 +54,14 @@ class Collectible extends Platform {
       height: player.height
     });
     if (horizontalIntersection) {
+      this.playSound();
       this.picked = true;
       console.log('picked up the object!');
       player.activeHat = this;
       return true;
     }
     if (verticalIntersection) {
+      this.playSound();
       console.log('picked up the object!');
       this.picked = true;
       player.activeHat = this;
@@ -69,7 +71,10 @@ class Collectible extends Platform {
   processPicked(player){
  
 }
-  playSound() {}
+  playSound() {
+    this.pickedSound.currentTime = 0;
+    this.pickedSound.play();
+  }
   dissapear(){
     const ctx = this.game.ctx;
     ctx.save();

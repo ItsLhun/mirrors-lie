@@ -4,6 +4,11 @@ const bodyElement = document.querySelector('body');
 const mainCanvasElement = document.createElement('canvas');
 
 const startScreenCanvas = document.createElement('canvas');
+const soundZero = document.createElement('audio')
+soundZero.src = '/sounds/Level 0 Tutorial (Loop)_compressed.wav';
+
+const soundOne = document.createElement('audio');
+soundOne.src = '/sounds/Level 2 (Loop)_compressed.wav';
 
 
 

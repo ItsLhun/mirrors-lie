@@ -71,15 +71,28 @@ class TutorialOne extends Level {
       subtitle
     );
     player.level = this;
-    this.music = document.createElement('audio');
-    this.music.src = '/sounds/Level 0 Tutorial (Loop)_compressed.wav';
+    this.music = soundZero;
     this.music.volume = 0.5;
-    this.music.addEventListener('ended', function() {
-      this.currentTime = 0;
-      this.play();
-  }, false);
-
-  this.music.play();
+    this.music.addEventListener(
+      'ended',
+      function () {
+        this.currentTime = 0;
+        this.play();
+      },
+      false
+    );
+    if (this.game.activeLevel === this) {
+      let promise = this.music.play();
+      if (promise !== undefined) {
+        promise
+          .then(() => {
+            //this.music.play()
+          })
+          .catch((error) => {
+            console.log('Autoplay was prevented by the browser');
+          });
+      }
+    }
   }
 
   resetPlayerPosition() {

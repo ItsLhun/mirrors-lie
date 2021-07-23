@@ -8,19 +8,19 @@ class Game {
     this.activeLevel;
     this.globalScore = 0;
     this.squareSize = SQUARE;
-    this.currentLevelIndex = 0;
+    this.currentLevelIndex = 2;
     this.levels = [];
   }
 
   start() {
     this.running = true;
     this.globalScore = 0;
-    
     const tutorialOne = new TutorialOne(this, 'WELCOME', 'A JOURNEY BEGINS');
     this.levels.push(tutorialOne)
-    const levelOne = new LevelOne(this, 'NOT ALONE', 'MEETING A FAMILIAR FACE');
+    const levelOne = new LevelTwo(this, 'NOT ALONE', 'MEETING A FAMILIAR FACE');
     this.levels.push(levelOne)
-    
+    const levelTwo = new LevelThree(this, 'HOP HOP', 'A BLOCK WITH NO LEGS');
+    this.levels.push(levelTwo)
     this.activeLevel = levelOne;
     this.scoreCounter = new ScoreCounter(this, 15, 15);
     this.loop();
