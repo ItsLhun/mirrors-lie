@@ -47,7 +47,7 @@ class EndPortal extends Platform {
     this.squares = [];
     this.started = false;
     this.maxDistance = 0.5 * SQUARE;
-    this.victorySound = new Audio ('/sounds/Success 1b.wav');
+    this.victorySound = new Audio ('/sounds/Victory Jingle_compressed.wav');
   }
 
   start() {

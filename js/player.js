@@ -30,8 +30,8 @@ class Player {
     this.mirrorEnabled;
     this.flipGravity = false;
     this.activeHat;
-    this.deathSound = new Audio ('/sounds/Fail 1c.wav');
-    //this.deathSound.src = 
+    this.deathSound = new Audio ('/sounds/Fail 1c_compressed.wav');
+    
   }
   enableFlipGravity(){
     this.flipGravity = true;

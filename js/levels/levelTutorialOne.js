@@ -72,7 +72,7 @@ class TutorialOne extends Level {
     );
     player.level = this;
     this.music = document.createElement('audio');
-    this.music.src = '/sounds/Level 0 Tutorial (Loop).wav';
+    this.music.src = '/sounds/Level 0 Tutorial (Loop)_compressed.wav';
     this.music.volume = 0.5;
     this.music.addEventListener('ended', function() {
       this.currentTime = 0;
