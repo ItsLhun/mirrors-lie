@@ -30,6 +30,8 @@ class Player {
     this.mirrorEnabled;
     this.flipGravity = false;
     this.activeHat;
+    this.deathSound = new Audio ('/sounds/Fail 1c.wav');
+    //this.deathSound.src = 
   }
   enableFlipGravity(){
     this.flipGravity = true;
@@ -164,6 +166,7 @@ class Player {
   }
 
   die(spike) {
+    this.deathSound.play();
     this.deadTimeout = true;
     this.pastStart = false;
     this.facing = 'right';

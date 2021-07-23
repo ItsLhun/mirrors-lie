@@ -71,6 +71,15 @@ class TutorialOne extends Level {
       subtitle
     );
     player.level = this;
+    this.music = document.createElement('audio');
+    this.music.src = '/sounds/Level 0 Tutorial (Loop).wav';
+    this.music.volume = 0.5;
+    this.music.addEventListener('ended', function() {
+      this.currentTime = 0;
+      this.play();
+  }, false);
+
+  this.music.play();
   }
 
   resetPlayerPosition() {

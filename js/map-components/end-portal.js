@@ -47,6 +47,7 @@ class EndPortal extends Platform {
     this.squares = [];
     this.started = false;
     this.maxDistance = 0.5 * SQUARE;
+    this.victorySound = new Audio ('/sounds/Success 1b.wav');
   }
 
   start() {
@@ -81,29 +82,43 @@ class EndPortal extends Platform {
       height: player.height
     });
     if (horizontalIntersection) {
-      if (!this.touched){
+      if (!this.touched) {
         this.processEndOfLevel();
-
       }
       this.touched = true;
       return true;
     }
     if (verticalIntersection) {
-     // this.processEndOfLevel();
+      // this.processEndOfLevel();
       this.touched = true;
       return true;
     }
   }
-  processEndOfLevel(){
-      this.playSound();
-      setTimeout((e)=> {
-        this.game.currentLevelIndex++;
-      },1500)
-      //duration of timeout to be set at victory sound duration
-    
+  processEndOfLevel() {
+    this.playSound();
+    this.game.activeLevel.music.volume = 0.4;
+    setTimeout((e) => {
+      this.game.activeLevel.music.volume = 0.3;
+    }, 500);
+    setTimeout((e) => {
+      this.game.activeLevel.music.volume = 0.2;
+    }, 750);
+    setTimeout((e) => {
+      this.game.activeLevel.music.volume = 0.1;
+    }, 1000);
+    setTimeout((e) => {
+      this.game.activeLevel.music.volume = 0.05;
+    }, 1250);
+    setTimeout((e) => {
+      this.game.activeLevel.music.pause();
+      this.game.currentLevelIndex++;
+    }, 1500);
+    //duration of timeout to be set at victory sound duration
   }
 
-  playSound() {}
+  playSound() {
+    this.victorySound.play();
+  }
   paint() {
     if (!this.started) {
       this.start();
