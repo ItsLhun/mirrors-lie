@@ -30,12 +30,18 @@ class Level {
     this.started = false;
     this.shaking = false;
     this.shakingCounter = 0;
-    this.gravityFlipSound = new Audio('/sounds/Flip.wav');
+    this.gravityFlipSound = flipSound;
+    this.musicRunning = false;
   }
 
   start() {
-    // place obstacles, player at beginning
-    //differente for every extension
+    if(this.music){
+      this.music.volume = 0.5;
+      this.music.currentTime = 0;
+      this.music.play();
+      this.musicRunning = true;
+
+    }
   }
   increaseScore() {
     this.score++;

@@ -63,7 +63,6 @@ class LevelFour extends Level {
     );
     player.level = this;
     this.music = soundOne;
-    this.music.volume = 0.5;
     this.music.addEventListener(
       'ended',
       function () {
@@ -73,18 +72,6 @@ class LevelFour extends Level {
       false
     );
 
-    if (this.game.activeLevel === this) {
-      let promise = this.music.play();
-      if (promise !== undefined) {
-        promise
-          .then(() => {
-            //this.music.play()
-          })
-          .catch((error) => {
-            console.log('Autoplay was prevented by the browser');
-          });
-      }
-    }
   }
 
   resetPlayerPosition() {

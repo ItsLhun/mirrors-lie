@@ -12,10 +12,24 @@ soundZero.src = '/sounds/Level 0 Tutorial (Loop)_compressed.wav';
 const soundOne = document.createElement('audio');
 soundOne.src = '/sounds/Level 2 (Loop)_compressed.wav';
 
+const startClick = document.createElement('audio');
+startClick.src = '/sounds/startClick.wav';
+
+const flipSound = document.createElement('audio');
+flipSound.src = '/sounds/Flip.wav';
+
+const deathSound = document.createElement('audio');
+deathSound.src = '/sounds/deathSound.wav';
+const jumpSound = document.createElement('audio');
+jumpSound.src = '/sounds/jump.wav';
+const collectibleSound = document.createElement('audio');
+collectibleSound.src = '/sounds/collectible.wav';
+
+const victorySound = document.createElement('audio');
+victorySound.src = '/sounds/Victory Jingle_compressed.wav';
+
 
 bodyElement.insertBefore(startScreenCanvas, bodyElement.firstChild);
-
-//bodyElement.insertBefore(mainCanvasElement, bodyElement.firstChild);
 
 //detect BROWSER
 const IS_FIREFOX = navigator.userAgent.includes("Firefox");

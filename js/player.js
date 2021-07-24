@@ -33,8 +33,8 @@ class Player {
     this.mirrorEnabled;
     this.flipGravity = false;
     this.activeHat;
-    this.deathSound = new Audio ('/sounds/Fail 1c_compressed.wav');
-    this.jumpSound = new Audio ('/sounds/jump.wav');
+    this.deathSound = deathSound;
+    this.jumpSound = jumpSound;
     
   }
   enableSuperJump(){

@@ -3,10 +3,12 @@ class StartScreen {
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d');
       this.background = new StarBackgroundIntro(this,'ews')
+      
     }
   
     start() {
-      this.loop();
+        this.running = true;
+        this.loop();
     }
 
     loop() {
@@ -19,7 +21,9 @@ class StartScreen {
     }
   
     runLogic() {
+        if (this.running){
 
+        }
     }
   
     clearScreen() {

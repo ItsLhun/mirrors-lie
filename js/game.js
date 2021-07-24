@@ -37,18 +37,33 @@ class Game {
   loop() {
     switch (this.currentLevelIndex) {
       case 0:
+        if (!this.levels[0].musicRunning){
+          this.levels[0].start();
+        }
         this.activeLevel = this.levels[0];
         break;
       case 1:
+        if (!this.levels[1].musicRunning){
+          this.levels[1].start();
+        }
         this.activeLevel = this.levels[1];
         break;
       case 2:
+        if (!this.levels[2].musicRunning){
+          this.levels[2].start();
+        }
         this.activeLevel = this.levels[2];
         break;
       case 3:
+        if (!this.levels[3].musicRunning){
+          this.levels[3].start();
+        }
         this.activeLevel = this.levels[3];
         break;
         case 4:
+          if (!this.levels[4].musicRunning){
+            this.levels[4].start();
+          }
         this.activeLevel = this.levels[4];
         break;
     }

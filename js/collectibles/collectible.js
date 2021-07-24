@@ -12,7 +12,7 @@ class Collectible extends Platform {
     this.height = height;
     this.picked = false;
     this.dissapearState = 0;
-    this.pickedSound = new Audio('/sounds/Success 1b_compressed.wav')
+    this.pickedSound = collectibleSound;
   }
 
   paint(player) {

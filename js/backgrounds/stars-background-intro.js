@@ -54,7 +54,7 @@ class StarBackgroundIntro extends Background {
     ctx.restore();
     this.paintTitle();
     this.paintSubTitle();
-    this.paintCharacters()
+    this.paintCharacters();
   }
 
   paintTitle() {
@@ -82,7 +82,17 @@ class StarBackgroundIntro extends Background {
     for (let i = 0; i < this.playersArr.length; i++){
       this.paintPlayer(this.playersArr[i]);
       this.paintMirror(this.playersArr[i]);
-
+      this.updatePlayerFacing(this.playersArr[i])
+    }
+  }
+  updatePlayerFacing(player){
+    let chance = Math.floor(Math.random()*85);
+    if (chance === 1){
+      if (player.facing === 'right'){
+        player.facing = 'left';
+      } else {
+        player.facing = 'right';
+      }
     }
   }
 
