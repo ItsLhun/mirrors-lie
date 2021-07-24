@@ -3,15 +3,16 @@ class Snowflake {
     this.x =
       Math.random() * (game.canvas.width + maxDistance) - (SQUARE * 8) / 2;
     this.y =
-      Math.random() * (game.canvas.height / 2 + maxDistance) - (SQUARE * 8) / 2 +
+      Math.random() * (game.canvas.height / 2 + maxDistance) -
+      (SQUARE * 8) / 2 +
       game.canvas.height / 2;
-    this.z = Math.random() * (SQUARE/46.25) + (SQUARE/37);
-    this.vx = (Math.random() * 37/SQUARE - (SQUARE/17)) * this.z;
-    this.vy = (Math.random() * (SQUARE/12) + (SQUARE/32)) * this.z;
+    this.z = Math.random() * (SQUARE / 46.25) + SQUARE / 37;
+    this.vx = ((Math.random() * 37) / SQUARE - SQUARE / 17) * this.z;
+    this.vy = (Math.random() * (SQUARE / 12) + SQUARE / 32) * this.z;
     this.fillColor = `rgba(255,${255 * Math.random() + 210},255,${
       0.4 * Math.random() + 0.5
     })`;
-    this.diameter = (Math.random() * (SQUARE/7.4) + (SQUARE/12)) * this.z;
+    this.diameter = (Math.random() * (SQUARE / 7.4) + SQUARE / 12) * this.z;
   }
 }
 
@@ -24,7 +25,7 @@ class SnowBackground extends Background {
   }
 
   start() {
-    this.generatePoints(this.game.canvas.width / 6);
+    this.generatePoints(this.game.canvas.width / 10);
     this.started = true;
   }
   paint() {
@@ -67,7 +68,6 @@ class SnowBackground extends Background {
     ctx.stroke();
     ctx.fill();
     ctx.restore();
-
   }
   drawInvertedPoint(snow) {
     let ctx = this.game.ctx;
@@ -93,7 +93,7 @@ class SnowBackground extends Background {
     let player = this.game.activeLevel.player;
 
     let playerDistance = 0;
-    snow.x+=snow.vx;
+    snow.x += snow.vx;
     playerDistance =
       this.game.rightBreakpoint - player.x - player.accelerationX;
     if (player.x >= this.game.rightBreakpoint) {
@@ -114,5 +114,4 @@ class SnowBackground extends Background {
       snow.y = this.game.canvas.height / 2 + this.maxDistance;
     }
   }
-  
 }
