@@ -8,7 +8,7 @@ class Game {
     this.activeLevel;
     this.globalScore = 0;
     this.squareSize = SQUARE;
-    this.currentLevelIndex = 3;
+    this.currentLevelIndex = 0;
     this.levels = [];
   }
 
@@ -23,6 +23,8 @@ class Game {
     this.levels.push(levelThree)
     const levelFour = new LevelFour(this, 'TWITCHY FINGERS', 'EVERYBODY\'S GONE FLAPPY');
     this.levels.push(levelFour)
+    const scoreLevel = new LevelScore(this, 'CONGRATULATIONS', 'YOU COMPLETED THE CHAlLENGES');
+    this.levels.push(scoreLevel)
 
     this.activeLevel = tutorialOne;
     this.scoreCounter = new ScoreCounter(this, 15, 15);
@@ -45,6 +47,9 @@ class Game {
         break;
       case 3:
         this.activeLevel = this.levels[3];
+        break;
+        case 4:
+        this.activeLevel = this.levels[4];
         break;
     }
     this.paint();

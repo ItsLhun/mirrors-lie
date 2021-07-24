@@ -86,7 +86,7 @@ class TutorialOne extends Level {
       if (promise !== undefined) {
         promise
           .then(() => {
-            //this.music.play()
+            this.music.play()
           })
           .catch((error) => {
             console.log('Autoplay was prevented by the browser');

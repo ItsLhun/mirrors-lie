@@ -185,7 +185,7 @@ class Player {
 
   die(spike) {
     this.deathSound.play();
-   /* this.deadTimeout = true;
+    this.deadTimeout = true;
     this.pastStart = false;
     this.facing = 'right';
     setTimeout(() => {
@@ -201,7 +201,7 @@ class Player {
     if (spike) {
       spike.increasePhase();
     }
-    this.level.increaseScore();*/
+    this.level.increaseScore();
   }
   softReset(){
     this.deadTimeout = true;
