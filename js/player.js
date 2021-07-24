@@ -2,7 +2,8 @@ let presetColor = {
   red: 350,
   aqua: 180,
   green: 100,
-  pink: 310
+  pink: 310,
+  yellow: 48
 
 };
 
@@ -40,7 +41,7 @@ class Player {
     this.superJump = true;
   }
   disableSuperJump(){
-    this.superJump = true;
+    this.superJump = false;
   }
   enableFlipGravity(){
     this.flipGravity = true;

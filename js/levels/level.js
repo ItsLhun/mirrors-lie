@@ -106,7 +106,7 @@ class Level {
   flipGravity() {
     if (this.player.flipGravity){
       this.gravityFlipSound.currentTime = 0;
-      this.gravityFlipSound.volume = 0.8;
+      this.gravityFlipSound.volume = 0.30;
       this.gravityFlipSound.play();
       this.GRAVITY *= -1;
     }

@@ -52,7 +52,7 @@ class TutorialOne extends Level {
     let mapElements = new LevelsComposite(
       game,
       tutorialOneLayout,
-      'hsl(27, 69%, 15%)',
+      'hsl(27, 3%, 80%)',
       'hsl(27, 69%, 30%)',
       tutorialOneHelperTexts
     );

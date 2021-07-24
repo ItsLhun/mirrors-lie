@@ -6,14 +6,14 @@ class Raindrop {
       Math.random() * (game.canvas.height / 2 + maxDistance) - (SQUARE * 8) / 2 +
       game.canvas.height / 2;
     this.z = Math.random() * (SQUARE/46.25) + (SQUARE/37);
-    this.vx = 0
+    this.vx = - Math.random() * - SQUARE/46.25 - (SQUARE/20)
 
-    this.vy = (Math.random() * (SQUARE/12) + (SQUARE/32)) * this.z;
-    this.fillColor = `rgba(3,${45 * Math.random() + 60},140,${
+    this.vy = (Math.random() * (SQUARE/6) + (SQUARE/32)) * this.z;
+    this.fillColor = `rgba(0,${190 * Math.random() + 160},255,${
       0.4 * Math.random() + 0.5
     })`;
     this.width = Math.random() * (SQUARE/16)+ (SQUARE/16);
-    this.height = Math.random() * (SQUARE/8)+ (SQUARE/8);
+    this.height = Math.random() * (SQUARE/4)+ (SQUARE/8);
 
   }
 }
@@ -36,7 +36,7 @@ class RainBackground extends Background {
     }
     let ctx = this.game.ctx;
     ctx.save();
-    ctx.fillStyle = 'hsl(203,100%,88%)';
+    ctx.fillStyle = 'hsl(203,90%,28%)';
     ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
     ctx.restore();
 
@@ -89,7 +89,7 @@ class RainBackground extends Background {
     if (player.x >= this.game.rightBreakpoint) {
       drop.x += playerDistance * 0.5;
     } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
-      drop.x += player.accelerationX * 0.5;
+      drop.x += -player.accelerationX * 0.5;
     }
 
     drop.y += drop.vy;
