@@ -35,15 +35,13 @@ class FireBackground extends Background {
     let ctx = this.game.ctx;
     ctx.save();
     ctx.fillStyle = `hsl(359, 94%, 5%)`;
-   // ctx.fillStyle = `white`;
-    
     ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
     ctx.restore();
 
     ctx.save();
 
     for (let i = 0; i < this.fireParticles.length; i++) {
-      this.draw(this.fireParticles[i]);
+      this.drawAllPoints(this.fireParticles[i]);
       this.updatePoint(this.fireParticles[i]);
     }
     ctx.restore();
@@ -55,7 +53,7 @@ class FireBackground extends Background {
       this.fireParticles.push(fireParticle);
     }
   }
-  draw(fireFlake) {
+  drawAllPoints(fireFlake) {
     this.drawPoint(fireFlake);
     this.drawInvertedPoint(fireFlake);
   }

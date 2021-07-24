@@ -76,6 +76,15 @@ class LevelsComposite {
               )
             );
             break;
+            case 'B':
+            this.collectibles.push(
+              new BunnyHat(
+                this.game,
+                SQUARE * (column - 1),
+                SQUARE * (row - 1)
+              )
+            );
+            break;
           case 'H':
             this.helpers.push(
               new HelperText(

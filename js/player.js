@@ -36,6 +36,12 @@ class Player {
     this.jumpSound = new Audio ('/sounds/jump.wav');
     
   }
+  enableSuperJump(){
+    this.superJump = true;
+  }
+  disableSuperJump(){
+    this.superJump = true;
+  }
   enableFlipGravity(){
     this.flipGravity = true;
   }
@@ -52,27 +58,29 @@ class Player {
       this.momentum = -(SQUARE * 0.062);
       this.facing = 'left';
     }
+    let accMomentum = this.superJump ? this.momentum *2 : this.momentum;
     this.newAccelerationX =
-      this.accelerationX / (1 + (this.friction / (SQUARE * 62.5)) * 22) +
-      this.momentum * 1;
-    // this.accelerationX / ((SQUARE*0.0625) + (this.friction / (SQUARE*62.5)) * (SQUARE*1.375)) +
-    // this.momentum * (SQUARE*0.0625);
-    // console.log(this.newAccelerationX)
+      (this.accelerationX / (1 + (this.friction / (SQUARE * 62.5)) * 22) +
+      accMomentum);
+
     let newAccelerationY =
       this.accelerationY +
       (this.level.GRAVITY / (SQUARE * 62.5)) * SQUARE * 1.375;
     let newX = this.x + this.newAccelerationX;
     let newY = this.y + newAccelerationY;
 
+    let intersectionX = !this.superJump ? this.x : newX;
+    let intersectionY = !this.superJump ? this.y : newY;
+
     for (let platform of this.level.platformsArr) {
       const horizontalIntersection = platform.checkIntersection({
         x: newX,
-        y: this.y,
+        y: intersectionY,
         width: this.width,
         height: this.height
       });
       const verticalIntersection = platform.checkIntersection({
-        x: this.x,
+        x: intersectionX,
         y: newY,
         width: this.width,
         height: this.height

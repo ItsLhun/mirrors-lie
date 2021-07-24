@@ -104,11 +104,13 @@ class Level {
     this.resetGravity();
   }
   flipGravity() {
-    this.gravityFlipSound.currentTime = 0;
-    this.gravityFlipSound.volume = 0.8;
-
-    this.gravityFlipSound.play();
-    this.GRAVITY *= -1;
+    if (this.player.flipGravity){
+      this.gravityFlipSound.currentTime = 0;
+      this.gravityFlipSound.volume = 0.8;
+      this.gravityFlipSound.play();
+      this.GRAVITY *= -1;
+    }
+    
   }
   resetGravity() {
     this.GRAVITY = this.initialGravity;

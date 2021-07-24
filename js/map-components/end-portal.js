@@ -111,6 +111,8 @@ class EndPortal extends Platform {
     }, 1250);
     setTimeout((e) => {
       this.game.activeLevel.music.pause();
+      this.game.activeLevel.player.disableFlipGravity();
+      this.game.activeLevel.player.disableSuperJump();
       this.game.currentLevelIndex++;
     }, 1500);
     //duration of timeout to be set at victory sound duration
