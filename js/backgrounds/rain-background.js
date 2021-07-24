@@ -27,7 +27,7 @@ class RainBackground extends Background {
   }
 
   start() {
-    this.generatePoints(this.game.canvas.width / 4);
+    this.generatePoints(this.game.canvas.width / 8);
     this.started = true;
   }
   paint() {

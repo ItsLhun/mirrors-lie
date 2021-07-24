@@ -91,7 +91,6 @@ class SnowBackground extends Background {
   }
   updatePoint(snow) {
     let player = this.game.activeLevel.player;
-
     let playerDistance = 0;
     snow.x += snow.vx;
     playerDistance =
@@ -101,7 +100,6 @@ class SnowBackground extends Background {
     } else if (player.pastStart && player.x <= this.game.leftBreakpoint) {
       snow.x += snow.vx - player.accelerationX * 0.5;
     }
-
     snow.y += snow.vy;
     if (snow.x > this.game.canvas.width + this.maxDistance) {
       snow.x = -this.maxDistance;
