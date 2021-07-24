@@ -67,15 +67,14 @@ class LevelTwo extends Level {
     );
     player.level = this;
     this.music = soundOne;
-    this.music.volume = 0.5;
-    this.music.addEventListener(
-      'ended',
-      function () {
-        this.currentTime = 0;
-        this.play();
-      },
-      false
-    );
+    // this.music.addEventListener(
+    //   'ended',
+    //   function () {
+    //     this.currentTime = 0;
+    //     this.play();
+    //   },
+    //   false
+    // );
   }
 
   resetPlayerPosition() {

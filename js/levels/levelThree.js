@@ -57,14 +57,14 @@ class LevelThree extends Level {
     );
     player.level = this;
     this.music = soundZero;
-    this.music.addEventListener(
-      'ended',
-      function () {
-        this.currentTime = 0;
-        this.play();
-      },
-      false
-    );
+    // this.music.addEventListener(
+    //   'ended',
+    //   function () {
+    //     this.currentTime = 0;
+    //     this.play();
+    //   },
+    //   false
+    // );
   }
 
   resetPlayerPosition() {

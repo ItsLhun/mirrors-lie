@@ -27,11 +27,9 @@ class TitleOverlay {
   paint() {
     if (!this.level.started) {
       this.start();
-
       let ctx = this.level.game.ctx;
       ctx.save();
       ctx.globalAlpha = this.fadeInAlpha;
-
       ctx.fillStyle = `rgba(255,255,255,${0.12})`;
       ctx.fillRect(
         0,

@@ -74,15 +74,15 @@ class LevelScore extends Level {
       subtitle
     );
     player.level = this;
-    this.music = soundZero;
-    this.music.addEventListener(
-      'ended',
-      function () {
-        this.currentTime = 0;
-        this.play();
-      },
-      false
-    );
+     this.music = soundZero;
+    // this.music.addEventListener(
+    //   'ended',
+    //   function () {
+    //     this.currentTime = 0;
+    //     this.play();
+    //   },
+    //   false
+    // );
   }
 
   resetPlayerPosition() {

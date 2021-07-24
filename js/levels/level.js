@@ -35,12 +35,11 @@ class Level {
   }
 
   start() {
-    if(this.music){
-      this.music.volume = 0.5;
+    if(this.music && !this.musicRunning){
+      this.music.volume = 0.3;
       this.music.currentTime = 0;
       this.music.play();
       this.musicRunning = true;
-
     }
   }
   increaseScore() {
