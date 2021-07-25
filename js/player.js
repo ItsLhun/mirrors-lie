@@ -35,6 +35,7 @@ class Player {
     this.activeHat;
     this.deathSound = deathSound;
     this.jumpSound = jumpSound;
+    this.groundedTimer = 80
     
   }
   enableSuperJump(){
@@ -97,12 +98,16 @@ class Player {
         this.grounded = true;
         this.groundedTimer = 80;
       } else {
+        // setTimeout((e)=>{
+        //   this.grounded = false;
+        // },this.groundedTimer)
         let intervalID = setInterval((e) => {
           this.groundedTimer--;
           if (this.groundedTimer <= 0) {
             this.grounded = false;
 
             clearInterval(intervalID);
+           // console.log(intervalID)
           }
         }, 1);
       }
@@ -174,13 +179,10 @@ class Player {
     this.jumpSound.play();
   }
   jump() {
-    this.jumpPressTime = 30;
-    let intervalID = setInterval((e) => {
-      this.jumpPressTime--;
-      if (this.jumpPressTime <= 0) {
-        clearInterval(intervalID);
-      }
-    }, 1);
+    this.jumpPressTime = 200;
+    setTimeout((e)=>{
+      this.jumpPressTime = 0;
+    },this.jumpPressTime)
   }
 
   die(spike) {
@@ -217,6 +219,7 @@ class Player {
     this._input.disableController();
     this.accelerationX = 0;
     this.accelerationY = 0;
+    console.log(Date.now())
   }
 
   paint() {
