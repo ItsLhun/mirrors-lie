@@ -22,13 +22,38 @@ class StarBackgroundIntro extends Background {
     this.stars = [];
     this.started = false;
     this.maxDistance = SQUARE / 3;
-    this.playerOne = new Player(this.game, this.game.canvas.width/2-SQUARE*6, SQUARE * 31, 'red');
-    this.playerTwo = new Player(this.game, this.game.canvas.width/2+SQUARE*6, SQUARE * 31, 'pink');
-    this.playerTwo.facing = 'Left'
-    this.playerThree = new Player(this.game, this.game.canvas.width/2+SQUARE*18, SQUARE * 31, 'aqua');
-    this.playerThree.facing = 'Left'
-    this.playerFour = new Player(this.game, this.game.canvas.width/2-SQUARE*18, SQUARE * 31, 'green');
-    this.playersArr = [this.playerOne, this.playerTwo, this.playerThree,this.playerFour];
+    this.playerOne = new Player(
+      this.game,
+      this.game.canvas.width / 2 - SQUARE * 6,
+      SQUARE * 31,
+      'red'
+    );
+    this.playerTwo = new Player(
+      this.game,
+      this.game.canvas.width / 2 + SQUARE * 6,
+      SQUARE * 31,
+      'pink'
+    );
+    this.playerTwo.facing = 'Left';
+    this.playerThree = new Player(
+      this.game,
+      this.game.canvas.width / 2 + SQUARE * 18,
+      SQUARE * 31,
+      'aqua'
+    );
+    this.playerThree.facing = 'Left';
+    this.playerFour = new Player(
+      this.game,
+      this.game.canvas.width / 2 - SQUARE * 18,
+      SQUARE * 31,
+      'green'
+    );
+    this.playersArr = [
+      this.playerOne,
+      this.playerTwo,
+      this.playerThree,
+      this.playerFour
+    ];
   }
 
   start() {
@@ -49,7 +74,9 @@ class StarBackgroundIntro extends Background {
 
     for (let i = 0; i < this.stars.length; i++) {
       this.drawPoint(this.stars[i]);
-      this.updatePoint(this.stars[i]);
+      Math.floor(Math.random() * 1000) === 3
+        ? this.updatePoint(this.stars[i])
+        : null;
     }
     ctx.restore();
     this.paintTitle();
@@ -78,17 +105,17 @@ class StarBackgroundIntro extends Background {
     );
     ctx.restore();
   }
-  paintCharacters(){
-    for (let i = 0; i < this.playersArr.length; i++){
+  paintCharacters() {
+    for (let i = 0; i < this.playersArr.length; i++) {
       this.paintPlayer(this.playersArr[i]);
       this.paintMirror(this.playersArr[i]);
-      this.updatePlayerFacing(this.playersArr[i])
+      this.updatePlayerFacing(this.playersArr[i]);
     }
   }
-  updatePlayerFacing(player){
-    let chance = Math.floor(Math.random()*85);
-    if (chance === 1){
-      if (player.facing === 'right'){
+  updatePlayerFacing(player) {
+    let chance = Math.floor(Math.random() * 85);
+    if (chance === 1) {
+      if (player.facing === 'right') {
         player.facing = 'left';
       } else {
         player.facing = 'right';
@@ -99,7 +126,7 @@ class StarBackgroundIntro extends Background {
   paintPlayer(player) {
     let eyeBlackWidth = SQUARE * 0.25;
     let eyeWhiteWidth = SQUARE * 0.0625;
-    
+
     const ctx = this.game.ctx;
     ctx.save();
     ctx.beginPath();
@@ -156,7 +183,7 @@ class StarBackgroundIntro extends Background {
       ctx.restore();
     }
     ctx.restore();
-    if (this.activeHat){
+    if (this.activeHat) {
       this.activeHat.processPicked(this);
     }
   }
@@ -167,7 +194,7 @@ class StarBackgroundIntro extends Background {
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = `hsl(${player.color},40%,50%)`;
-    ctx.globalAlpha = 0.8
+    ctx.globalAlpha = 0.8;
     ctx.translate(0, this.game.canvas.height);
     ctx.scale(1, -1);
     ctx.fillRect(player.x, player.y, player.width, player.height);
@@ -195,7 +222,6 @@ class StarBackgroundIntro extends Background {
 
     ctx.restore();
   }
-
 
   paintSubTitle() {
     let ctx = this.game.ctx;
@@ -237,9 +263,6 @@ class StarBackgroundIntro extends Background {
     ctx.fill();
   }
   updatePoint(star) {
-    let updateChange = Math.floor(Math.random() * 1000);
-    if (updateChange === 3) {
-      star.diameter = (Math.random() * 2.5 + 3) * star.z;
-    }
+    star.diameter = (Math.random() * 2.5 + 3) * star.z;
   }
 }

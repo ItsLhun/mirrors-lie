@@ -42,7 +42,7 @@ class StarBackground extends Background {
 
     for (let i = 0; i < this.stars.length; i++) {
       this.drawPoint(this.stars[i]);
-      this.updatePoint(this.stars[i]);
+      Math.floor(Math.random() * 1000) === 3 ? this.updatePoint(this.stars[i]) : null;
     }
     ctx.restore();
   }
@@ -81,9 +81,6 @@ class StarBackground extends Background {
     ctx.fill();
   }
   updatePoint(star) {
-    let updateChange = Math.floor(Math.random() * 1000);
-    if (updateChange === 3) {
       star.diameter = (Math.random() * 2.5 + 3) * star.z;
-    }
   }
 }
