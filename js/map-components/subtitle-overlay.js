@@ -6,7 +6,7 @@ class SubtitleOverlay extends TitleOverlay {
     paint() {
       if (!this.level.started) {
         this.start();
-  
+        this.paintAlpha()
         let ctx = this.level.game.ctx;
         ctx.save();
         ctx.globalAlpha = this.fadeInAlpha;

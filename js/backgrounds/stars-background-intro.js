@@ -10,7 +10,7 @@ class StarIntro {
       0.6 * Math.random() + 0.4
     })`;
     this.diameter =
-      (Math.random() * (SQUARE * 0.9375)) / 40 +
+      (Math.random() * (SQUARE * 0.9375)) / 25 +
       (SQUARE * 0.9375) / 15 +
       this.z;
   }
@@ -74,7 +74,7 @@ class StarBackgroundIntro extends Background {
 
     for (let i = 0; i < this.stars.length; i++) {
       this.drawPoint(this.stars[i]);
-      Math.floor(Math.random() * 1000) === 3
+      Math.floor(Math.random() * 800) === 3
         ? this.updatePoint(this.stars[i])
         : null;
     }
@@ -263,6 +263,9 @@ class StarBackgroundIntro extends Background {
     ctx.fill();
   }
   updatePoint(star) {
-    star.diameter = (Math.random() * 2.5 + 3) * star.z;
+    star.diameter =
+      (Math.random() * (SQUARE * 0.9375)) / 25 +
+      (SQUARE * 0.9375) / 15 +
+      star.z;
   }
 }

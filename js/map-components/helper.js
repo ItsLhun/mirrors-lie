@@ -20,18 +20,13 @@ class HelperText extends Platform{
     const ctx = this.game.ctx;
     if (this.game.activeLevel.started) {
       ctx.save();
-      if (!IS_FIREFOX){
-        ctx.shadowColor = 'blue';
-        ctx.shadowBlur = SQUARE * 1;
-      }
       ctx.fillStyle = 'white';
-      ctx.font = `${SQUARE * 1.2}px Ubuntu Mono`;//STIX Two Math
+      ctx.font = `${SQUARE * 1.2}px Ubuntu Mono`;
       ctx.textAlign = 'center';
       ctx.fillText(`${this.text}`, this.x, this.y);
       ctx.restore();
     }
   }
-  paintFrame() {}
   reset() {
     this.x = this.initialPosition.x;
     this.y = this.initialPosition.y;

@@ -219,7 +219,6 @@ class Player {
     this._input.disableController();
     this.accelerationX = 0;
     this.accelerationY = 0;
-    console.log(Date.now())
   }
 
   paint() {
