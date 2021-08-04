@@ -95,10 +95,7 @@ class Game {
 
   paint() {
     this.clearScreen();
-    //  if (this.running) {
-  //    console.log(this.activeLevel)
     this.activeLevel.paint();
-    //}
     this.scoreCounter.paint();
   }
 }

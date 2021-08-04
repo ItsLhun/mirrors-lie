@@ -55,7 +55,7 @@ class FireBackground extends Background {
   }
   drawAllPoints(fireFlake) {
     this.drawPoint(fireFlake);
-    this.drawInvertedPoint(fireFlake);
+   // this.drawInvertedPoint(fireFlake);
   }
   drawPoint(fireFlake) {
     let ctx = this.game.ctx;

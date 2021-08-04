@@ -25,7 +25,7 @@ class StarBackground extends Background {
   }
 
   start() {
-    this.generatePoints(this.game.canvas.width / 4);
+    this.generatePoints(this.game.canvas.width / 6);
     this.started = true;
   }
   paint() {

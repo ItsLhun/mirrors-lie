@@ -37,14 +37,10 @@ class SnowBackground extends Background {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
     ctx.restore();
-
-    ctx.save();
-
     for (let i = 0; i < this.snowflakes.length; i++) {
       this.drawAllPoints(this.snowflakes[i]);
       this.updatePoint(this.snowflakes[i]);
     }
-    ctx.restore();
   }
 
   generatePoints(quantity) {
@@ -72,18 +68,25 @@ class SnowBackground extends Background {
   drawInvertedPoint(snow) {
     let ctx = this.game.ctx;
     ctx.save();
-    ctx.translate(-this.game.canvas.width, this.game.canvas.height);
-    ctx.rotate((Math.PI / 180) * 180);
+    //ctx.translate(-this.game.canvas.width, this.game.canvas.height);
+    // ctx.rotate((Math.PI / 180) * 180);
     ctx.beginPath();
     ctx.strokeStyle = 'transparent';
     ctx.fillStyle = snow.fillColor;
     ctx.arc(
+      snow.x,
+      this.game.canvas.height - snow.y,
+      snow.diameter,
+      0,
+      2 * Math.PI
+    );
+    /* ctx.arc(
       -snow.x - this.game.canvas.width,
       snow.y,
       snow.diameter,
       0,
       2 * Math.PI
-    );
+    );*/
     ctx.closePath();
     ctx.stroke();
     ctx.fill();

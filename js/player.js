@@ -98,18 +98,19 @@ class Player {
         this.grounded = true;
         this.groundedTimer = 80;
       } else {
-        // setTimeout((e)=>{
-        //   this.grounded = false;
-        // },this.groundedTimer)
-        let intervalID = setInterval((e) => {
-          this.groundedTimer--;
-          if (this.groundedTimer <= 0) {
-            this.grounded = false;
+        setTimeout((e)=>{
+          this.groundedTimer = 0;
+          this.grounded = false;
+        },this.groundedTimer)
+        // let intervalID = setInterval((e) => {
+        //   this.groundedTimer--;
+        //   if (this.groundedTimer <= 0) {
+        //     this.grounded = false;
 
-            clearInterval(intervalID);
-           // console.log(intervalID)
-          }
-        }, 1);
+        //     clearInterval(intervalID);
+        //    // console.log(intervalID)
+        //   }
+        // }, 1);
       }
     }
 
@@ -223,7 +224,7 @@ class Player {
 
   paint() {
     this.paintPlayer();
-    this.mirrorEnabled ? this.paintMirror() : null;
+   // this.mirrorEnabled ? this.paintMirror() : null;
   }
 
   paintPlayer() {
@@ -246,9 +247,10 @@ class Player {
     ctx.fillStyle = `hsl(${this.color},68%,32%)`;
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.restore();
+
     ctx.save();
     ctx.beginPath();
-    ctx.globalCompositeOperation = 'source-atop';
+ //   ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'burgundy';
     let yOffset = 0;
 
@@ -337,7 +339,6 @@ class Player {
         SQUARE * 0.25
       );
     }
-
     ctx.restore();
   }
 }

@@ -12,19 +12,16 @@ class BunnyHat extends Collectible {
         ctx.beginPath();
         ctx.fillStyle = 'orange';
         let multiplier = 2;
-        ctx.save();
+
         ctx.beginPath();
         ctx.fillStyle = `hsl(${player.color},68%,32%)`;
         ctx.fillRect(this.x+ this.width * 0.05 * multiplier, this.y-player.height*0.35,player.width*0.24*multiplier/2,player.height*0.35*multiplier)
         ctx.fillRect(this.x+ this.width * 0.35 * multiplier, this.y-player.height*0.35,player.width*0.24*multiplier/2,player.height*0.35*multiplier)
-  
-        ctx.restore();
-        ctx.save();
+
         ctx.beginPath();
         ctx.fillStyle = 'white';
         ctx.fillRect(this.x+ this.width * 0.15 *multiplier, this.y-player.height*0.32,player.width*0.05,player.height*0.27*multiplier)
         ctx.fillRect(this.x+ this.width * 0.45 *multiplier, this.y-player.height*0.32,player.width*0.05,player.height*0.27*multiplier)
-  
         ctx.restore();
       }
     }
