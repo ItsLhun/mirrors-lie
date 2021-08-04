@@ -224,7 +224,7 @@ class Player {
 
   paint() {
     this.paintPlayer();
-   // this.mirrorEnabled ? this.paintMirror() : null;
+    this.mirrorEnabled ? this.paintMirror() : null;
   }
 
   paintPlayer() {
@@ -247,13 +247,10 @@ class Player {
     ctx.fillStyle = `hsl(${this.color},68%,32%)`;
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.restore();
-
     ctx.save();
     ctx.beginPath();
- //   ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'burgundy';
     let yOffset = 0;
-
     if (this.facing === 'right') {
       yOffset = !this.mirrorEnabled
         ? 0

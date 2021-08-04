@@ -1,14 +1,14 @@
 class Game {
   constructor(canvas) {
     this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
+    this.ctx = canvas.getContext('2d', { alpha: false });
     this.running = false;
     this.rightBreakpoint = Math.floor(canvas.width * 0.45);
     this.leftBreakpoint = Math.floor(canvas.width * 0.2);
     this.activeLevel;
     this.globalScore = 0;
     this.squareSize = SQUARE;
-    this.currentLevelIndex = 0;
+    this.currentLevelIndex = 1;
     this.levels = [];
   }
 
@@ -19,12 +19,12 @@ class Game {
     this.levels.push(tutorialOne)
     const levelTwo = new LevelTwo(this, 'NOT ALONE', 'MEETING A FAMILIAR FACE');
     this.levels.push(levelTwo)
-    const levelThree = new LevelThree(this, 'HOP HOP', 'A BLOCK WITH NO LEGS');
-    this.levels.push(levelThree)
-    const levelFour = new LevelFour(this, 'TWITCHY FINGERS', 'EVERYBODY\'S GONE FLAPPY');
-    this.levels.push(levelFour)
-    const scoreLevel = new LevelScore(this, 'CONGRATULATIONS', 'YOU COMPLETED THE CHAlLENGES');
-    this.levels.push(scoreLevel)
+   // const levelThree = new LevelThree(this, 'HOP HOP', 'A BLOCK WITH NO LEGS');
+   // this.levels.push(levelThree)
+   // const levelFour = new LevelFour(this, 'TWITCHY FINGERS', 'EVERYBODY\'S GONE FLAPPY');
+   // this.levels.push(levelFour)
+   // const scoreLevel = new LevelScore(this, 'CONGRATULATIONS', 'YOU COMPLETED THE CHAlLENGES');
+   // this.levels.push(scoreLevel)
 
     this.activeLevel = tutorialOne;
     this.scoreCounter = new ScoreCounter(this, 15, 15);
@@ -43,6 +43,7 @@ class Game {
         this.activeLevel = this.levels[0];
         break;
       case 1:
+        
         if (!this.levels[1].musicRunning){
           this.levels[1].start();
         }

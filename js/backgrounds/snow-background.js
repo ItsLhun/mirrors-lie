@@ -68,8 +68,6 @@ class SnowBackground extends Background {
   drawInvertedPoint(snow) {
     let ctx = this.game.ctx;
     ctx.save();
-    //ctx.translate(-this.game.canvas.width, this.game.canvas.height);
-    // ctx.rotate((Math.PI / 180) * 180);
     ctx.beginPath();
     ctx.strokeStyle = 'transparent';
     ctx.fillStyle = snow.fillColor;
@@ -80,13 +78,6 @@ class SnowBackground extends Background {
       0,
       2 * Math.PI
     );
-    /* ctx.arc(
-      -snow.x - this.game.canvas.width,
-      snow.y,
-      snow.diameter,
-      0,
-      2 * Math.PI
-    );*/
     ctx.closePath();
     ctx.stroke();
     ctx.fill();

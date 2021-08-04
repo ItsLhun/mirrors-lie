@@ -1,11 +1,11 @@
 class Fireflake {
   constructor(game, maxDistance = SQUARE * 1) {
-    this.x =
-      Math.random() * (game.canvas.width + maxDistance) - maxDistance / 2;
-    this.y =
+    this.x =Math.floor(
+      Math.random() * (game.canvas.width + maxDistance) - maxDistance / 2);
+    this.y = Math.floor(
       Math.random() * (game.canvas.height / 2 + maxDistance) -
       maxDistance / 2 +
-      game.canvas.height / 2;
+      game.canvas.height / 2);
     this.z = (Math.random() * SQUARE) / 195 + SQUARE / 100;
     this.vx = ((Math.random() * SQUARE) / 44 - SQUARE / 155) * this.z;
     this.vy = (Math.random() * SQUARE * 0.06 + SQUARE * 0.02) * this.z;
@@ -55,7 +55,7 @@ class FireBackground extends Background {
   }
   drawAllPoints(fireFlake) {
     this.drawPoint(fireFlake);
-   // this.drawInvertedPoint(fireFlake);
+    this.drawInvertedPoint(fireFlake);
   }
   drawPoint(fireFlake) {
     let ctx = this.game.ctx;
@@ -70,14 +70,12 @@ class FireBackground extends Background {
   drawInvertedPoint(fireFlake) {
     let ctx = this.game.ctx;
     ctx.save();
-    ctx.translate(-this.game.canvas.width, this.game.canvas.height);
-    ctx.rotate((Math.PI / 180) * 180);
     ctx.beginPath();
     ctx.strokeStyle = 'transparent';
     ctx.fillStyle = fireFlake.fillColor;
     ctx.arc(
-      -fireFlake.x - this.game.canvas.width,
-      fireFlake.y,
+      fireFlake.x,
+      this.game.canvas.height - fireFlake.y,
       fireFlake.diameter,
       0,
       2 * Math.PI
