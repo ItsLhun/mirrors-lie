@@ -25,7 +25,7 @@ class Level {
     this.title = new TitleOverlay(this, title);
     this.subtitle = new SubtitleOverlay(this, subtitle);
 
-    this.GRAVITY = SQUARE * 0.655;
+    this.GRAVITY = Math.round(SQUARE * 0.655);
     this.initialGravity = this.GRAVITY;
     this.started = false;
     this.shaking = false;
@@ -42,6 +42,7 @@ class Level {
       this.musicRunning = true;
     }
   }
+  
   increaseScore() {
     this.score++;
     this.game.increaseGlobalScore();

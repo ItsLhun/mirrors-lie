@@ -11,7 +11,6 @@ class TitleOverlay {
     let startTimeout = setTimeout((e) => {
       this.level.started = true;
     }, this.duration);
-
   }
   paintAlpha(){
     if (this.fadeInAlpha < 1 && this.ongoing === false) {
@@ -41,12 +40,12 @@ class TitleOverlay {
         this.level.game.canvas.width,
         this.level.game.canvas.height
       );
-      if( !IS_FIREFOX){
+    /*  if( !IS_FIREFOX){
         ctx.shadowColor = 'blue';
         ctx.shadowBlur = SQUARE * 1;
         ctx.shadowOffsetX = SQUARE * 0.02;
         ctx.shadowOffsetY = SQUARE * 0.02;
-      }
+      }*/
       ctx.fillStyle = 'white';
       ctx.font = `${SQUARE * 2.5}px Ubuntu Mono`;//STIX Two Math
       ctx.textAlign = 'center';

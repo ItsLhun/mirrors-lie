@@ -8,17 +8,17 @@ class Game {
     this.activeLevel;
     this.globalScore = 0;
     this.squareSize = SQUARE;
-    this.currentLevelIndex = 1;
+    this.currentLevelIndex = 0;
     this.levels = [];
   }
 
   start() {
     this.running = true;
     this.globalScore = 0;
-    const tutorialOne = new TutorialOne(this, 'WELCOME', 'A JOURNEY BEGINS');
-    this.levels.push(tutorialOne)
-    const levelTwo = new LevelTwo(this, 'NOT ALONE', 'MEETING A FAMILIAR FACE');
-    this.levels.push(levelTwo)
+    const tutorialZero = new TutorialOne(this, 'WELCOME', 'A JOURNEY BEGINS');
+    this.levels.push(tutorialZero)
+    // const levelTwo = new LevelTwo(this, 'NOT ALONE', 'MEETING A FAMILIAR FACE');
+    // this.levels.push(levelTwo)
    // const levelThree = new LevelThree(this, 'HOP HOP', 'A BLOCK WITH NO LEGS');
    // this.levels.push(levelThree)
    // const levelFour = new LevelFour(this, 'TWITCHY FINGERS', 'EVERYBODY\'S GONE FLAPPY');
@@ -26,7 +26,7 @@ class Game {
    // const scoreLevel = new LevelScore(this, 'CONGRATULATIONS', 'YOU COMPLETED THE CHAlLENGES');
    // this.levels.push(scoreLevel)
 
-    this.activeLevel = tutorialOne;
+    this.activeLevel = tutorialZero;
     this.scoreCounter = new ScoreCounter(this, 15, 15);
     this.loop();
   }
@@ -39,25 +39,32 @@ class Game {
       case 0:
         if (!this.levels[0].musicRunning){
           this.levels[0].start();
+          const levelOne = new LevelTwo(this, 'NOT ALONE', 'MEETING A FAMILIAR FACE');
+          this.levels.push(levelOne);
         }
         this.activeLevel = this.levels[0];
         break;
       case 1:
-        
         if (!this.levels[1].musicRunning){
           this.levels[1].start();
+          const levelTwo = new LevelThree(this, 'HOP HOP', 'A BLOCK WITH NO LEGS');
+          this.levels.push(levelTwo)
         }
         this.activeLevel = this.levels[1];
         break;
       case 2:
         if (!this.levels[2].musicRunning){
           this.levels[2].start();
+          const levelThree = new LevelFour(this, 'TWITCHY FINGERS', 'EVERYBODY\'S GONE FLAPPY');
+          this.levels.push(levelThree)
         }
         this.activeLevel = this.levels[2];
         break;
       case 3:
         if (!this.levels[3].musicRunning){
           this.levels[3].start();
+          const scoreLevel = new LevelScore(this, 'CONGRATULATIONS', 'YOU COMPLETED THE CHAlLENGES');
+          this.levels.push(scoreLevel)
         }
         this.activeLevel = this.levels[3];
         break;
@@ -82,10 +89,6 @@ class Game {
 
   runLogic() {
     this.activeLevel.player.runLogic();
-    if (this.globalScore >= 100) {
-      this.running = false;
-      this.lost = true;
-    }
     this.activeLevel.runLogic();
     this.scoreCounter.runLogic();
   }

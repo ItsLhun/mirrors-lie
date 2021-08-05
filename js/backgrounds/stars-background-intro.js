@@ -89,12 +89,12 @@ class StarBackgroundIntro extends Background {
     ctx.save();
     ctx.globalAlpha = this.fadeInAlpha;
 
-    if (!IS_FIREFOX) {
+  /*  if (!IS_FIREFOX) {
       ctx.shadowColor = 'blue';
       ctx.shadowBlur = SQUARE * 1;
       ctx.shadowOffsetX = SQUARE * 0.02;
       ctx.shadowOffsetY = SQUARE * 0.02;
-    }
+    }*/
     ctx.fillStyle = 'white';
     ctx.font = `${SQUARE * 4.5}px Ubuntu Mono`; //STIX Two Math
     ctx.textAlign = 'center';
@@ -124,8 +124,8 @@ class StarBackgroundIntro extends Background {
   }
 
   paintPlayer(player) {
-    let eyeBlackWidth = SQUARE * 0.25;
-    let eyeWhiteWidth = SQUARE * 0.0625;
+    let eyeBlackWidth = Math.round(SQUARE * 0.25);
+    let eyeWhiteWidth = Math.round(SQUARE * 0.0625);
 
     const ctx = this.game.ctx;
     ctx.save();
@@ -189,7 +189,6 @@ class StarBackgroundIntro extends Background {
   }
   paintMirror(player) {
     let eyeWhiteWidth = SQUARE * 0.25;
-
     const ctx = this.game.ctx;
     ctx.save();
     ctx.beginPath();
@@ -199,7 +198,6 @@ class StarBackgroundIntro extends Background {
     ctx.scale(1, -1);
     ctx.fillRect(player.x, player.y, player.width, player.height);
     ctx.beginPath();
-    ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'white';
     let yOffset = 0;
     if (player.facing === 'right') {
@@ -219,31 +217,21 @@ class StarBackgroundIntro extends Background {
         SQUARE * 0.25
       );
     }
-
     ctx.restore();
   }
 
   paintSubTitle() {
     let ctx = this.game.ctx;
-    ctx.save();
-    ctx.globalAlpha = this.fadeInAlpha;
-
-    if (!IS_FIREFOX) {
-      ctx.shadowColor = 'blue';
-      ctx.shadowBlur = SQUARE * 1;
-      ctx.shadowOffsetX = SQUARE * 0.02;
-      ctx.shadowOffsetY = SQUARE * 0.02;
-    }
+   // ctx.save();
     ctx.fillStyle = 'white';
     ctx.font = `${SQUARE * 1.5}px Ubuntu Mono`; //STIX Two Math
     ctx.textAlign = 'center';
     ctx.fillText(
-      `CLICK ANYWHERE TO START`,
+      `CLICK TO START`,
       this.game.canvas.width / 2,
       this.game.canvas.height * 0.65
     );
-
-    ctx.restore();
+    //ctx.restore();
   }
 
   generatePoints(quantity) {

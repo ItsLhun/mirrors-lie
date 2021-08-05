@@ -5,7 +5,7 @@ const game = new Game(mainCanvasElement);
 
 
 startScreenCanvas.addEventListener('click', (e)=> {
-
+  startScreen.stop();
   startClick.play();
   setTimeout((e)=>{
     bodyElement.removeChild(startScreenCanvas);

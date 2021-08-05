@@ -15,7 +15,7 @@ class Player {
     this.x = x;
     this.y = y;
     //size
-    this.width = SQUARE * 0.9375;
+    this.width = Math.floor(SQUARE * 0.9375);
     this.height = SQUARE * 2;
     //acceleration
     this.accelerationX = 0;
@@ -102,15 +102,6 @@ class Player {
           this.groundedTimer = 0;
           this.grounded = false;
         },this.groundedTimer)
-        // let intervalID = setInterval((e) => {
-        //   this.groundedTimer--;
-        //   if (this.groundedTimer <= 0) {
-        //     this.grounded = false;
-
-        //     clearInterval(intervalID);
-        //    // console.log(intervalID)
-        //   }
-        // }, 1);
       }
     }
 
