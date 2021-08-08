@@ -84,7 +84,14 @@ class LevelScore extends Level {
     //   false
     // );
   }
-
+  start() {
+    if(this.music && !this.musicRunning){
+      this.music.volume = 0.3;
+      this.music.currentTime = 0;
+      this.music.play();
+      this.musicRunning = true;
+    }
+  }
   resetPlayerPosition() {
     setTimeout(() => {
       this.player.x = SQUARE * 30;

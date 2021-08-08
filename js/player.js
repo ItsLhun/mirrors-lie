@@ -178,24 +178,27 @@ class Player {
   }
 
   die(spike) {
-    this.deathSound.play();
-    this.deadTimeout = true;
-    this.pastStart = false;
-    this.facing = 'right';
-    setTimeout(() => {
-      this.deadTimeout = false;
-      this.level.reset();
-      this.x = this.initialValues.x;
-      this.y = this.initialValues.y;
-      this.width = SQUARE - SQUARE * 0.0625;
-    }, 600);
-    this._input.disableController();
-    this.accelerationX = 0;
-    this.accelerationY = 0;
-    if (spike) {
-      spike.increasePhase();
+    if (!this.deadTimeout){
+      this.deathSound.play();
+      this.deadTimeout = true;
+      this.pastStart = false;
+      this.facing = 'right';
+      setTimeout(() => {
+        this.deadTimeout = false;
+        this.level.reset();
+        this.x = this.initialValues.x;
+        this.y = this.initialValues.y;
+        this.width = SQUARE - SQUARE * 0.0625;
+      }, 600);
+      this._input.disableController();
+      this.accelerationX = 0;
+      this.accelerationY = 0;
+      if (spike) {
+        spike.increasePhase();
+      }
+      this.level.increaseScore();
     }
-    this.level.increaseScore();
+
   }
   softReset(){
     this.deadTimeout = true;
@@ -211,6 +214,7 @@ class Player {
     this._input.disableController();
     this.accelerationX = 0;
     this.accelerationY = 0;
+
   }
 
   paint() {

@@ -74,6 +74,7 @@ class LevelFour extends Level {
 
   }
 
+
   resetPlayerPosition() {
     setTimeout(() => {
       this.player.x = SQUARE * 30;

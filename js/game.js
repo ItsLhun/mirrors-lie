@@ -27,8 +27,8 @@ class Game {
       "EVERYBODY'S GONE FLAPPY"
     );
     this.levels.push(levelFour);
-    const scoreLevel = new LevelScore(this, 'CONGRATULATIONS', 'YOU COMPLETED THE CHAlLENGES');
-    this.levels.push(scoreLevel)
+    // const scoreLevel = new LevelScore(this, 'CONGRATULATIONS', 'YOU COMPLETED THE CHAlLENGES');
+    // this.levels.push(scoreLevel)
 
     this.activeLevel = tutorialZero;
     this.scoreCounter = new ScoreCounter(this, 15, 15);
@@ -81,12 +81,12 @@ class Game {
       case 3:
         if (!this.levels[3].musicRunning) {
           this.levels[3].start();
-          // const scoreLevel = new LevelScore(this, 'CONGRATULATIONS', 'YOU COMPLETED THE CHAlLENGES');
-          // this.levels.push(scoreLevel)
         }
         this.activeLevel = this.levels[3];
         break;
       case 4:
+        const scoreLevel = new LevelScore(this, 'CONGRATULATIONS', 'YOU COMPLETED THE CHAlLENGES');
+        this.levels.push(scoreLevel)
         if (!this.levels[4].musicRunning) {
           this.levels[4].start();
         }
@@ -95,9 +95,7 @@ class Game {
     }
     this.paint();
 
-    // if (!this.activeLevel.player.deadTimeout) {
-    //   this.runLogic();
-    // }
+
     if (this.running) {
       window.requestAnimationFrame(() => {
         this.loop();
