@@ -67,7 +67,7 @@ class LevelsComposite {
               )
             );
             break;
-            case 'G':
+          case 'G':
             this.collectibles.push(
               new GravityHat(
                 this.game,
@@ -76,13 +76,9 @@ class LevelsComposite {
               )
             );
             break;
-            case 'B':
+          case 'B':
             this.collectibles.push(
-              new BunnyHat(
-                this.game,
-                SQUARE * (column - 1),
-                SQUARE * (row - 1)
-              )
+              new BunnyHat(this.game, SQUARE * (column - 1), SQUARE * (row - 1))
             );
             break;
           case 'H':
@@ -106,6 +102,19 @@ class LevelsComposite {
             break;
         }
       }
+    }
+  }
+  updateHelpers(arr) {
+    this.helpers = [];
+    for (let i = 0; i < arr.length; i++) {
+      this.helpers.push(
+        new HelperText(
+          this.game,
+          SQUARE * (column - 1),
+          SQUARE * (row - 1),
+          this.arr[i]
+        )
+      );
     }
   }
 }

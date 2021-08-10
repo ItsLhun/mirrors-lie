@@ -73,8 +73,10 @@ class LevelScore extends Level {
       title,
       subtitle
     );
+    this.mapElements = mapElements;
     player.level = this;
      this.music = soundZero;
+     this.game = game;
     // this.music.addEventListener(
     //   'ended',
     //   function () {
@@ -86,6 +88,7 @@ class LevelScore extends Level {
   }
   start() {
     if(this.music && !this.musicRunning){
+      console.log("Global deaths: " + this.game.globalScore)
       this.music.volume = 0.3;
       this.music.currentTime = 0;
       this.music.play();
