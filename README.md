@@ -10,7 +10,9 @@ Live deployment: https://www.mirrorslie.com/
 _**Mirrors Lie**_ is a fast paced platformer game where player must collect special ability hats to reach the end of the level. They will change specific parts of the established abilities such as running and jumping, or alter the game's gravity.
 
 ## Tools
-Programmed in vanilla JavaScript with canvas 2d. As the game makes heavy use of the canvas, it should be played in Chrome for an optimal experience. Firefox and other browsers struggle with some of the more demanding tasks. 
+Programmed in vanilla JavaScript with canvas 2d. 
+
+As the game makes heavy use of the canvas, it should be played in Chrome for an optimal experience. Firefox and other browsers struggle with some of the more demanding tasks such as text rendering and changes in opacity.  
 
 Deployment through Netlify.
 
