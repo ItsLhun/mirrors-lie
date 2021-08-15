@@ -12,10 +12,6 @@ _**Mirrors Lie**_ is a fast paced platformer game where player must collect spec
 ## Tools
 Programmed in vanilla JavaScript with canvas 2d. 
 
-~~As the game makes heavy use of the canvas, it should be played in Chrome for an optimal experience. Firefox and other browsers struggle with some of the more demanding tasks such as text rendering and changes in opacity.~~
-
-Most of the performance  issues on other browsers have been addressed through heavy optimization and removal of text shadows. 
-
 Deployment through Netlify.
 
 ## Additional credits
