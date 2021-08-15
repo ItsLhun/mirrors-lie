@@ -4,7 +4,6 @@ let presetColor = {
   green: 100,
   pink: 310,
   yellow: 48
-
 };
 
 class Player {
@@ -35,19 +34,18 @@ class Player {
     this.activeHat;
     this.deathSound = deathSound;
     this.jumpSound = jumpSound;
-    this.groundedTimer = 80
-    
+    this.groundedTimer = 80;
   }
-  enableSuperJump(){
+  enableSuperJump() {
     this.superJump = true;
   }
-  disableSuperJump(){
+  disableSuperJump() {
     this.superJump = false;
   }
-  enableFlipGravity(){
+  enableFlipGravity() {
     this.flipGravity = true;
   }
-  disableFlipGravity(){
+  disableFlipGravity() {
     this.flipGravity = false;
   }
   runLogic() {
@@ -60,10 +58,10 @@ class Player {
       this.momentum = -(SQUARE * 0.062);
       this.facing = 'left';
     }
-    let accMomentum = this.superJump ? this.momentum *2 : this.momentum;
+    let accMomentum = this.superJump ? this.momentum * 2 : this.momentum;
     this.newAccelerationX =
-      (this.accelerationX / (1 + (this.friction / (SQUARE * 62.5)) * 22) +
-      accMomentum);
+      this.accelerationX / (1 + (this.friction / (SQUARE * 62.5)) * 22) +
+      accMomentum;
 
     let newAccelerationY =
       this.accelerationY +
@@ -74,38 +72,49 @@ class Player {
     let intersectionX = !this.superJump ? this.x : newX;
     let intersectionY = !this.superJump ? this.y : newY;
 
+
     for (let platform of this.level.platformsArr) {
-      const horizontalIntersection = platform.checkIntersection({
-        x: newX,
-        y: intersectionY,
-        width: this.width,
-        height: this.height
-      });
-      const verticalIntersection = platform.checkIntersection({
-        x: intersectionX,
-        y: newY,
-        width: this.width,
-        height: this.height
-      });
-      if (horizontalIntersection) {
-        this.newAccelerationX = 0;
-        this.accelerationX = 0;
-        newX = this.x;
-      }
-      if (verticalIntersection) {
-        newAccelerationY = 0;
-        newY = this.y;
-        this.grounded = true;
-        this.groundedTimer = 80;
-      } else {
-        setTimeout((e)=>{
-          this.groundedTimer = 0;
-          this.grounded = false;
-        },this.groundedTimer)
+      if (
+        platform.x < (this.level.game.canvas.width / 2 + SQUARE) &&
+        platform.x > 0 - SQUARE
+      ) {
+        const horizontalIntersection = platform.checkIntersection({
+          x: newX,
+          y: intersectionY,
+          width: this.width,
+          height: this.height
+        });
+        const verticalIntersection = platform.checkIntersection({
+          x: intersectionX,
+          y: newY,
+          width: this.width,
+          height: this.height
+        });
+        if (horizontalIntersection) {
+          this.newAccelerationX = 0;
+          this.accelerationX = 0;
+          newX = this.x;
+        }
+        if (verticalIntersection) {
+          newAccelerationY = 0;
+          newY = this.y;
+          this.grounded = true;
+          this.groundedTimer = 80;
+        } else {
+          setTimeout((e) => {
+            this.groundedTimer = 0;
+            this.grounded = false;
+          }, this.groundedTimer);
+        }
       }
     }
 
     for (let spike of this.level.spikesArr) {
+
+      if (
+        spike.x < (this.level.game.canvas.width / 2 + SQUARE) &&
+        spike.x > 0 - SQUARE 
+      ) {
       const horizontalIntersection = spike.checkIntersection({
         x: newX,
         y: this.y,
@@ -134,6 +143,7 @@ class Player {
         this.die(spike);
       }
     }
+  }
     if (!this.deadTimeout) {
       // player position when scrolling
       if (this.x >= this.level.game.rightBreakpoint && !activeControls.left) {
@@ -165,20 +175,20 @@ class Player {
     }
   }
 
-  playJumpSound(){
+  playJumpSound() {
     this.jumpSound.currentTime = 0;
     this.jumpSound.volume = 0.3;
     this.jumpSound.play();
   }
   jump() {
     this.jumpPressTime = 200;
-    setTimeout((e)=>{
+    setTimeout((e) => {
       this.jumpPressTime = 0;
-    },this.jumpPressTime)
+    }, this.jumpPressTime);
   }
 
   die(spike) {
-    if (!this.deadTimeout){
+    if (!this.deadTimeout) {
       this.deathSound.play();
       this.deadTimeout = true;
       this.pastStart = false;
@@ -198,9 +208,8 @@ class Player {
       }
       this.level.increaseScore();
     }
-
   }
-  softReset(){
+  softReset() {
     this.deadTimeout = true;
     this.pastStart = false;
     this.facing = 'right';
@@ -214,7 +223,6 @@ class Player {
     this._input.disableController();
     this.accelerationX = 0;
     this.accelerationY = 0;
-
   }
 
   paint() {
@@ -227,15 +235,15 @@ class Player {
     let eyeWhiteWidth = SQUARE * 0.0625;
     if (this.deadTimeout && this.width >= 0) {
       this.width -= SQUARE * 0.05;
-      eyeBlackWidth /= 2
-      eyeWhiteWidth /= 2
+      eyeBlackWidth /= 2;
+      eyeWhiteWidth /= 2;
       if (this.width < SQUARE * 0.05) {
         this.width = 0;
         eyeBlackWidth = 0;
         eyeWhiteWidth = 0;
       }
     }
-    
+
     const ctx = this.level.game.ctx;
     ctx.save();
     ctx.beginPath();
@@ -290,14 +298,14 @@ class Player {
       ctx.restore();
     }
     ctx.restore();
-    if (this.activeHat){
+    if (this.activeHat) {
       this.activeHat.processPicked(this);
     }
   }
   paintMirror() {
     let eyeWhiteWidth = SQUARE * 0.25;
     if (this.deadTimeout && this.width >= 0) {
-      eyeWhiteWidth /= 2
+      eyeWhiteWidth /= 2;
       if (this.width < SQUARE * 0.05) {
         eyeWhiteWidth = 0;
       }
@@ -306,7 +314,7 @@ class Player {
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = `hsl(${this.color},40%,50%)`;
-    ctx.globalAlpha = 0.8
+    ctx.globalAlpha = 0.8;
     ctx.translate(0, this.level.game.canvas.height);
     ctx.scale(1, -1);
     ctx.fillRect(this.x, this.y, this.width, this.height);
