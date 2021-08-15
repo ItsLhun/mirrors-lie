@@ -76,7 +76,7 @@ class Player {
     for (let platform of this.level.platformsArr) {
       if (
         platform.x < (this.level.game.canvas.width / 2 + SQUARE) &&
-        platform.x > 0 - SQUARE
+        platform.x > 0 - SQUARE && Math.abs(this.y - platform.y) < SQUARE*5
       ) {
         const horizontalIntersection = platform.checkIntersection({
           x: newX,
@@ -110,10 +110,9 @@ class Player {
     }
 
     for (let spike of this.level.spikesArr) {
-
       if (
         spike.x < (this.level.game.canvas.width / 2 + SQUARE) &&
-        spike.x > 0 - SQUARE 
+        spike.x > 0 - SQUARE && Math.abs(this.y - spike.y) < SQUARE*5
       ) {
       const horizontalIntersection = spike.checkIntersection({
         x: newX,
