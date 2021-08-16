@@ -9,6 +9,8 @@ Live deployment: https://www.mirrorslie.com/
 ## Description
 _**Mirrors Lie**_ is a fast paced platformer game where player must collect special ability hats to reach the end of the level. They will change specific parts of the established abilities such as running and jumping, or alter the game's gravity.
 
+![alt text](https://github.com/ItsLhun/mirrors-lie/blob/master/images/background/screepcap.png?raw=true)
+
 ## Tools
 Programmed in vanilla JavaScript with canvas 2d. 
 
